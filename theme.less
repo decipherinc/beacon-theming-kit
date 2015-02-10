@@ -1,0 +1,624 @@
+// Theme: Boilerplate (change all this info)
+// Author: Brandon Reid & Daniel Ripstein
+// Created: Dec 4, 2014
+// Updated:
+
+/* ================================================ READ ME! ================================================ */
+/*
+  This file is...
+    A minimally styled boilerplate LESS file for making a Beacon survey theme. 
+    This single file constitutes a theme.
+    It overrides all other Beacon LESS files except user input overrides.
+
+  Rules of thumb are...
+    • In the markup, styles use hyphen-case, JS uses camelCase
+    • Use the variables.
+        - Get as far as you can styling the variables before adding additional styles.
+        - The variables are piped into the theme editor and used for making adjustments using the UI, so don't delete any of the preset variables.
+        - You can add theme specific variables at the bottom of the variables list if you want to provide some customization controls or for your own convenience.
+        - In general, avoid messing with any of the styles that are using the variables in the theme file.
+    • Stay flat.
+        - Avoid too much style nesting. By keeping things flat, you'll make it much easier for users to perform simple overrides in the theme editor's css injector. Wouldn't you rather override ".survey-q-instructions" than ".survey-page-content .survey-q .survey-q-instructions"?
+    • Stay Responsive. The responsive strategy is as follows..
+        - Mobile first. Style the survey with a narrow viewport first, apply all the mobile styles before any desktop styling media queries.
+        - Then Desktop. You can use the "@media @desktop {}" media query in any selector to apply it's stylings over the @breakpoint (768px by default here).
+        - BUT TABLES ARE SPECIAL. Tables attempt to stay a table for as long as possible before collapsing into a list for narrow viewports, therefore they don't use media queries. There are sepparate sections (see table of contents below) for styling the list & desktop table modes exclusively.
+
+  Getting Started...
+    I recomend starting with some typography, get your font in there, get the spacing going on, then attack the less variables (colors and stuff) before adding more styles.
+*/
+/* ============================================ TABLE OF CONTENTS ============================================ */
+/*
+    Variables
+    Resets
+    Reusable Classes
+    Survey Content
+    Survey Content > Logo
+    Survey Content > Progress Bar
+    Survey Content > Comment
+    Survey Content > Question
+    Survey Content > Question > Question Text
+    Survey Content > Question > Instructions
+    Survey Content > Question > Answers
+    Survey Content > Question > Answers > Mobile First Grid Styling
+    Survey Content > Question > Answers > Desktop Grid Styling
+    Survey Content > Buttons
+    Survey Content > Exit Page
+    Survey Content > Errors
+    Survey Content > Extra Info
+    Survey Content > Footer
+*/
+/* =============================================== (Variables) =============================================== */
+
+// Color Palette Chips (these work with the theme editor color palette options)
+  // Use these to allow the user to change the color pallete for the theme and get a nice result. The colors you set here will be used by default.
+  // In general, pretend that these are the only colors you can use, they all have a recomended purpose, but you might want your progress bar fill to match the background color and stuff. You might not even need them all.
+@clr-1:; // Background  - the very back, often not seen on mobile
+@clr-2:; // Foreground  - the "page" on top of the background that contains the survey content
+@clr-3:; // Text  - for most text, usually some form of black
+@clr-4:; // Input  - button bg color, FIR, maybe text input borders
+@clr-5:; // Input Selected  - button bg color when selected, selected fir item, active text input
+@clr-6:; // Accent  - colored question text, maybe for some decritive elements
+  
+  // not exposed in ui
+@error-clr: ; // usually a shade of red
+@warning-clr: ; // usually a shade of yellow
+
+// Breakpoint
+@breakpoint: 768px; // set the breakpoint here, then use "@media @desktop {}" for desktop styles in your theme.
+@desktop: ~"(min-width: @{breakpoint})";
+
+// Foreground Measurements
+@fg-width: 960px;
+  // ^ sets min-width of the foreground. min instead of max because tables need to be able to extend the width in certain cases.
+  // that's why we provide the following inner width for keeping other question types (like Button Selects) from expanding the fg width.
+@fg-padding-top-bottom: 1em;
+@fg-padding-left-right-mobile: 14px; // must use same units as @fg-width for equasion below to work.
+@fg-padding-left-right-desktop: 18px; // also must use same units as @fg-width
+@fg-inner-width-mobile: @fg-width - (@fg-padding-left-right-mobile * 2); // fg width minus padding, used 
+@fg-inner-width-desktop: @fg-width - (@fg-padding-left-right-desktop * 2);
+
+// Main Colors
+@bg-color: #f8f8f8;
+@fg-color: white;
+@text-color: #454545;
+@instruction-text-color: fadeout(@text-color, 10); // piping LESS variables allows the user to make big changes with little input
+@border-color: contrast(@fg-color, lighten(@fg-color, 15), darken(@fg-color, 15), 53%);
+
+// DQ Rating Colors (used for various dynamic questions)
+@dq-like: #C5D600;
+@dq-neutral: #00B4D6;
+@dq-dislike: #BA0000;
+.dq-rating-colors-demo { // Delete when finished theming.. Only for previewing the colors on page-3.html of the boilerplate theming kit.
+  color: @fg-color;
+  .like {
+    background-color: @dq-like;
+  }
+  .neutral {
+    background-color: @dq-neutral;
+  }
+  .dislike {
+    background-color: @dq-dislike;
+  }
+}
+
+// Typography
+/*
+  For importing fonts...
+  First check out our list of fonts already available in respondent-view-font-families.less
+  To import any of those, just:
+  @import @the-fonts-variable-name;
+
+  If you want to use a webfont not available in our list, make your own variable to pipe into an import statement like this...
+  @the-url-for-the-font-import: url(http://fonts.googleapis.com/css?family=Lato:400,300,400italic,700);
+  @import @the-url-for-the-font-import;
+
+  Use only 1 import statement in a theme, all your fonts should load from the same source.
+*/
+@web-font: url(http://fonts.googleapis.com/css?family=Raleway:100|Josefin+Slab);
+@import @{web-font};
+
+@primary-font-stack: Arial,"MS Trebuchet",sans-serif; // used by interface buttons, progressbar, comments, etc.
+@question-text-font-stack: @primary-font-stack;
+@instruction-text-font-stack: @primary-font-stack;
+@answer-text-font-stack: @primary-font-stack;
+@mobile-font-size: 0.875em;
+@desktop-font-size: 0.750em;
+
+// Progress Bar
+@progress-stroke-color: contrast(@fg-color, darken(@border-color, 15), lighten(@border-color, 20), 53%);
+@progress-empty-color: transparent;
+@progress-fill-color: lighten(@progress-stroke-color, 15);
+
+// Interface Buttons ("Continue", "Finish", etc)
+@interface-btn-color: #696a69;
+@interface-btn-color-hover: lighten(@interface-btn-color, 10%);
+@interface-btn-color-disabled: fadeout(@interface-btn-color, 88);
+@interface-btn-text-color: @fg-color;
+
+// Buttons (Button Select questions, etc)
+@btn-color: #696a69;
+@btn-color-hover: #C5D600;
+@btn-color-selected: #2BBDB9;
+@btn-color-disabled: fadeout(@btn-color, 88);
+@btn-text-color: @fg-color;
+@btn-font-size: 1.2em;
+@btn-border-color: darken(@btn-color, 10);
+@btn-border-color-hover: darken(@btn-color-hover, 10);
+@btn-border-color-selected: darken(@btn-color-selected, 10);
+@btn-border-radius: 3px;
+@btn-select-default-max-width: 320px; // widest a button can be by default (320px is 1/3 of 960px, so would fit 3 wide by default)
+@btn-spacing: 0 2px 4px; // set padding around buttons to control spacing when in grid mode, left/right are stripped in list mode.
+
+// Form Image Replacement (SVG radios and checkboxes)
+@fir-size: 20px;
+@fir-border: #c7c7c7;
+@fir-base: #ffffff;
+@fir-hover: #c5d600;
+@fir-selected: #2bbdb9;
+
+// Inputs
+@text-input-border-color: @border-color;
+@text-input-border-color-active: #A7C5DF;
+@text-input-border-radius: 4px;
+
+// Table Rows
+@row-bg-color: contrast(@fg-color, lighten(@fg-color, 10), darken(@fg-color, 7), 53%);
+@row-bg-color-alt: @row-bg-color;
+
+// Table Answer Cells
+@answer-bg-color-hover: lighten(@border-color, 12);
+
+// Errors
+@error-bg-color: #D00;
+@error-page-text-color: @fg-color;
+@error-text-color: #D00;
+
+// Footer
+@footer-text-color: @text-color;
+@footer-text-color-hover: @text-color;
+
+// Other stuff
+@survey-info-bg-color: #ffd400;
+@survey-info-text-color: @text-color;
+@survey-warning-bg-color: #FFC0CB;
+@survey-warning-text-color: @text-color;
+@autosave-btn-color: #409bbc;
+@autosave-btn-text-color: #fff;
+
+
+// Theme Specific
+/*
+  Add additional theme specific variables below.
+  Use a prefix, something like "@contemporary-fg-border-radius" if the theme was named "contemporary".
+  Creating variables allows the user to easily change things, they may appear in the theme editor UI as controls.
+*/
+
+
+/* ================================================ (Resets) ================================================ */
+/* 
+    Add your resets or normalize styles here
+/*
+
+
+/* =========================================== (Reusable Classes) =========================================== */
+.large-text {
+  font-size: 1.4em;
+}
+
+.small-text {
+  font-size: 0.75em;
+}
+
+
+/* ============================================ (Survey Content) ============================================ */
+html {
+  font-family: @primary-font-stack;
+  font-size: @mobile-font-size;
+  @media @desktop {
+    font-size: @desktop-font-size;
+  }
+}
+
+.survey-page { // the body
+  background-color: @fg-color;
+  color: @text-color;
+  @media @desktop {
+    background-color: @bg-color;
+  }
+}
+
+.survey-body { // forground
+  margin: 0 auto;
+  padding: @fg-padding-top-bottom @fg-padding-left-right-mobile;
+  background-color: @fg-color;
+  position: relative;
+  @media @desktop {
+    padding-left: @fg-padding-left-right-desktop;
+    padding-right: @fg-padding-left-right-desktop;
+  }
+}
+
+/* ========================================== (Survey Content > Logo) ======================================== */
+.logo { // logo styles can go here
+  text-align: center; // centered by default
+  img {}
+}
+
+.logo-left {
+  text-align: left;
+}
+
+.logo-right {
+  text-align: right;
+}
+
+
+/* ==================================== (Survey Content > Progress Bar) ===================================== */
+/*
+  Left a basic progress bar built out, but feel to make your own!
+*/
+
+.progress-bar {
+  width: 100%;
+  margin-bottom: 0.5em;
+  text-align: center;
+  @media @desktop {
+    width: 30%;
+    text-align: right;
+    float: right;
+    .logo-left + &, .logo-middle + & {
+      position: absolute;
+      top: 1em;
+      right: 3%;
+      float: none;
+    }
+  }
+}
+
+.progress-bottom {
+  // when the progress bar is placed at the bottom of the page using a setting
+  margin-top: 1em;
+  margin-bottom: 0;
+}
+
+.progress-box-outer, .progress-text {
+  // aligns bar with text
+  display: inline-block;
+  vertical-align: top;
+}
+
+// Progress Bar Container 
+.progress-box-outer {
+ background-color: @progress-empty-color;
+ border: 1px solid @progress-stroke-color;
+ width: 85%;
+ max-width: calc(~'100% - 4em');
+ text-align: right;
+ height: 1em;
+ display: inline-block;
+}
+
+// Progress Bar Fill (full) 
+.progress-box-completed {
+ background-color: @progress-fill-color;
+ width: 0%;
+ height: 100%;
+ display: block;
+}
+
+// Progress Bar Text 
+.progress-text {
+ line-height: 1em;
+ padding-left: 0.5em;
+}
+
+
+/* ======================================= (Survey Content > Comment) ======================================== */
+.comment {}
+
+.comment-text {}
+
+
+/* ====================================== (Survey Content > Question) ======================================= */
+// Question Container 
+.question {
+  margin-top: 1em;
+  clear: both;
+}
+
+
+/* =============================== (Survey Content > Question > Question Text) ============================== */
+.question-text {
+  font-family: @question-text-font-stack;
+}
+
+// Programmers have the option to hide the question text 
+.hideQuestionText .question-text { display: none; }
+
+
+/* =============================== (Survey Content > Question > Instructions) =============================== */
+.instruction-text {
+  font-family: @instruction-text-font-stack;
+  color: @instruction-text-color;
+}
+
+/* Programmers have the option to hide the respondent instruction text */
+.hideInstructionText .instruction-text { display: none; }
+
+
+/* ================================== (Survey Content > Question > Answers ================================== */
+// Answers Container
+.answers {
+  font-family: @answer-text-font-stack;
+}
+
+// Inputs
+// When inputs are in tables, they get styled in the next two sections below
+select {
+  font-size: 1em;
+}
+
+.input {
+  // added to all inputs, text, radio, select, etc
+  margin: 0;
+}
+
+input[type="text"] {
+  border: 1px solid @text-input-border-color;
+  -moz-border-radius: @text-input-border-radius;
+  -webkit-border-radius: @text-input-border-radius;
+  border-radius: @text-input-border-radius;
+  &:focus {
+    border:1px solid @text-input-border-color-active;
+  }
+}
+
+textarea {
+  width: 100%;
+  border: 1px solid @text-input-border-color;
+  -moz-border-radius: @text-input-border-radius;
+  -webkit-border-radius: @text-input-border-radius;
+  border-radius: @text-input-border-radius;
+  cursor: text;
+  &:focus {
+    border:1px solid @text-input-border-color-active;
+  }
+}
+
+/* ==================== (Survey Content > Question > Answers > Mobile First Grid Styles) ==================== */
+// Mobile col-legends (<label>)
+.cell-text {
+  padding: 0 0.4em;
+  input[type="checkbox"] + &, input[type="radio"] + & {
+    padding: 0 0.25em;
+  }
+}
+
+// Legends (includes typical legends and mobile-only col group legends)
+// all legends (row and col)
+.legend {
+  padding: 7px;
+}
+
+// Table cells with Inputs
+.element {
+  padding: 0.7em;
+  // Hover Formatting
+  &:hover, &:focus, &:active {
+    background-color: @answer-bg-color-hover;
+  }
+}
+
+// get rid of grid backgrounds when in list mode
+.grid-list-mode .cell, .grid-list-mode .cell:hover {
+  background-color: transparent;
+}
+
+// Indentation levels on mobile exclusively
+// Cells need extra indentation to show hierarchy.
+.indent-1 {
+  padding-left: 14px;
+}
+.indent-2 {
+  padding-left: 21px;
+}
+.indent-3 {
+  padding-left: 28px;
+}
+
+// Legend formatting on mobile exclusively
+// Parents of element cells (such as groups) need extra formatting to show hierarchy.
+.legend-level-1 {
+  font-size: 1.05em;
+}
+.legend-level-2 {
+  font-size: 1.25em;
+}
+.legend-level-3 {
+  font-size: 1.3em;
+}
+
+// "No Answer" rows
+.row-na {}
+
+
+/* ====================== (Survey Content > Question > Answers > Desktop Grid Styling) ====================== */
+/*
+  All the desktop grid styles need to have the .grid-desktop-mode prefixed before
+  These take place until a table absolutely must collapse.. It's a long story.
+*/
+.grid-table-mode {
+  .legend {
+    font-size: 1em; // Reset font-sizes back to normal.
+    background-color: @row-bg-color;
+    padding: 0.4em 0.5em;
+  }
+  .row-legend-group {
+    font-size: 1.2em;
+    background-color: contrast(@fg-color, darken(@row-bg-color, 6), lighten(@row-bg-color, 10), 53%);
+  }
+  input[type="text"] {
+    padding: 1px 0.5em;
+    -moz-border-radius: @text-input-border-radius / 2;
+    -webkit-border-radius: @text-input-border-radius / 2;
+    border-radius: @text-input-border-radius / 2;
+    font-size: 1em;
+  }
+  textarea {
+    padding: 2px;
+    border: 1px solid @text-input-border-color;
+    -moz-border-radius: @text-input-border-radius / 2;
+    -webkit-border-radius: @text-input-border-radius / 2;
+    border-radius: @text-input-border-radius / 2;
+  }
+  .nonempty {
+    // table border styling
+    border: 1px solid @border-color;
+  }
+  &.grid-group-by-col .col-legend-group {
+    font-size: 1em;
+  }
+  .element { // cells containing inputs
+    padding: 0.4em;
+  }
+}
+
+
+/* ======================================== (Survey Content > Buttons) ======================================= */
+/*
+  "Continue", "Finish", etc.
+  Button Select buttons are styled in it's own less file, use the variables for styling those.
+*/
+.survey-buttons {
+  text-align: center;
+  margin: 1em 0;
+  padding-right: 1em;
+  @media @desktop {
+    text-align: right;
+  }
+}
+
+.button {
+  background-color: @interface-btn-color;
+  color: @interface-btn-text-color;
+  -webkit-appearance: none;
+  -webkit-border-radius: none;
+  -moz-border-radius: none;
+  border-radius: 0;
+  cursor: pointer;
+  padding: 0.5em;
+  &:hover, &:focus {
+    background-color: @interface-btn-color-hover;
+  }
+  &:active {
+    background-color: darken(@interface-btn-color-hover, 3);
+  }
+  &[disabled] {
+    background-color: @interface-btn-color-disabled;
+  }
+  &.continue {}
+  &.back {}
+  &.finish {}
+  &.randomize { // only shows in testing
+
+  }
+}
+
+
+/* ================================== (Survey Content > Exit Page) ===================================== */
+// Page Container
+.exit-message {}
+
+// Header Text 
+.exit-message-header {}
+
+// Additional Text/Messages 
+.exit-message-text {}
+
+
+/* ======================================= (Survey Content > Errors) ======================================== */
+/*
+    Survey page errors are displayed at the top of the page and are wrapped in a .survey-page-error container
+    Survey question errors are displayed WITHIN a question and are wrapped in .survey-q-error containers
+*/
+
+.survey-error {
+  color: @error-page-text-color;
+  background-color: @error-bg-color;
+}
+
+.survey-error-text {}
+
+.question-error {
+    color: @error-text-color;  
+}
+
+.question-error-text {}
+
+.cell.hasError, .element.hasError:hover, // Note the hover override
+.rowLegendErr .oe, .colLegendErr .oe {
+  background-color: fadeout(@error-bg-color, 90);
+}
+
+
+/* ===================================== (Survey Content > Extra Info) ======================================= */
+/*  
+    This is mainly used in QA mode for:
+        - page breaks
+        - "show question attributes"
+        - "show source code"
+        - and other messages
+    But these messages will also show if a survey is in testing mode and sent to a non-logged-in user to test, 
+    so they do need some styling.
+*/
+// Extra Info Container 
+.survey-info {
+  h1 {}
+  background-color: @survey-info-bg-color;
+  color: @survey-info-text-color;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+// Warning container 
+.survey-warning {
+  h1 {}
+  background-color: @survey-warning-bg-color;
+  color: @survey-warning-text-color;
+  padding: 10px;
+  font-weight: bold;
+}
+
+// Autosave Restart Message 
+.autosave-restart {
+  max-width: @fg-inner-width-mobile;
+  background: @autosave-btn-color;
+  border: 1px solid #3670A0;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  color: @autosave-btn-text-color;
+  display: block;
+  margin-bottom: 10px;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  &:hover, &:focus {
+    background: lighten(@autosave-btn-color, 5);
+    color: @autosave-btn-text-color;
+  }
+}
+
+
+/* ======================================== (Survey Content > Footer) ======================================= */
+.footer {
+  a {
+    color: @footer-text-color;
+    &:hover, &:focus, &:active {
+      color: @footer-text-color-hover;
+    }
+  }
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sample Survey</title>
+
+  <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+  <link rel="stylesheet" href="assets/css/less-compiled.css">
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+  <script src="assets/js/button-select.js"></script>
+  
+</head>
+<body class="survey-page non-touch">
+<div id="survey" class="survey-container">
+
+  <div class="survey-section">
+    <div id="surveyHeader" class="survey-header group">&nbsp;</div>
+  <!-- /#surveyHeader --></div>
+  
+  <div class="survey-section">
+    <div class="survey-body">
+
+      <div class="surveyLogo survey-logo survey-logo-left group">
+        <img src="assets/img/decipher-logo.png" class="survey-logo-image" alt="logo" align="left">
+      </div>
+
+      <div class="clearfix surveyProgressBar survey-progress survey-progress-align survey-progress-top group" title="progress bar - 99% complete">
+        <div class="survey-progress-box bar survey-progress-bar survey-progress-bar-remaining survey-progress-bar-borders">
+          <span class="survey-progress-fill survey-progress-bar-completed" style="width: 99%;"></span>
+        </div>
+        <div class="survey-progress-text">99%</div>
+      </div>
+      <!-- /.surveyProgressBar -->
+      <div class="surveyInfo">
+        <div class="info">
+          <blockquote>This is an example of a <code>.surveyInfo</code>)</blockquote>
+        </div>
+      </div>
+      
+      <div class="surveyWarning">
+        <div class="info">
+          <blockquote>This is an example of a <code>.surveyWarning</code>)</blockquote>
+        </div>
+      </div>
+
+      <form id="primary" name="primary" method="post" action="/survey/selfserve/9d3/1411119" enctype="application/x-www-form-urlencoded">
+
+        <!-- @@XYZZY@@ -->
+
+
+        <div class="dq-rating-colors-demo" style="max-width: 900px; margin: 1em auto;"><!-- demo of dq rating colors -->
+          <div class="like" style="width: 33%; height: 30vh; display:inline-block; padding: 1em;">@dq-like</div><!--
+          clear white space --><div class="neutral" style="width: 33%; height: 30vh; display:inline-block; padding: 1em;">@dq-neutral</div><!--
+          clear white space --><div class="dislike" style="width: 33%; height: 30vh; display:inline-block; padding: 1em;">@dq-dislike</div>
+        </div>
+
+        <div id="surveyButtons" class="styled group survey-buttons">
+          <input type="button" name="finish" id="btn_finish" class="interface-btn btn finish survey-button" value="Finish" onclick="window.location = '/exit-page.html'">
+        </div>
+        <!-- #surveyButtons -->
+
+        <input type="hidden" name="state" value="a08bd85c7487c21702ab520bb1e4179b1079227c00000270000001ee">
+        <input type="hidden" name="start_time" value="1416354448">
+
+      <!-- end wraper form --></form>
+    <!-- /.survey-body --></div>
+  <!-- /.survey-section --></div>
+  <div class="survey-section">
+    <div class="footer">
+      <a href="http://decipherinc.com/survey/privacy?decLang=english" target="_blank">Privacy Policy</a> - <a href="/support?decLang=english" target="_blank">Help</a>
+    </div>
+  </div>
+
+</div>
+<!-- end #survey -->
+
+<div id="detectBreakpoint"></div>
+</body>
+</html>

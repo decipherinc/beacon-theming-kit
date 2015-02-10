@@ -1,0 +1,184 @@
+// Mobile first styling, then desktop styling at bottom.
+
+// Button Select Variables (to be overridden by theme)
+@btn-color: #696a69;
+@btn-color-hover: #C5D600;
+@btn-color-selected: #2BBDB9;
+@btn-color-disabled: fadeout(@btn-color, 88);
+@btn-text-color: @fg-color;
+@btn-font-size: 1.2em;
+@btn-border-color: darken(@btn-color, 10);
+@btn-border-color-hover: darken(@btn-color-hover, 10);
+@btn-border-color-selected: darken(@btn-color-selected, 10);
+@btn-border-radius: 3px;
+@btn-spacing: 0 2px 4px; // set padding around buttons to control spacing, left/right are stripped in list mode.
+@btn-select-default-max-width: 320px;
+
+
+.buttonSelect {
+  max-width: @fg-inner-width-mobile;
+  font-family: @answer-text-font-stack;
+  @media @desktop {
+    max-width: @fg-inner-width-desktop;
+  }
+}
+
+.btn-select-group {
+  text-align: left;
+  width: 100%;
+  max-width: 100%;
+  &.bsg-center {
+    text-align: center;
+    .btn-select {
+      margin: 0 auto;
+    }
+  }
+  &.bsg-center-sm {
+    text-align: center;
+    .btn-select {
+      margin: 0 auto;
+    }
+    @media @desktop {
+      text-align: left;
+      .btn-select {
+        margin: 0;
+      }
+    }
+  }
+}
+
+.btn-select {
+  display: block;
+  font-size: @btn-font-size;
+  max-width: @btn-select-default-max-width;
+  padding: @btn-spacing;
+  padding-left: 0;
+  padding-right: 0;
+  input[type="radio"], input[type="checkbox"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  label {
+    position: relative;
+    max-width: 100%;
+    background-color: @btn-color;
+    -webkit-border-radius: @btn-border-radius;
+    -moz-border-radius: @btn-border-radius;
+    border-radius: @btn-border-radius;
+    border-bottom: 1px solid @btn-border-color;
+    display: inline-block;
+    cursor: pointer;
+    .bs-text {
+      padding: 7px 1em 6px 30px;
+      text-align: left;
+      color: @btn-text-color;
+      -webkit-transform-style: preserve-3d;
+      -moz-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+      span {
+        position: relative;
+        display: block;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        -moz-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        -o-transform: translateY(-50%);
+        transform: translateY(-50%);
+      }
+    }
+    .bs-fir {
+      width: auto;
+      text-align: left;
+      padding: 0;
+      svg {
+        width: 20px;
+        height: 20px;
+        fill: transparent;
+        opacity: 0.5;
+        position: absolute;
+        left: 0.25em;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        -moz-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        -o-transform: translateY(-50%);
+        transform: translateY(-50%);
+        -webkit-transition: opacity 100ms ease;
+        -moz-transition: opacity 100ms ease;
+        -ms-transition: opacity 100ms ease;
+        -o-transition: opacity 100ms ease;
+        transition: opacity 100ms ease;
+        .fir-bg {
+          fill: @btn-color;
+        }
+        .fir-base {
+          fill: fadeOut(@btn-text-color, 10);
+        }
+        .fir-selected {
+          fill: fadeOut(@btn-text-color, 100);
+        }
+      }
+    } // end .bs-fir
+    &:hover, &:focus {
+      background-color: @btn-color-hover;
+      border-bottom-color: @btn-border-color-hover;
+      svg {
+        .fir-bg {
+          fill: @btn-color-hover;
+        }
+        .fir-base {
+          fill: @btn-text-color;
+        }
+      }
+    }
+  } // end label
+  input[type="radio"]:checked, input[type="checkbox"]:checked {
+    & + label {
+      background-color: @btn-color-selected;
+      border-bottom-color: @btn-border-color-selected;
+      svg {
+        opacity: 1;
+        .fir-bg {
+          fill: @btn-color-selected;
+        }
+        .fir-base {
+          fill: @btn-text-color;
+        }
+        .fir-selected {
+          fill: @btn-text-color;
+        }
+      }
+    }
+  } // end input:checked
+}
+
+
+.bsg-grid.bsg-grid-respond {
+  .btn-select {
+    display: inline-block;
+    padding: @btn-spacing;
+    .bs-text {
+      padding: 5px 1em 0px;
+      text-align: center;
+    }
+    .bs-fir {
+      width: 100%;
+      text-align: center;
+      padding: 5px 0;
+      svg {
+        position: static;
+        left: auto;
+        top: auto;
+        -webkit-transform: none;
+        -moz-transform: none;
+        -ms-transform: none;
+        -o-transform: none;
+        transform: none;
+      }
+    }
+  }
+}

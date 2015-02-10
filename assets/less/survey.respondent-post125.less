@@ -1,0 +1,926 @@
+/*
+    Notes:
+
+    - A high level of rule specificity is (unfortunately) necessary to eliminate conflicts in QA mode
+    - Containers exist for most elements to make customization easier
+    - Shorthand rules are not used as much as they could to keep customization docs easier
+
+*/
+
+@fg-width: 960px;
+@fg-padding-top-bottom: 1em;
+@fg-padding-left-right-mobile: 14px; // must use same units as @fg-width for equasion below to work.
+@fg-padding-left-right-desktop: 18px; // also must use same units as @fg-width
+@fg-inner-width-mobile: @fg-width - (@fg-padding-left-right-mobile * 2); // fg width minus padding, used 
+@fg-inner-width-desktop: @fg-width - (@fg-padding-left-right-desktop * 2);
+
+/* ================================================== (AQ Colors) ================================================== */
+.survey-theme-colors {
+  color: @btn-text-color;
+  background-color: @btn-color;
+}
+.survey-theme-colors-selected {
+  color: @btn-text-color;
+  background-color: @btn-color-selected;
+}
+.survey-theme-colors-disabled {
+  color: @btn-text-color;
+  background-color: @btn-color-disabled;
+}
+
+/* ======================================================= (Common) ========================================================*/
+
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: transparent;
+    }
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+    border: 0;
+    outline: 0;
+    }
+
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section {
+    display: block;
+    }
+
+html {
+    -webkit-text-size-adjust: none;
+    }
+
+ol, ul {
+    list-style: none;
+    }
+
+blockquote, q {
+    quotes: none;
+    }
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    }
+
+legend {
+    color:#000;
+    }
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+input[type="password"],
+textarea {
+    cursor: text;
+    }
+
+/* br that tinymce might add */
+br[_mce_bogus] { display: none; }
+
+.hidden { display: none; }
+
+@media @desktop {
+  #detectBreakpoint { display: none; }
+}
+
+/* ================================================== (Survey Container) ===================================================*/
+#survey, .surveySection {
+  text-align: center;
+}
+.surveySection > div {
+  text-align: left;
+}
+#surveyContent, #surveyHeader, #surveyFooter {
+  margin: 0 auto;
+  min-width: @fg-inner-width-desktop;
+  display: inline-block;
+  vertical-align: top;
+  max-width: 100%;
+}
+@media (max-width: @fg-width) {
+  #surveyContent, #surveyHeader, #surveyFooter {
+    display: block;
+    min-width: 0;
+  }
+}
+/* ============================================== (Primary Container Defaults) ============================================*/
+
+
+.survey-header,
+.survey-page-content,
+.survey-footer { clear: both; }
+
+.survey-info,
+.survey-extra-approval,
+.survey-logo,
+.survey-error,
+.survey-complete,
+.survey-comment,
+.survey-q-question,
+.survey-q-instructions,
+.survey-buttons {
+    /* DOES NOT APPLY TO ".answers" and it's children */
+    max-width: @fg-inner-width-mobile;
+      @media @desktop {
+        min-width: @fg-inner-width-desktop;
+      }
+    }
+
+/* Auto Width */
+.customWidth .survey-q-error,
+.customWidth .survey-q-question,
+.customWidth .survey-q-instructions { width: auto; }
+
+.survey-header,
+.survey-page-content,
+.survey-footer { clear: both; }
+
+/* Auto Width */
+.customWidth .survey-q-answers,
+.flexGrid .survey-q-answers { min-width: 1px; }
+
+
+/* ==================================================== (Survey Header) =================================================== */
+
+/*
+    FUTURE USE:
+    This container will allow client branding outside of actual survey content area (.survey-page-content)
+*/
+
+#surveyHeader {
+    display: none;
+    height: 0;
+    padding: 0; /* temp overwrite until this container is used */
+    overflow: hidden;
+    }
+
+
+/* =================================================== (Survey Content) =================================================== */
+
+#surveyContent > form {
+  clear: both;
+}
+
+/* ============================================ (Survey Content > Page Errors) =============================================*/
+
+
+/*
+    Error container for messages displayed at the top of the page
+    See ".survey-q-error" to modify the style of messages displayed WITHIN a question
+*/
+
+
+/* ============================================ (Survey Content > Extra Info) ==============================================*/
+
+/*
+    The respondent has already taken the survey message, and ..
+
+    This is also used in QA mode for:
+
+        - page breaks
+        - "show question attributes"
+        - "show source code"
+        - and other messages
+*/
+
+
+/* ================================================= (Survey Content > Logo) ===============================================*/
+
+
+/*
+    This element will not get written to the page if a logo is not selected in builder
+*/
+
+.survey-logo-image {
+  max-width: 100%;
+  max-height: 5em;
+  @media @desktop {
+    max-width: 40%;
+    max-height: 8em;
+  }
+}
+
+/* ============================================ (Survey Content > Progress Bar =============================================*/
+
+
+
+/* ========================================== (Survey Content > Survey Question) ===========================================*/
+
+
+
+/* ====================================== (Survey Content > Survey Question > Error) =======================================*/
+
+
+
+/* =================================== (Survey Content > Survey Question > Question Text) ==================================*/
+
+
+
+/* =================================== (Survey Content > Survey Question > Instructions) ===================================*/
+
+
+
+/* ==================================== (Survey Content > Survey Question > Answers) =======================================*/
+
+/*********************************************
+ FIR - Form Image Replacement (see fir.less for comments)
+ *********************************************/
+//@fir-size:     20px;
+//@fir-border:   #c7c7c7;
+//@fir-base:     #ffffff;
+//@fir-hover:    #c5d600;
+//@fir-selected: #2bbdb9;
+
+// These can be overridden via themevars/attributes
+@fir-radio: "circle-o";
+@fir-radio-selected: "dot-circle-o";
+@fir-checkbox: "square-o";
+@fir-checkbox-selected: "check-square-o";
+
+// These are the default FA icons to use for IE8/Android 2.3
+@fir-fallback-radio: "circle-o";
+@fir-fallback-radio-selected: "dot-circle-o";
+@fir-fallback-checkbox: "square-o";
+@fir-fallback-checkbox-selected: "check-square-o";
+/*********************************************
+ STYLE SETTINGS: ROUNDED, SQUARE
+ *********************************************/
+.fir-icon .rounded .fir-base,
+.fir-icon .square .fir-base {
+  fill: @fir-border;
+}
+
+.fir-icon .rounded .fir-bg,
+.fir-icon .square .fir-bg {
+  fill: @fir-base;
+}
+
+.fir-icon .rounded .fir-selected,
+.fir-icon .square .fir-selected {
+  fill: transparent;
+}
+
+.fir-icon.selected .rounded .fir-selected,
+.fir-icon.selected .square .fir-selected {
+  fill: @fir-selected;
+}
+
+.fir-icon.disabled .rounded .fir-selected,
+.fir-icon.disabled .square .fir-selected {
+  fill: transparent;
+}
+/*********************************************
+ STYLE SETTINGS: SCALE
+ *********************************************/
+.fir-icon .scale .fir-large,
+.fir-icon .scale .fir-medium,
+.fir-icon.selected .scale .fir-medium,
+.fir-icon.selected .scale .fir-small {
+  fill: transparent;
+}
+
+.fir-icon .scale .fir-small {
+  fill: @fir-hover;
+}
+
+.fir-icon.selected .scale .fir-large {
+  fill: @fir-selected;
+}
+
+.fir-icon.disabled .scale .fir-medium {
+  fill: transparent;
+}
+/*********************************************
+ RESPONDENT VIEW SETTINGS
+ *********************************************/
+.fir-icon {
+  width: @fir-size;
+  height: @fir-size;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.fir-icon svg,
+.fir-icon i {
+  width: @fir-size;
+  height: @fir-size;
+  font-size: @fir-size;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.fir-icon.disabled svg,
+.fir-icon.disabled i {
+  opacity: 0.25;
+  filter: alpha(opacity=25);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=25)";
+  -moz-opacity: 0.25;
+}
+
+.fir-icon i.fa-icon-check-square-o,
+.grid-desktop-mode .fir-icon i.fa-icon-check-square-o {
+  margin-left: 3px;
+}
+.grid-list-mode .fir-icon i.fa-icon-check-square-o,
+.grid-mobile-mode .fir-icon i.fa-icon-check-square-o {
+  margin-left: 0px;
+}
+
+.fir-icon i {
+  color: @fir-hover;
+}
+.fir-icon.selected i {
+  color: @fir-selected;
+}
+.fir-hidden {
+  display: none !important;
+}
+/*********************************************
+ HIDE FIR FOR THE FOLLOWING DQs
+ *********************************************/
+.sq-ratingscale  .fir-icon,
+.sq-fancyboxes   .fir-icon {
+  display: none;
+}
+.naCell .fir-icon {
+  display: inline-block;
+}
+/* THESE DQs ALWAYS HIDE FIR -- NOT EVEN SHOWN IN NOANSWER */
+.sq-fir       .fir-icon,
+.sq-atmtable  .fir-icon {
+  display: none;
+}
+/*********************************************
+ DESKTOP-SPECIFIC RESPONDENT VIEW SETTINGS (FOR HOVERING, ACTIVE, ETC..)
+ *********************************************/
+.non-touch {
+  /***** ROUNDED/SQUARE *****/
+  .fir-icon .rounded:hover .fir-selected,
+  .fir-icon .square:hover .fir-selected,
+  .clickableCell:hover .fir-icon .rounded .fir-selected,
+  .clickableCell:hover .fir-icon .square .fir-selected {
+    fill: @fir-hover;
+  }
+
+  .fir-icon .rounded:hover:active .fir-selected,
+  .fir-icon .square:hover:active .fir-selected,
+  .fir-icon.selected .rounded:hover .fir-selected,
+  .fir-icon.selected .square:hover .fir-selected,
+  .clickableCell:hover .fir-icon.selected .rounded .fir-selected,
+  .clickableCell:hover .fir-icon.selected .square .fir-selected {
+    fill: @fir-selected;
+  }
+
+  .clickableCell:hover .fir-icon.disabled .rounded .fir-selected,
+  .clickableCell:hover .fir-icon.disabled .square .fir-selected {
+    fill: transparent;
+  }
+
+  /***** SCALE *****/
+  .clickableCell:hover .fir-icon .scale .fir-medium,
+  .fir-icon .scale:hover .fir-medium {
+    fill: @fir-hover;
+  }
+
+  .clickableCell:hover:active .fir-icon .scale .fir-large,
+  .fir-icon .scale:hover:active .fir-large {
+    fill: @fir-selected;
+  }
+
+  .clickableCell:hover .fir-icon.selected .scale .fir-medium,
+  .clickableCell:hover .fir-icon.selected .scale .fir-small,
+  .clickableCell:hover .fir-icon.disabled .scale .fir-medium,
+  .clickableCell:hover:active .fir-icon.disabled .scale .fir-large,
+  .clickableCell:hover:active .fir-icon .scale .fir-medium,
+  .clickableCell:hover:active .fir-icon .scale .fir-small,
+  .fir-icon .scale:hover:active .fir-medium,
+  .fir-icon .scale:hover:active .fir-small,
+  .fir-icon.selected .scale:hover .fir-medium,
+  .fir-icon.disabled .scale:hover:active .fir-large {
+    fill: transparent;
+  }
+
+  .clickableCell:hover:active .fir-icon.disabled .scale .fir-small,
+  .fir-icon.disabled .scale:hover:active .fir-small {
+    fill: @fir-hover;
+  }
+}
+
+/* ================================= (Survey Content > Survey Question > Answers > Grid) ===================================*/
+
+/* Keep in mind this is a MOBILE-FIRST layout. CSS applies to both mobile and desktop view, unless desktop is explicitly mentioned */
+
+// Display all table elements as blocks, set defaults
+.grid,
+.grid thead,
+.grid tbody,
+.row,
+.cell,
+.cell-body,
+.mobile-group-legend {
+    display: block;
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+    border: 0;
+    outline: 0;
+    }
+.lte-ie9 .grid-mobile-mode { // IE9 and earlier does not support display:block on table elements, so simulate a similar effect
+    &,
+    thead,
+    tbody,
+    .row,
+    .cell,
+    .cell-body,
+    .mobile-group-legend {
+        float: left;
+        clear: left;
+        width: 100%;
+        }
+    }
+.lte-ie8 #surveyContent form { // IE8 and earlier does not automatically set a width on display:block form elements
+    width: 100%;
+    }
+.lte-ie8 .fir-hidden { // IE8 can't populate hidden inputs, so move them off screen
+    display: inline-block !important;
+    position: absolute !important;
+    left: -5000px !important;
+}
+
+
+// These should not be visible on mobile view...
+.unused,
+.row-col-legends,
+.row-col-legends-bottom,
+.grid-group-by-col .row-legend,
+.grid-single-col .row-legend,
+.grid-multi-col .separator,
+.grid-force-top-legend .col-legend-bottom {
+     display: none;
+     }
+// ...with these exceptions.
+.grid-group-by-col .row-col-legends, .grid-single-col .row-col-legends {
+     display: block;
+     }
+
+/* There is no border collapsing when cells are in mobile-view, so we simulate it by:
+    1. Assuming people set borders on the .cell or .nonempty class
+    2. Adding the class border-collapse to all cells.
+    3. Add a blank cell to the top of tables, which has the .cell and .nonempty classes,
+       but no .border-collapse class.
+    4. Remove border-top from all .border-collapse cells, effectively stripping borders
+       from every cell except our special top cell. */
+
+// Remove top grid-lines from all cells, except .mobile-top-border-cell.
+.grid-mobile-mode .border-collapse {
+    border-top: 0;
+}
+.mobile-top-border-cell {
+    margin: 0 !important;
+    padding: 0 !important;
+    border-bottom: 0 !important;
+}
+
+// Remove grid-lines from 1D lists and multi-col-separators.
+.grid-list-mode .nonempty {
+    border-width: 0;
+    }
+
+// Force multi-col grids to use auto widths, top alignment, separator spacing, and proper borders.
+.multi-col-parent-cell {
+    vertical-align: top !important;
+    padding: 3px;
+    }
+.grid-multi-col-subgrid, .multi-col-parent-cell {
+    border-width: 0 !important;
+}
+.multi-col-separator {
+    width: 6px;
+}
+.grid-mobile-mode .multi-col-parent-cell, .grid-mobile-mode .multi-col-separator {
+    padding: 0;
+}
+.grid-multi-col-subgrid {
+    display: table;
+}
+.grid-desktop-mode.grid-multi-col .grid-multi-col-subgrid {
+    width: 100%;
+}
+.mobile-group-legend-space, .row-legend-both-space, .row-legend-group-space, .col-legend-space {
+  margin-top: 1em;
+}
+
+input[type="text"] {
+  max-width: 100%;
+  outline: none;
+}
+textarea {
+  min-width: 135px;
+  outline: none;
+}
+
+// Inner cell components should be tables
+.cell-body {
+    display: table;
+    }
+.cell-section {
+    display: table-cell;
+    }
+
+// Cell contents should be centered vertically.
+.input, .cell-section, .mobile-oe-legend, .cell img {
+    vertical-align: middle;
+    }
+
+// Clickable elements should have a pointer cursor.
+.clickable {
+    cursor: pointer;
+    }
+
+// Single-col elements should be aligned left.
+.grid-single-col .cell {
+    text-align: left;
+}
+
+// Mobile labels for repeated OE data should be stylized.
+.mobile-oe-legend {
+    font-style: italic;
+}
+
+// Grids with devContainers in QA mode need special colors/backgrounds (bug 19376).
+// Note that more .devContainer formatting is also set in static/survey.qa.css
+.devContainer {
+  .survey-q {
+    background: transparent; // For themes that set this, override it so the below color changes work.
+    position: relative; // A position must be set to keep this above the .devContainer .corner graphic
+  }
+
+  .grid {
+    background-color: @fg-color; // Set grids to match the foreground color. This prevents devContainer's ugly bg from being seen inside cells.
+  }
+
+  .survey-q-question-text {
+    color: contrast(#fffbc7, @text-color, #454545); // Use default text colors if it's legible against the background. Otherwise, use dark grey.
+  }
+
+  h3 {
+    color: contrast(#fffbc7, @instruction-text-color, #454545);
+  }
+}
+
+/* Auto Width on custom grids and no-row no-col non-list grids */
+.customWidth .grid,
+.flexGrid .grid,
+.noRows.noCols .grid-table-mode { width: auto; }
+
+/* DESKTOP-ONLY formatting */
+.grid-desktop-mode {
+    // Display all table-elements as normal table-elements
+    display: table;
+    border-spacing: 0;
+    border-collapse: collapse;
+    width: 100%;
+    tbody {
+       display: table-row-group;
+       }
+    .row {
+       display: table-row;
+       }
+    .cell {
+       display: table-cell;
+       }
+    .cell-body, .cell-section {
+       display: inline-block;
+       }
+
+  // These elements should not be visible on desktop view.
+  .mobile-col-legend, .mobile-group-legend, .mobile-left-row-legend, .mobile-top-row-legend, .mobile-top-border-row, &.grid-list-mode .row-legend-basic, &.grid-list-mode .unused {
+       display: none;
+       }
+  .mobile-oe-legend {
+      display: none !important;
+      }
+
+  // Lists needs to formatted different.
+  &.grid-list-mode {
+      width: 100%;
+      }
+  @media @desktop {
+      &.grid-list-mode {
+          width: auto;
+          }
+      }
+  &.grid-list-mode .col-legend {
+      display: inline;
+      }
+  &.grid-list-mode .cell-body {
+      display: table;
+      }
+  &.grid-list-mode .cell-section {
+      display: table-cell;
+      }
+
+  // Remove grid-lines from col-separators.
+  .col-separator {
+    border-width: 0;
+  }
+
+  // Set default alignments for cells
+  .cell {
+    vertical-align: middle;
+  }
+  .col-legend, .element, .cell-section {
+      text-align: center;
+      vertical-align: middle;
+      }
+  .col-legend-bottom {
+      vertical-align: top;
+      }
+  .row-legend-both.row-legend-left {
+      text-align: right;
+      }
+  &.grid-list-mode .cell-section, .row-legend-both.row-legend-right {
+      text-align: left;
+      }
+
+  /* Set table width class -- ".setWidth" is added to table.grid dynamically via JS for questions with less that ten cols */
+  &.setWidth {
+    /* Set width for questions with less than ten cols */
+    max-width: @fg-inner-width-mobile;
+    @media @desktop {
+      max-width: @fg-inner-width-desktop;
+    }
+  }
+
+      /* Auto Width */
+      .customWidth &.setWidth,
+      .flexGrid &.setWidth { width: auto; max-width: none; }
+
+
+  /* no explicit cols or rows*/
+  .noRows.noCols.grid-table-mode &,
+  .noRows.noCols.grid-table-mode &.setWidth { width: auto; }
+
+  /* ===================== One Column ===================== */
+
+
+  /* Question column elements (col-legends and elements) - questions WITH row col-legends */
+  .colCount-1 .col-legend,
+  .colCount-1 .element { width: 32%; }
+
+    /* Auto Width */
+    .customWidth & .colCount-1 .col-legend,
+    .flexGrid & .colCount-1 .col-legend,
+    .customWidth & .colCount-1 .element,
+    .flexGrid & .colCount-1 .element { width: auto; }
+
+    /* Multicol AND clearColWidths (for when col widths are specified with inline CSS) - Set Auto Width */
+    &.grid-multi-col .colCount-1 .element,
+    .clearColWidths & .colCount-1 .element { width: auto; }
+
+  /* Question column elements (col-legends and elements) - questions WITHOUT row col-legends */
+  .noRows &.grid-table-mode .colCount-1 .element,
+  .noRows &.grid-table-mode .colCount-1 .col-legend { width: 99%; text-align: left; }
+
+    /* Auto Width */
+    .noRows.customWidth & .colCount-1 .element,
+    .noRows.flexWidth & .colCount-1 .element,
+    .noRows.customWidth & .colCount-1 .col-legend,
+    .noRows.flexWidth & .colCount-1 .col-legend { width: auto; }
+
+    /* Lists - Set Auto Width */
+    &.grid-list-mode .colCount-1 {
+        .element, .legend { width: auto; }
+    }
+
+  /* ===================== Two to Four Columns ===================== */
+
+
+  /* Question column col-legends - questions WITH row col-legends */
+  .colCount-2 .col-legend { width: 22%; }
+  .colCount-3 .col-legend { width: 16.5%; }
+  .colCount-4 .col-legend { width: 14.5%; }
+
+    /* Auto Width */
+    .customWidth & .colCount-2 .col-legend,
+    .flexGrid & .colCount-2 .col-legend,
+    .customWidth & .colCount-3 .col-legend,
+    .flexGrid & .colCount-3 .col-legend,
+    .customWidth & .colCount-4 .col-legend,
+    .flexGrid & .colCount-4 .col-legend { width: auto; }
+
+  /* Question column col-legends - questions WITHOUT row col-legends */
+  .noRows & .colCount-2 .col-legend { width: 49%; }
+  .noRows & .colCount-3 .col-legend { width: 33%; }
+  .noRows & .colCount-4 .col-legend { width: 24%; }
+
+    /* Auto Width */
+    .noRows.customWidth & .colCount-2 .col-legend,
+    .noRows.flexWidth & .colCount-2 .col-legend,
+    .noRows.customWidth & .colCount-3 .col-legend,
+    .noRows.flexWidth & .colCount-3 .col-legend,
+    .noRows.customWidth & .colCount-4 .col-legend,
+    .noRows.flexWidth & .colCount-4 .col-legend { width: auto; }
+
+
+  /* ===================== Five to Seven Columns ===================== */
+
+
+  /* Question column col-legends - questions WITH row col-legends */
+  .colCount-5 .col-legend { width: 12%; }
+  .colCount-6 .col-legend { width: 10.5%; }
+  .colCount-7 .col-legend { width: 9.5%; }
+
+    /* Auto Width */
+    .customWidth & .colCount-5 .col-legend,
+    .flexGrid & .colCount-5 .col-legend,
+    .customWidth & .colCount-6 .col-legend,
+    .flexGrid & .colCount-6 .col-legend,
+    .customWidth & .colCount-7 .col-legend,
+    .flexGrid & .colCount-7 .col-legend { width: auto; }
+
+  /* Question column col-legends - questions WITHOUT row col-legends */
+  .noRows & .colCount-5 .col-legend { width: 20%; }
+  .noRows & .colCount-6 .col-legend { width: 16%; }
+  .noRows & .colCount-7 .col-legend { width: 14%; }
+
+    /* Auto Width */
+    .noRows.customWidth & .colCount-5 .col-legend,
+    .noRows.flexWidth & .colCount-5 .col-legend,
+    .noRows.customWidth & .colCount-6 .col-legend,
+    .noRows.flexWidth & .colCount-6 .col-legend,
+    .noRows.customWidth & .colCount-7 .col-legend,
+    .noRows.flexWidth & .colCount-7 .col-legend { width: auto; }
+
+
+  /* ===================== Eight to Ten Columns ===================== */
+
+
+  /* Question column col-legends - questions WITH row col-legends */
+  .colCount-8 .col-legend { width: 8.5%; }
+  .colCount-9 .col-legend { width: 7.9%; }
+  .colCount-10 .col-legend { width: 7.3%; }
+
+    /* Auto Width */
+    .customWidth & .colCount-8 .col-legend,
+    .flexGrid & .colCount-8 .col-legend,
+    .customWidth & .colCount-9 .col-legend,
+    .flexGrid & .colCount-9 .col-legend,
+    .customWidth & .colCount-10 .col-legend,
+    .flexGrid & .colCount-10 .col-legend { width: auto; }
+
+  /* Question column col-legends - questions WITHOUT row col-legends */
+  .noRows & .colCount-8 .col-legend { width: 12%; }
+  .noRows & .colCount-9 .col-legend { width: 11%; }
+  .noRows & .colCount-10 .col-legend { width: 10%; }
+
+    /* Auto Width */
+    .noRows.customWidth & .colCount-8 .col-legend,
+    .noRows.flexWidth & .colCount-8 .col-legend,
+    .noRows.customWidth & .colCount-9 .col-legend,
+    .noRows.flexWidth & .colCount-9 .col-legend,
+    .noRows.customWidth & .colCount-10 .col-legend,
+    .noRows.flexWidth & .colCount-10 .col-legend { width: auto; }
+
+
+  /* ===================== Eleven Columns ===================== */
+
+
+  /* Question column col-legends - questions WITH row col-legends */
+  .colCount-11 .col-legend { width: 7%; }
+
+    /* Auto Width */
+    .customWidth & .colCount-11 .col-legend,
+    .flexGrid & .colCount-11 .col-legend { width: auto; }
+
+  /* Question column col-legends - questions WITHOUT row col-legends */
+  .noRows & .colCount-11 .col-legend { width: 9%; }
+
+    /* Auto Width */
+    .noRows.customWidth & .colCount-11 .col-legend,
+    .noRows.flexWidth & .colCount-11 .col-legend { width: auto; }
+
+
+  /* ===================== 12-17 Columns ===================== */
+
+
+  .colCount-12 .col-legend { width: 7%; }
+  .colCount-13 .col-legend { width: 6%; }
+  .colCount-14 .col-legend { width: 5.5%; }
+  .colCount-15 .col-legend { width: 5.3%; }
+  .colCount-16 .col-legend { width: 5%; }
+  .colCount-17 .col-legend { width: 4.5%; }
+
+    /* Auto Width */
+    .customWidth & .col-legend,
+    .flexGrid & .col-legend { width: auto; }
+
+}
+
+/* ========================================= (Survey Content > Survey Complete) ============================================*/
+
+
+/* =============================================== (Survey Content > Buttons) ==============================================*/
+
+
+/* ==================================================== (Survey Footer) =================================================== */
+
+
+/* ==================================================== (special styles) ================================================== */
+
+
+/* Show inline content on mouseover (formerly referred to as "dfn") */
+
+.survey-page-content a.show_inlineContent { position: relative; }
+
+.survey-page-content a.show_inlineContent span.content {
+
+    position: absolute;
+    background-color: #EFEFEF;
+    border: 1px solid;
+    cursor: default;
+    display: none;
+    left: 1.5em;
+    padding: 0.5em;
+    text-align: left;
+    top: 1.5em;
+    }
+
+.survey-page-content a.show_inlineContent:hover span.content { display: block; z-index: 1; }
+
+.ui-effects-transfer { border: 2px dotted gray; }
+
+
+/* AQ Colors */
+
+.survey-theme-colors {
+    color: #FFFFFF;
+    background-color: #FFCC66;
+}
+
+.survey-theme-colors-disabled {
+    color: #FFFFFF;
+    background-color: rgb(222, 222, 222);
+}
+
+.survey-theme-colors-selected {
+    color: #FFFFFF;
+    background-color: #FF8800;
+}
+
+
+/* ========================================================= (hacks) ====================================================== */
+
+.clearfix:after, .group:after {
+
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden
+    }
+
+*:first-child+html .clearfix,
+*:first-child+html .group { zoom: 1; } /* IE7 */
+
+.cati-comment {
+    text-transform: uppercase;
+    background-color: #FFFCD2;
+    padding: 10px;
+}
+
+/* ================================================== (Survey Images, pre-defined sizes) ================================================== */
+.survey_image.survey-image-small {
+    max-height: 150px;
+    max-width: 150px;
+}
+
+.survey_image.survey-image-medium {
+    max-height: 300px;
+    max-width: 300px;
+}
+
+.survey_image.survey-image-large {
+    max-height: 600px;
+    max-width: 600px;
+}
+
+.survey_image.survey-image-xlarge {
+    max-height: 900px;
+    max-width: 900px;
+}
+.fit {
+    width: auto;
+    max-width: 100%;
+}
