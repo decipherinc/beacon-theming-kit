@@ -7,12 +7,8 @@
 
 */
 
-@fg-width: 960px;
-@fg-padding-top-bottom: 1em;
-@fg-padding-left-right-mobile: 14px; // must use same units as @fg-width for equasion below to work.
-@fg-padding-left-right-desktop: 18px; // also must use same units as @fg-width
-@fg-inner-width-mobile: @fg-width - (@fg-padding-left-right-mobile * 2); // fg width minus padding, used 
-@fg-inner-width-desktop: @fg-width - (@fg-padding-left-right-desktop * 2);
+@preferred-survey-width: 960px;
+@preferred-item-width: @preferred-survey-width - 59px;
 
 /* ================================================== (AQ Colors) ================================================== */
 .survey-theme-colors {
@@ -93,71 +89,72 @@ br[_mce_bogus] { display: none; }
 }
 
 /* ================================================== (Survey Container) ===================================================*/
-#survey, .surveySection {
+.survey-container, .survey-section {
   text-align: center;
 }
-.surveySection > div {
+.survey-body, .survey-extra-header {
   text-align: left;
 }
-#surveyContent, #surveyHeader, #surveyFooter {
+.survey-body, .survey-extra-header, .footer {
   margin: 0 auto;
-  min-width: @fg-inner-width-desktop;
+  min-width: @preferred-survey-width;
   display: inline-block;
   vertical-align: top;
   max-width: 100%;
 }
-@media (max-width: @fg-width) {
-  #surveyContent, #surveyHeader, #surveyFooter {
+@media (max-width: @preferred-survey-width) {
+  .survey-body, .survey-extra-header, .footer {
     display: block;
+    min-width: 0;
+  }
+}
+.answers {
+  display: table;
+  min-width: @preferred-item-width;
+  .noCols & {
+    display: block;
+  }
+}
+@media (max-width: @preferred-survey-width) {
+  .answers {
+    width: 100%;
     min-width: 0;
   }
 }
 /* ============================================== (Primary Container Defaults) ============================================*/
 
-
-.survey-header,
-.survey-page-content,
-.survey-footer { clear: both; }
-
 .survey-info,
 .survey-extra-approval,
-.survey-logo,
+.logo,
 .survey-error,
-.survey-complete,
-.survey-comment,
-.survey-q-question,
-.survey-q-instructions,
+.exit-message,
+.comment,
+.question-text,
+.instruction-text,
 .survey-buttons {
+
     /* DOES NOT APPLY TO ".answers" and it's children */
-    max-width: @fg-inner-width-mobile;
-      @media @desktop {
-        min-width: @fg-inner-width-desktop;
-      }
+    max-width: @preferred-item-width;
     }
 
 /* Auto Width */
 .customWidth .survey-q-error,
-.customWidth .survey-q-question,
-.customWidth .survey-q-instructions { width: auto; }
-
-.survey-header,
-.survey-page-content,
-.survey-footer { clear: both; }
+.customWidth .question-text,
+.customWidth .instruction-text { width: auto; }
 
 /* Auto Width */
-.customWidth .survey-q-answers,
-.flexGrid .survey-q-answers { min-width: 1px; }
+.customWidth .answers,
+.flexGrid .answers { min-width: 1px; }
 
 
 /* ==================================================== (Survey Header) =================================================== */
 
 /*
     FUTURE USE:
-    This container will allow client branding outside of actual survey content area (.survey-page-content)
+    This container will allow client branding outside of actual survey content area (.survey-body)
 */
 
-#surveyHeader {
-    display: none;
+.survey-extra-header {
     height: 0;
     padding: 0; /* temp overwrite until this container is used */
     overflow: hidden;
@@ -166,7 +163,7 @@ br[_mce_bogus] { display: none; }
 
 /* =================================================== (Survey Content) =================================================== */
 
-#surveyContent > form {
+.survey-body > form {
   clear: both;
 }
 
@@ -200,7 +197,7 @@ br[_mce_bogus] { display: none; }
     This element will not get written to the page if a logo is not selected in builder
 */
 
-.survey-logo-image {
+.logo-image {
   max-width: 100%;
   max-height: 5em;
   @media @desktop {
@@ -241,16 +238,16 @@ br[_mce_bogus] { display: none; }
 //@fir-selected: #2bbdb9;
 
 // These can be overridden via themevars/attributes
-@fir-radio: "circle-o";
-@fir-radio-selected: "dot-circle-o";
-@fir-checkbox: "square-o";
-@fir-checkbox-selected: "check-square-o";
+// @fir-radio: "circle-o";
+// @fir-radio-selected: "dot-circle-o";
+// @fir-checkbox: "square-o";
+// @fir-checkbox-selected: "check-square-o";
 
 // These are the default FA icons to use for IE8/Android 2.3
-@fir-fallback-radio: "circle-o";
-@fir-fallback-radio-selected: "dot-circle-o";
-@fir-fallback-checkbox: "square-o";
-@fir-fallback-checkbox-selected: "check-square-o";
+// @fir-fallback-radio: "circle-o";
+// @fir-fallback-radio-selected: "dot-circle-o";
+// @fir-fallback-checkbox: "square-o";
+// @fir-fallback-checkbox-selected: "check-square-o";
 /*********************************************
  STYLE SETTINGS: ROUNDED, SQUARE
  *********************************************/
@@ -329,11 +326,10 @@ br[_mce_bogus] { display: none; }
 }
 
 .fir-icon i.fa-icon-check-square-o,
-.grid-desktop-mode .fir-icon i.fa-icon-check-square-o {
+.grid-table-mode .fir-icon i.fa-icon-check-square-o {
   margin-left: 3px;
 }
-.grid-list-mode .fir-icon i.fa-icon-check-square-o,
-.grid-mobile-mode .fir-icon i.fa-icon-check-square-o {
+.grid-list-mode .fir-icon i.fa-icon-check-square-o {
   margin-left: 0px;
 }
 
@@ -416,10 +412,37 @@ br[_mce_bogus] { display: none; }
     fill: @fir-hover;
   }
 }
+/*********************************************
+ FIR FONT-AWESOME
+ *********************************************/
+// @fir-var-radio: 'fa-var-@{fir-radio}';
+// @fir-var-radio-selected: 'fa-var-@{fir-radio-selected}';
+// @fir-var-checkbox: 'fa-var-@{fir-checkbox}';
+// @fir-var-checkbox-selected: 'fa-var-@{fir-checkbox-selected}';
+
+// .fa-icon-fir-radio:before { content: @@fir-var-radio; }
+// .fa-icon-fir-radio-selected:before { content: @@fir-var-radio-selected; }
+// .fa-icon-fir-checkbox:before { content: @@fir-var-checkbox; }
+// .fa-icon-fir-checkbox-selected:before { content: @@fir-var-checkbox-selected; }
+
+// @fir-var-fallback-radio: 'fa-var-@{fir-fallback-radio}';
+// @fir-var-fallback-radio-selected: 'fa-var-@{fir-fallback-radio-selected}';
+// @fir-var-fallback-checkbox: 'fa-var-@{fir-fallback-checkbox}';
+// @fir-var-fallback-checkbox-selected: 'fa-var-@{fir-fallback-checkbox-selected}';
+
+// .fa-icon-fir-fallback-radio:before { content: @@fir-var-fallback-radio; }
+// .fa-icon-fir-fallback-radio-selected:before { content: @@fir-var-fallback-radio-selected; }
+// .fa-icon-fir-fallback-checkbox:before { content: @@fir-var-fallback-checkbox; }
+// .fa-icon-fir-fallback-checkbox-selected:before { content: @@fir-var-fallback-checkbox-selected; }
+/*********************************************
+ END FIR
+ *********************************************/
+
+
 
 /* ================================= (Survey Content > Survey Question > Answers > Grid) ===================================*/
 
-/* Keep in mind this is a MOBILE-FIRST layout. CSS applies to both mobile and desktop view, unless desktop is explicitly mentioned */
+/* Keep in mind this is a MOBILE-FIRST (list-first) layout. CSS applies to both list and table view, unless table view is explicitly mentioned */
 
 // Display all table elements as blocks, set defaults
 .grid,
@@ -427,7 +450,7 @@ br[_mce_bogus] { display: none; }
 .grid tbody,
 .row,
 .cell,
-.cell-body,
+.cell-sub-wrapper,
 .mobile-group-legend {
     display: block;
     margin: 0;
@@ -436,20 +459,19 @@ br[_mce_bogus] { display: none; }
     border: 0;
     outline: 0;
     }
-.lte-ie9 .grid-mobile-mode { // IE9 and earlier does not support display:block on table elements, so simulate a similar effect
+.lte-ie9 .grid-list-mode { // IE9 and earlier does not support display:block on table elements, so simulate a similar effect
     &,
     thead,
     tbody,
     .row,
     .cell,
-    .cell-body,
     .mobile-group-legend {
         float: left;
         clear: left;
         width: 100%;
         }
     }
-.lte-ie8 #surveyContent form { // IE8 and earlier does not automatically set a width on display:block form elements
+.lte-ie8 .survey-body form { // IE8 and earlier does not automatically set a width on display:block form elements
     width: 100%;
     }
 .lte-ie8 .fir-hidden { // IE8 can't populate hidden inputs, so move them off screen
@@ -459,18 +481,18 @@ br[_mce_bogus] { display: none; }
 }
 
 
-// These should not be visible on mobile view...
+// These should not be visible on list view...
 .unused,
 .row-col-legends,
 .row-col-legends-bottom,
-.grid-group-by-col .row-legend,
-.grid-single-col .row-legend,
+.grid[data-settings*='group-by-col'] .row-legend,
+.grid[data-settings*='single-col'] .row-legend,
 .grid-multi-col .separator,
-.grid-force-top-legend .col-legend-bottom {
+.grid[data-settings*='force-top-legend'] .col-legend-bottom {
      display: none;
      }
 // ...with these exceptions.
-.grid-group-by-col .row-col-legends, .grid-single-col .row-col-legends {
+.grid[data-settings*='group-by-col'] .row-col-legends, .grid[data-settings*='single-col'] .row-col-legends {
      display: block;
      }
 
@@ -483,7 +505,7 @@ br[_mce_bogus] { display: none; }
        from every cell except our special top cell. */
 
 // Remove top grid-lines from all cells, except .mobile-top-border-cell.
-.grid-mobile-mode .border-collapse {
+.grid-list-mode .border-collapse {
     border-top: 0;
 }
 .mobile-top-border-cell {
@@ -508,13 +530,13 @@ br[_mce_bogus] { display: none; }
 .multi-col-separator {
     width: 6px;
 }
-.grid-mobile-mode .multi-col-parent-cell, .grid-mobile-mode .multi-col-separator {
+.grid-list-mode .multi-col-parent-cell, .grid-list-mode .multi-col-separator {
     padding: 0;
 }
 .grid-multi-col-subgrid {
     display: table;
 }
-.grid-desktop-mode.grid-multi-col .grid-multi-col-subgrid {
+.grid-table-mode.grid-multi-col .grid-multi-col-subgrid {
     width: 100%;
 }
 .mobile-group-legend-space, .row-legend-both-space, .row-legend-group-space, .col-legend-space {
@@ -531,25 +553,31 @@ textarea {
 }
 
 // Inner cell components should be tables
-.cell-body {
+.cell-sub-wrapper {
     display: table;
     }
-.cell-section {
+.cell-sub-column {
     display: table-cell;
+    }
+.cell-legend-above, .cell-legend-above .cell-sub-column {
+    display: block;
+    }
+.cell-legend-none .cell-text {
+    display: none;
     }
 
 // Cell contents should be centered vertically.
-.input, .cell-section, .mobile-oe-legend, .cell img {
+.input, .cell-sub-column, .mobile-oe-legend, .cell img {
     vertical-align: middle;
     }
 
 // Clickable elements should have a pointer cursor.
-.clickable {
+.cell-input, .oe, .checkbox, .radio, .nas {
     cursor: pointer;
     }
 
 // Single-col elements should be aligned left.
-.grid-single-col .cell {
+.grid[data-settings*='single-col'] .cell {
     text-align: left;
 }
 
@@ -561,7 +589,7 @@ textarea {
 // Grids with devContainers in QA mode need special colors/backgrounds (bug 19376).
 // Note that more .devContainer formatting is also set in static/survey.qa.css
 .devContainer {
-  .survey-q {
+  .question {
     background: transparent; // For themes that set this, override it so the below color changes work.
     position: relative; // A position must be set to keep this above the .devContainer .corner graphic
   }
@@ -570,7 +598,7 @@ textarea {
     background-color: @fg-color; // Set grids to match the foreground color. This prevents devContainer's ugly bg from being seen inside cells.
   }
 
-  .survey-q-question-text {
+  .question-text {
     color: contrast(#fffbc7, @text-color, #454545); // Use default text colors if it's legible against the background. Otherwise, use dark grey.
   }
 
@@ -585,7 +613,7 @@ textarea {
 .noRows.noCols .grid-table-mode { width: auto; }
 
 /* DESKTOP-ONLY formatting */
-.grid-desktop-mode {
+.grid.grid-table-mode {
     // Display all table-elements as normal table-elements
     display: table;
     border-spacing: 0;
@@ -600,35 +628,16 @@ textarea {
     .cell {
        display: table-cell;
        }
-    .cell-body, .cell-section {
+    .cell-sub-wrapper, .cell-sub-column {
        display: inline-block;
        }
 
   // These elements should not be visible on desktop view.
-  .mobile-col-legend, .mobile-group-legend, .mobile-left-row-legend, .mobile-top-row-legend, .mobile-top-border-row, &.grid-list-mode .row-legend-basic, &.grid-list-mode .unused {
+  .cell-text, .mobile-group-legend, .mobile-left-row-legend, .mobile-top-row-legend, .mobile-top-border-row, &.grid-list-mode .row-legend-basic, &.grid-list-mode .unused, &.grid-list-mode .cell-legend-none .cell-text {
        display: none;
        }
   .mobile-oe-legend {
       display: none !important;
-      }
-
-  // Lists needs to formatted different.
-  &.grid-list-mode {
-      width: 100%;
-      }
-  @media @desktop {
-      &.grid-list-mode {
-          width: auto;
-          }
-      }
-  &.grid-list-mode .col-legend {
-      display: inline;
-      }
-  &.grid-list-mode .cell-body {
-      display: table;
-      }
-  &.grid-list-mode .cell-section {
-      display: table-cell;
       }
 
   // Remove grid-lines from col-separators.
@@ -640,7 +649,7 @@ textarea {
   .cell {
     vertical-align: middle;
   }
-  .col-legend, .element, .cell-section {
+  .col-legend, .element, .cell-sub-column {
       text-align: center;
       vertical-align: middle;
       }
@@ -650,17 +659,11 @@ textarea {
   .row-legend-both.row-legend-left {
       text-align: right;
       }
-  &.grid-list-mode .cell-section, .row-legend-both.row-legend-right {
-      text-align: left;
-      }
 
   /* Set table width class -- ".setWidth" is added to table.grid dynamically via JS for questions with less that ten cols */
   &.setWidth {
     /* Set width for questions with less than ten cols */
-    max-width: @fg-inner-width-mobile;
-    @media @desktop {
-      max-width: @fg-inner-width-desktop;
-    }
+    max-width: @preferred-item-width;
   }
 
       /* Auto Width */
@@ -839,12 +842,22 @@ textarea {
 
 /* ==================================================== (special styles) ================================================== */
 
+.screen-readers-only {
+  /* Makes content invisible on the screen but visible to screen readers.
+    http://snook.ca/archives/html_and_css/hiding-content-for-accessibility */
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+}
 
 /* Show inline content on mouseover (formerly referred to as "dfn") */
 
-.survey-page-content a.show_inlineContent { position: relative; }
+.survey-body a.show_inlineContent { position: relative; }
 
-.survey-page-content a.show_inlineContent span.content {
+.survey-body a.show_inlineContent span.content {
 
     position: absolute;
     background-color: #EFEFEF;
@@ -857,7 +870,7 @@ textarea {
     top: 1.5em;
     }
 
-.survey-page-content a.show_inlineContent:hover span.content { display: block; z-index: 1; }
+.survey-body a.show_inlineContent:hover span.content { display: block; z-index: 1; }
 
 .ui-effects-transfer { border: 2px dotted gray; }
 
@@ -882,7 +895,7 @@ textarea {
 
 /* ========================================================= (hacks) ====================================================== */
 
-.clearfix:after, .group:after {
+.clearfix:after {
 
     content: "";
     display: block;
@@ -891,8 +904,7 @@ textarea {
     visibility: hidden
     }
 
-*:first-child+html .clearfix,
-*:first-child+html .group { zoom: 1; } /* IE7 */
+*:first-child+html .clearfix { zoom: 1; } /* IE7 */
 
 .cati-comment {
     text-transform: uppercase;
