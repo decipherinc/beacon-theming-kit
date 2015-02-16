@@ -10,72 +10,55 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
   <script src="assets/js/button-select.js"></script>
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/respview.js"></script>
+  <script src="assets/js/survey.respondent-post125.js"></script>
   
 </head>
 <body class="survey-page non-touch">
-<div id="survey" class="survey-container">
-
-  <div class="survey-section">
-    <div id="surveyHeader" class="survey-header group">&nbsp;</div>
-  <!-- /#surveyHeader --></div>
-  
-  <div class="survey-section">
-    <div class="survey-body">
-
-      <div class="surveyLogo survey-logo survey-logo-left group">
-        <img src="assets/img/decipher-logo.png" class="survey-logo-image" alt="logo" align="left">
-      </div>
-
-      <div class="clearfix surveyProgressBar survey-progress survey-progress-align survey-progress-top group" title="progress bar - 99% complete">
-        <div class="survey-progress-box bar survey-progress-bar survey-progress-bar-remaining survey-progress-bar-borders">
-          <span class="survey-progress-fill survey-progress-bar-completed" style="width: 99%;"></span>
+    <div id="survey" class="survey-container">
+        <div class="survey-section">
+            <div class="survey-extra-header"><!-- an area where programmers can insert their own header stuff --></div>
         </div>
-        <div class="survey-progress-text">99%</div>
-      </div>
-      <!-- /.surveyProgressBar -->
-      <div class="surveyInfo">
-        <div class="info">
-          <blockquote>This is an example of a <code>.surveyInfo</code>)</blockquote>
-        </div>
-      </div>
-      
-      <div class="surveyWarning">
-        <div class="info">
-          <blockquote>This is an example of a <code>.surveyWarning</code>)</blockquote>
-        </div>
-      </div>
+    <div class="survey-section">
+        <div class="survey-body">
 
-      <form id="primary" name="primary" method="post" action="/survey/selfserve/9d3/1411119" enctype="application/x-www-form-urlencoded">
+            <div class="progress-bar progress-top" title="progress bar - 0% complete">
+              <div class="progress-box-outer"><span class="progress-box-completed" style="width: 0%;"></span></div>
+              <div class="progress-text"><span class="screen-readers-only">progress bar </span>0%</div>
+            </div><!-- /.progress-bar -->
 
-        <!-- @@XYZZY@@ -->
+            <div class="survey-info">
+              <h1>This is an example of a <code>.surveyInfo</code></h1>
+            </div>
 
+            <div class="survey-warning">
+              <h1>This is an example of a <code>.surveyWarning</code></h1>
+            </div>
 
-        <div class="dq-rating-colors-demo" style="max-width: 900px; margin: 1em auto;"><!-- demo of dq rating colors -->
-          <div class="like" style="width: 33%; height: 30vh; display:inline-block; padding: 1em;">@dq-like</div><!--
-          clear white space --><div class="neutral" style="width: 33%; height: 30vh; display:inline-block; padding: 1em;">@dq-neutral</div><!--
-          clear white space --><div class="dislike" style="width: 33%; height: 30vh; display:inline-block; padding: 1em;">@dq-dislike</div>
-        </div>
+            <form id="primary" name="primary" method="post" action="/survey/selfserve/53a/150200" enctype="application/x-www-form-urlencoded">
 
-        <div id="surveyButtons" class="styled group survey-buttons">
-          <input type="button" name="finish" id="btn_finish" class="interface-btn btn finish survey-button" value="Finish" onclick="window.location = '/exit-page.html'">
-        </div>
-        <!-- #surveyButtons -->
+                <div class="dq-rating-colors-demo" style="max-width: 900px; margin: 1em auto;"><!-- demo of dq rating colors -->
+                    <div class="like" style="width: 33%; height: 30vh; display:inline-block; padding: 1em;">@dq-like</div><!--
+                    clear white space --><div class="neutral" style="width: 33%; height: 30vh; display:inline-block; padding: 1em;">@dq-neutral</div><!--
+                    clear white space --><div class="dislike" style="width: 33%; height: 30vh; display:inline-block; padding: 1em;">@dq-dislike</div>
+                </div>
 
-        <input type="hidden" name="state" value="a08bd85c7487c21702ab520bb1e4179b1079227c00000270000001ee">
-        <input type="hidden" name="start_time" value="1416354448">
-
-      <!-- end wraper form --></form>
-    <!-- /.survey-body --></div>
-  <!-- /.survey-section --></div>
-  <div class="survey-section">
-    <div class="footer">
-      <a href="http://decipherinc.com/survey/privacy?decLang=english" target="_blank">Privacy Policy</a> - <a href="/support?decLang=english" target="_blank">Help</a>
+                <div class="survey-buttons">
+                    <input type="button" name="randomize" id="btn_randomize" class="button randomize" value="answer for me" title="Randomize btn, shows when testing surveys" onclick="preventDefault();"><input type="button" id="btn_goback" class="button back" onclick="window.location.href = 'page-2.html';" value="« Back"><input type="submit" name="finish" id="btn_finish" class="button finish" value="Finish" onclick="window.location.href = 'exit-page.html';">
+                </div>
+                <!-- #surveyButtons -->
+                <input type="hidden" name="state" value="110bf6f935bb12d443d4b2983916d6520772bb9e0000015b00000238">
+                <input type="hidden" name="start_time" value="1423762621">
+            </form>
+        </div><!-- /.survey-body -->
+    </div><!-- /.survey-section -->
+    <div class="survey-section">
+        <div class="footer">
+            <a href="http://decipherinc.com/survey/privacy?decLang=english" target="_blank">Privacy Policy</a> - <a href="/support?decLang=english" target="_blank">Help</a>
+        </div><!-- /.footer -->
     </div>
-  </div>
-
-</div>
-<!-- end #survey -->
-
-<div id="detectBreakpoint"></div>
+    <div id="detectBreakpoint"></div>
+    <script src="//localhost:35729/livereload.js"></script>
 </body>
 </html>

@@ -1,23 +1,22 @@
 // Mobile first styling, then desktop styling at bottom.
 
 // Button Select Variables (to be overridden by theme)
-@btn-color: #696a69;
-@btn-color-hover: #C5D600;
-@btn-color-selected: #2BBDB9;
-@btn-color-disabled: fadeout(@btn-color, 88);
-@btn-text-color: @fg-color;
-@btn-font-size: 1.2em;
-@btn-border-color: darken(@btn-color, 10);
-@btn-border-color-hover: darken(@btn-color-hover, 10);
-@btn-border-color-selected: darken(@btn-color-selected, 10);
-@btn-border-radius: 3px;
-@btn-spacing: 0 2px 4px; // set padding around buttons to control spacing, left/right are stripped in list mode.
-@btn-select-default-max-width: 320px;
+@btn-text-color: @clr-2;
+@btn-font-size: @general-font-size;
+@btn-font-family: @primary-font-family;
+@btn-bg-color: @clr-3;
+@btn-bg-color-hover: lighten(@btn-bg-color, 15%);
+@btn-bg-color-selected: @clr-5;
+@btn-border-color: darken(@btn-bg-color, 15%);
+@btn-border-color-hover: lighten(@btn-border-color, 10%);
+@btn-border-color-selected: darken(@btn-bg-color-selected, 15%);
+@btn-select-default-max-width: 320px; // widest a button can be by default (320px is 1/3 of 960px, so would fit 3 wide by default)
+@btn-select-spacing: 0 2px 4px; // set padding around buttons to control spacing when in grid mode, left/right are stripped in list mode.
+@btn-select-border-radius: 3px;
 
 
 .buttonSelect {
   max-width: @fg-inner-width-mobile;
-  font-family: @answer-text-font-stack;
   @media @desktop {
     max-width: @fg-inner-width-desktop;
   }
@@ -51,7 +50,7 @@
   display: block;
   font-size: @btn-font-size;
   max-width: @btn-select-default-max-width;
-  padding: @btn-spacing;
+  padding: @btn-select-spacing;
   padding-left: 0;
   padding-right: 0;
   input[type="radio"], input[type="checkbox"] {
@@ -65,10 +64,10 @@
   label {
     position: relative;
     max-width: 100%;
-    background-color: @btn-color;
-    -webkit-border-radius: @btn-border-radius;
-    -moz-border-radius: @btn-border-radius;
-    border-radius: @btn-border-radius;
+    background-color: @btn-bg-color;
+    -webkit-border-radius: @btn-select-border-radius;
+    -moz-border-radius: @btn-select-border-radius;
+    border-radius: @btn-select-border-radius;
     border-bottom: 1px solid @btn-border-color;
     display: inline-block;
     cursor: pointer;
@@ -113,7 +112,7 @@
         -o-transition: opacity 100ms ease;
         transition: opacity 100ms ease;
         .fir-bg {
-          fill: @btn-color;
+          fill: @btn-bg-color;
         }
         .fir-base {
           fill: fadeOut(@btn-text-color, 10);
@@ -124,11 +123,11 @@
       }
     } // end .bs-fir
     &:hover, &:focus {
-      background-color: @btn-color-hover;
+      background-color: @btn-bg-color-hover;
       border-bottom-color: @btn-border-color-hover;
       svg {
         .fir-bg {
-          fill: @btn-color-hover;
+          fill: @btn-bg-color-hover;
         }
         .fir-base {
           fill: @btn-text-color;
@@ -138,12 +137,12 @@
   } // end label
   input[type="radio"]:checked, input[type="checkbox"]:checked {
     & + label {
-      background-color: @btn-color-selected;
+      background-color: @btn-bg-color-selected;
       border-bottom-color: @btn-border-color-selected;
       svg {
         opacity: 1;
         .fir-bg {
-          fill: @btn-color-selected;
+          fill: @btn-bg-color-selected;
         }
         .fir-base {
           fill: @btn-text-color;
@@ -160,7 +159,7 @@
 .bsg-grid.bsg-grid-respond {
   .btn-select {
     display: inline-block;
-    padding: @btn-spacing;
+    padding: @btn-select-spacing;
     .bs-text {
       padding: 5px 1em 0px;
       text-align: center;

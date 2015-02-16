@@ -9,15 +9,15 @@
 /* ================================================== (AQ Colors) ================================================== */
 .survey-theme-colors {
   color: #ffffff;
-  background-color: #696a69;
+  background-color: #454545;
 }
 .survey-theme-colors-selected {
   color: #ffffff;
-  background-color: #2bbdb9;
+  background-color: #a7c5df;
 }
 .survey-theme-colors-disabled {
   color: #ffffff;
-  background-color: rgba(105, 106, 105, 0.12);
+  background-color: rgba(69, 69, 69, 0.4);
 }
 /* ======================================================= (Common) ========================================================*/
 * {
@@ -270,7 +270,7 @@ br[_mce_bogus] {
  *********************************************/
 .fir-icon .rounded .fir-base,
 .fir-icon .square .fir-base {
-  fill: #c7c7c7;
+  fill: #dddddd;
 }
 .fir-icon .rounded .fir-bg,
 .fir-icon .square .fir-bg {
@@ -282,7 +282,7 @@ br[_mce_bogus] {
 }
 .fir-icon.selected .rounded .fir-selected,
 .fir-icon.selected .square .fir-selected {
-  fill: #2bbdb9;
+  fill: #a7c5df;
 }
 .fir-icon.disabled .rounded .fir-selected,
 .fir-icon.disabled .square .fir-selected {
@@ -301,7 +301,7 @@ br[_mce_bogus] {
   fill: #c5d600;
 }
 .fir-icon.selected .scale .fir-large {
-  fill: #2bbdb9;
+  fill: #a7c5df;
 }
 .fir-icon.disabled .scale .fir-medium {
   fill: transparent;
@@ -343,7 +343,7 @@ br[_mce_bogus] {
   color: #c5d600;
 }
 .fir-icon.selected i {
-  color: #2bbdb9;
+  color: #a7c5df;
 }
 .fir-hidden {
   display: none !important;
@@ -382,7 +382,7 @@ br[_mce_bogus] {
 .non-touch .fir-icon.selected .square:hover .fir-selected,
 .non-touch .clickableCell:hover .fir-icon.selected .rounded .fir-selected,
 .non-touch .clickableCell:hover .fir-icon.selected .square .fir-selected {
-  fill: #2bbdb9;
+  fill: #a7c5df;
 }
 .non-touch .clickableCell:hover .fir-icon.disabled .rounded .fir-selected,
 .non-touch .clickableCell:hover .fir-icon.disabled .square .fir-selected {
@@ -394,7 +394,7 @@ br[_mce_bogus] {
 }
 .non-touch .clickableCell:hover:active .fir-icon .scale .fir-large,
 .non-touch .fir-icon .scale:hover:active .fir-large {
-  fill: #2bbdb9;
+  fill: #a7c5df;
 }
 .non-touch .clickableCell:hover .fir-icon.selected .scale .fir-medium,
 .non-touch .clickableCell:hover .fir-icon.selected .scale .fir-small,
@@ -932,7 +932,7 @@ textarea {
  *********************************************/
 .fir-icon .rounded .fir-base,
 .fir-icon .square .fir-base {
-  fill: #c7c7c7;
+  fill: #dddddd;
 }
 .fir-icon .rounded .fir-bg,
 .fir-icon .square .fir-bg {
@@ -944,7 +944,7 @@ textarea {
 }
 .fir-icon.selected .rounded .fir-selected,
 .fir-icon.selected .square .fir-selected {
-  fill: #2bbdb9;
+  fill: #a7c5df;
 }
 .fir-icon.disabled .rounded .fir-selected,
 .fir-icon.disabled .square .fir-selected {
@@ -963,7 +963,7 @@ textarea {
   fill: #c5d600;
 }
 .fir-icon.selected .scale .fir-large {
-  fill: #2bbdb9;
+  fill: #a7c5df;
 }
 .fir-icon.disabled .scale .fir-medium {
   fill: transparent;
@@ -1010,7 +1010,7 @@ textarea {
   color: #c5d600;
 }
 .fir-icon.selected i {
-  color: #2bbdb9;
+  color: #a7c5df;
 }
 .fir-hidden {
   display: none !important;
@@ -1049,7 +1049,7 @@ textarea {
 .non-touch .fir-icon.selected .square:hover .fir-selected,
 .non-touch .clickableCell:hover .fir-icon.selected .rounded .fir-selected,
 .non-touch .clickableCell:hover .fir-icon.selected .square .fir-selected {
-  fill: #2bbdb9;
+  fill: #a7c5df;
 }
 .non-touch .clickableCell:hover .fir-icon.disabled .rounded .fir-selected,
 .non-touch .clickableCell:hover .fir-icon.disabled .square .fir-selected {
@@ -1061,7 +1061,7 @@ textarea {
 }
 .non-touch .clickableCell:hover:active .fir-icon .scale .fir-large,
 .non-touch .fir-icon .scale:hover:active .fir-large {
-  fill: #2bbdb9;
+  fill: #a7c5df;
 }
 .non-touch .clickableCell:hover .fir-icon.selected .scale .fir-medium,
 .non-touch .clickableCell:hover .fir-icon.selected .scale .fir-small,
@@ -1081,7 +1081,6 @@ textarea {
 }
 .buttonSelect {
   max-width: 932px;
-  font-family: Arial, "MS Trebuchet", sans-serif;
 }
 @media (min-width: 768px) {
   .buttonSelect {
@@ -1115,7 +1114,7 @@ textarea {
 }
 .btn-select {
   display: block;
-  font-size: 1.2em;
+  font-size: 16px;
   max-width: 320px;
   padding: 0 2px 4px;
   padding-left: 0;
@@ -1133,11 +1132,11 @@ textarea {
 .btn-select label {
   position: relative;
   max-width: 100%;
-  background-color: #696a69;
+  background-color: #454545;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  border-bottom: 1px solid #505050;
+  border-bottom: 1px solid #1f1f1f;
   display: inline-block;
   cursor: pointer;
 }
@@ -1184,7 +1183,7 @@ textarea {
   transition: opacity 100ms ease;
 }
 .btn-select label .bs-fir svg .fir-bg {
-  fill: #696a69;
+  fill: #454545;
 }
 .btn-select label .bs-fir svg .fir-base {
   fill: rgba(255, 255, 255, 0.9);
@@ -1194,12 +1193,12 @@ textarea {
 }
 .btn-select label:hover,
 .btn-select label:focus {
-  background-color: #c5d600;
-  border-bottom-color: #96a300;
+  background-color: #6b6b6b;
+  border-bottom-color: #383838;
 }
 .btn-select label:hover svg .fir-bg,
 .btn-select label:focus svg .fir-bg {
-  fill: #c5d600;
+  fill: #6b6b6b;
 }
 .btn-select label:hover svg .fir-base,
 .btn-select label:focus svg .fir-base {
@@ -1207,8 +1206,8 @@ textarea {
 }
 .btn-select input[type="radio"]:checked + label,
 .btn-select input[type="checkbox"]:checked + label {
-  background-color: #2bbdb9;
-  border-bottom-color: #229390;
+  background-color: #a7c5df;
+  border-bottom-color: #6fa0cb;
 }
 .btn-select input[type="radio"]:checked + label svg,
 .btn-select input[type="checkbox"]:checked + label svg {
@@ -1216,7 +1215,7 @@ textarea {
 }
 .btn-select input[type="radio"]:checked + label svg .fir-bg,
 .btn-select input[type="checkbox"]:checked + label svg .fir-bg {
-  fill: #2bbdb9;
+  fill: #a7c5df;
 }
 .btn-select input[type="radio"]:checked + label svg .fir-base,
 .btn-select input[type="checkbox"]:checked + label svg .fir-base {
@@ -1264,49 +1263,34 @@ textarea {
         - You can add theme specific variables at the bottom of the variables list if you want to provide some customization controls or for your own convenience.
         - In general, avoid messing with any of the styles that are using the variables in the theme file.
     • Stay flat.
-        - Avoid too much style nesting. By keeping things flat, you'll make it much easier for users to perform simple overrides in the theme editor's css injector. Wouldn't you rather override ".survey-q-instructions" than ".survey-page-content .survey-q .survey-q-instructions"?
+        - Avoid too much style nesting. By keeping things flat, you'll make it much easier for users to perform simple overrides in the theme editor's css injector. Wouldn't you rather override ".instructions" than ".survey-body .question .instructions"?
     • Stay Responsive. The responsive strategy is as follows..
         - Mobile first. Style the survey with a narrow viewport first, apply all the mobile styles before any desktop styling media queries.
         - Then Desktop. You can use the "@media @desktop {}" media query in any selector to apply it's stylings over the @breakpoint (768px by default here).
         - BUT TABLES ARE SPECIAL. Tables attempt to stay a table for as long as possible before collapsing into a list for narrow viewports, therefore they don't use media queries. There are sepparate sections (see table of contents below) for styling the list & desktop table modes exclusively.
-
-  Getting Started...
-    I recomend starting with some typography, get your font in there, get the spacing going on, then attack the less variables (colors and stuff) before adding more styles.
 */
 /* ============================================ TABLE OF CONTENTS ============================================ */
 /*
-    Variables
-    Resets
-    Reusable Classes
-    Survey Content
-    Survey Content > Logo
-    Survey Content > Progress Bar
-    Survey Content > Comment
-    Survey Content > Question
-    Survey Content > Question > Question Text
-    Survey Content > Question > Instructions
-    Survey Content > Question > Answers
-    Survey Content > Question > Answers > Mobile First Grid Styling
-    Survey Content > Question > Answers > Desktop Grid Styling
-    Survey Content > Buttons
-    Survey Content > Exit Page
-    Survey Content > Errors
-    Survey Content > Extra Info
-    Survey Content > Footer
+    --- Variables
+    --- Resets
+    --- Reusable Classes
+    --- Survey Content
+    --- Survey Content > Logo
+    --- Survey Content > Progress Bar
+    --- Survey Content > Comment
+    --- Survey Content > Question
+    --- Survey Content > Question > Question Text
+    --- Survey Content > Question > Instructions
+    --- Survey Content > Question > Answers
+    --- Survey Content > Question > Answers > Mobile First Grid Styling
+    --- Survey Content > Question > Answers > Desktop Grid Styling
+    --- Survey Content > Buttons
+    --- Survey Content > Exit Page
+    --- Survey Content > Errors
+    --- Survey Content > Extra Info
+    --- Survey Content > Footer
 */
 /* =============================================== (Variables) =============================================== */
-.dq-rating-colors-demo {
-  color: #ffffff;
-}
-.dq-rating-colors-demo .like {
-  background-color: #c5d600;
-}
-.dq-rating-colors-demo .neutral {
-  background-color: #00b4d6;
-}
-.dq-rating-colors-demo .dislike {
-  background-color: #ba0000;
-}
 /*
   For importing fonts...
   First check out our list of fonts already available in respondent-view-font-families.less
@@ -1326,7 +1310,7 @@ textarea {
 */
 /* ================================================ (Resets) ================================================ */
 /* 
-    Add your resets or normalize styles here
+    There are already some resets in place by default, but you can add your own resets or normalize styles here.
 /*
 
 
@@ -1340,11 +1324,11 @@ textarea {
 /* ============================================ (Survey Content) ============================================ */
 html {
   font-family: Arial, "MS Trebuchet", sans-serif;
-  font-size: 0.875em;
+  font-size: 12.8px;
 }
 @media (min-width: 768px) {
   html {
-    font-size: 0.75em;
+    font-size: 16px;
   }
 }
 .survey-page {
@@ -1412,7 +1396,7 @@ html {
 }
 .progress-box-outer {
   background-color: transparent;
-  border: 1px solid #b3b3b3;
+  border: 1px solid #b7b7b7;
   width: 85%;
   max-width: calc(100% - 4em);
   text-align: right;
@@ -1420,12 +1404,14 @@ html {
   display: inline-block;
 }
 .progress-box-completed {
-  background-color: #d9d9d9;
+  background-color: #dddddd;
   width: 0%;
   height: 100%;
   display: block;
 }
 .progress-text {
+  color: #454545;
+  font-family: Arial, "MS Trebuchet", sans-serif;
   line-height: 1em;
   padding-left: 0.5em;
 }
@@ -1437,6 +1423,8 @@ html {
 }
 /* =============================== (Survey Content > Question > Question Text) ============================== */
 .question-text {
+  color: #454545;
+  font-size: 16px;
   font-family: Arial, "MS Trebuchet", sans-serif;
 }
 .hideQuestionText .question-text {
@@ -1444,8 +1432,9 @@ html {
 }
 /* =============================== (Survey Content > Question > Instructions) =============================== */
 .instruction-text {
-  font-family: Arial, "MS Trebuchet", sans-serif;
   color: rgba(69, 69, 69, 0.9);
+  font-size: 16px;
+  font-family: Arial, "MS Trebuchet", sans-serif;
 }
 /* Programmers have the option to hide the respondent instruction text */
 .hideInstructionText .instruction-text {
@@ -1453,6 +1442,8 @@ html {
 }
 /* ================================== (Survey Content > Question > Answers ================================== */
 .answers {
+  color: #454545;
+  font-size: 16px;
   font-family: Arial, "MS Trebuchet", sans-serif;
 }
 select {
@@ -1462,7 +1453,7 @@ select {
   margin: 0;
 }
 input[type="text"] {
-  border: 1px solid #d9d9d9;
+  border: 1px solid #dddddd;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
@@ -1472,7 +1463,7 @@ input[type="text"]:focus {
 }
 textarea {
   width: 100%;
-  border: 1px solid #d9d9d9;
+  border: 1px solid #dddddd;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
@@ -1498,7 +1489,7 @@ input[type="radio"] + .cell-text {
 .element:hover,
 .element:focus,
 .element:active {
-  background-color: #f7f7f7;
+  background-color: #ffffff;
 }
 .grid-list-mode .cell,
 .grid-list-mode .cell:hover {
@@ -1545,13 +1536,13 @@ input[type="radio"] + .cell-text {
 }
 .grid-table-mode textarea {
   padding: 2px;
-  border: 1px solid #d9d9d9;
+  border: 1px solid #dddddd;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .grid-table-mode .nonempty {
-  border: 1px solid #d9d9d9;
+  border: 1px solid #dddddd;
 }
 .grid-table-mode.grid-group-by-col .col-legend-group {
   font-size: 1em;
@@ -1575,24 +1566,43 @@ input[type="radio"] + .cell-text {
   }
 }
 .button {
-  background-color: #696a69;
+  background-color: #454545;
   color: #ffffff;
+  font-size: 16px;
+  font-family: Arial, "MS Trebuchet", sans-serif;
+  border: 1px solid #2b2b2b;
   -webkit-appearance: none;
-  -webkit-border-radius: none;
-  -moz-border-radius: none;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
   border-radius: 0;
   cursor: pointer;
   padding: 0.5em;
 }
 .button:hover,
 .button:focus {
-  background-color: #828482;
+  background-color: #6b6b6b;
+  border-color: #525252;
 }
 .button:active {
-  background-color: #7b7c7b;
+  background-color: #646464;
 }
 .button[disabled] {
-  background-color: rgba(105, 106, 105, 0.12);
+  background-color: rgba(69, 69, 69, 0.6);
+}
+.button.back,
+.button.randomize {
+  background-color: #454545;
+  color: #ffffff;
+  font-size: 16px;
+  font-family: Arial, "MS Trebuchet", sans-serif;
+  border: 1px solid #2b2b2b;
+}
+.button.back:hover,
+.button.randomize:hover,
+.button.back:focus,
+.button.randomize:focus {
+  background-color: #6b6b6b;
+  border-color: #525252;
 }
 /* ================================== (Survey Content > Exit Page) ===================================== */
 /* ======================================= (Survey Content > Errors) ======================================== */
@@ -1601,17 +1611,22 @@ input[type="radio"] + .cell-text {
     Survey question errors are displayed WITHIN a question and are wrapped in .survey-q-error containers
 */
 .survey-error {
+  background-color: #ff0000;
   color: #ffffff;
-  background-color: #dd0000;
+  font-size: 16px;
+  font-family: Arial, "MS Trebuchet", sans-serif;
 }
 .question-error {
-  color: #dd0000;
+  background-color: transparent;
+  color: #ff0000;
+  font-size: 16px;
+  font-family: Arial, "MS Trebuchet", sans-serif;
 }
 .cell.hasError,
 .element.hasError:hover,
 .rowLegendErr .oe,
 .colLegendErr .oe {
-  background-color: rgba(221, 0, 0, 0.1);
+  background-color: rgba(255, 0, 0, 0.1);
 }
 /* ===================================== (Survey Content > Extra Info) ======================================= */
 /*  
@@ -1624,44 +1639,57 @@ input[type="radio"] + .cell-text {
     so they do need some styling.
 */
 .survey-info {
-  background-color: #ffd400;
+  background-color: #ffff00;
   color: #454545;
+  font-size: 16px;
+  font-family: Arial, "MS Trebuchet", sans-serif;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
   padding: 10px;
 }
 .survey-warning {
-  background-color: #ffc0cb;
+  background-color: #ffff00;
   color: #454545;
+  font-size: 16px;
+  font-family: Arial, "MS Trebuchet", sans-serif;
   padding: 10px;
   font-weight: bold;
 }
 .autosave-restart {
-  max-width: 932px;
-  background: #409bbc;
   border: 1px solid #3670A0;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
-  color: #ffffff;
   display: block;
   margin-bottom: 10px;
   padding: 10px;
   text-align: center;
   text-decoration: none;
 }
-.autosave-restart:hover,
-.autosave-restart:focus {
-  background: #52a6c4;
-  color: #ffffff;
-}
 /* ======================================== (Survey Content > Footer) ======================================= */
-.footer a {
+.footer {
   color: #454545;
+  font-size: 16px;
+  font-family: Arial, "MS Trebuchet", sans-serif;
+}
+.footer a {
+  color: #0000ff;
 }
 .footer a:hover,
 .footer a:focus,
 .footer a:active {
-  color: #454545;
+  color: #3333ff;
+}
+.dq-rating-colors-demo {
+  color: #ffffff;
+}
+.dq-rating-colors-demo .like {
+  background-color: #c5d600;
+}
+.dq-rating-colors-demo .neutral {
+  background-color: #00b4d6;
+}
+.dq-rating-colors-demo .dislike {
+  background-color: #ba0000;
 }

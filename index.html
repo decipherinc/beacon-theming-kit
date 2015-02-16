@@ -23,6 +23,10 @@
   <div class="survey-section">
       <div class="survey-body">
 
+        <div class="surveyLogo survey-logo survey-logo-left group">
+            <img src="assets/img/decipher-logo.png" class="survey-logo-image" alt="logo" align="left">
+        </div>
+
         <div class="progress-bar progress-top" title="progress bar - 0% complete">
           <div class="progress-box-outer"><span class="progress-box-completed" style="width: 0%;"></span></div>
           <div class="progress-text"><span class="screen-readers-only">progress bar </span>0%</div>
@@ -256,7 +260,7 @@
                         max-width: 14.28%;
                     }
                 </style>
-                <h1 title="question" class="question-text"> Button Multi Select Grid ("One Line Responsive" Mode)</h1>
+                <h1 title="question" class="question-text"> Button Multi Select Grid (Basic Horizontal Mode)</h1>
                 <h2 title="instructions" class="instruction-text"></h2>
                 <div class="answers btn-select-group">
                     <div class="btn-select">
@@ -820,7 +824,7 @@
                 </div><!-- /.question -->
 
                 <div class="survey-buttons">
-                    <input type="submit" name="continue" id="btn_continue" class="button continue" value="Continue &raquo;" onClick="var i = document.createElement('input');i.setAttribute('type', 'hidden');i.setAttribute('value', '1');i.setAttribute('name', '__has_javascript');document.forms.primary.appendChild(i);"/>
+                    <input type="button" name="continue" id="btn_continue" class="button continue" value="Continue &raquo;" onClick="window.location.href = 'page-2.html';"/>
                 </div>
                 
                 <INPUT type="hidden" name="state" value="b85b39c9993c72bb31dfa00e9718684de31795cf0000011d000001e8"/>
@@ -834,5 +838,6 @@
         </div><!-- /.footer -->
     </div>
     <div id="detectBreakpoint"></div>
+    <script src="//localhost:35729/livereload.js"></script>
 </body>
 </html>

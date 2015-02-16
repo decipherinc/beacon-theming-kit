@@ -9,27 +9,40 @@
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+  <script src="assets/js/button-select.js"></script>
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/respview.js"></script>
+  <script src="assets/js/survey.respondent-post125.js"></script>
+  
 </head>
 <body class="survey-page non-touch">
-  <div id="survey" class="survey-container">
-  <div class="survey-section"><div id="surveyHeader" class="survey-header group">&nbsp;</div>
-    <!-- /#surveyHeader --></div>
-    <div class="survey-section">
-      <div class="survey-body">
-        <div class="exit-message">
-          <h2 class="exit-message-header">Survey Completed - Thank You</h2>
-          <p class="exit-message-text">Thank you for taking our survey. Your efforts are greatly appreciated!</p>
+    <div id="survey" class="survey-container">
+        <div class="survey-section">
+            <div class="survey-extra-header"><!-- an area where programmers can insert their own header stuff --></div>
         </div>
-      </div>
-      <!-- /#surveyContent -->
-    </div>
     <div class="survey-section">
-      <div class="footer">
-        <a href="http://decipherinc.com/survey/privacy?decLang=english" target="_blank">Privacy Policy</a> - <a href="/support?decLang=english" target="_blank">Help</a>
-      </div>
+        <div class="survey-body">
+
+            <div class="progress-bar progress-top" title="progress bar - 0% complete">
+              <div class="progress-box-outer"><span class="progress-box-completed" style="width: 0%;"></span></div>
+              <div class="progress-text"><span class="screen-readers-only">progress bar </span>0%</div>
+            </div><!-- /.progress-bar -->
+
+
+
+            <!-- <form action=""></form> -->
+
+
+
+
+        </div><!-- /.survey-body -->
+    </div><!-- /.survey-section -->
+    <div class="survey-section">
+        <div class="footer">
+            <a href="http://decipherinc.com/survey/privacy?decLang=english" target="_blank">Privacy Policy</a> - <a href="/support?decLang=english" target="_blank">Help</a>
+        </div><!-- /.footer -->
     </div>
-  </div>
-  <div id="detectBreakpoint"></div>
-  <!-- /#survey -->
+    <div id="detectBreakpoint"></div>
+    <script src="//localhost:35729/livereload.js"></script>
 </body>
 </html>
