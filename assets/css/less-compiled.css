@@ -1,3 +1,4 @@
+@import url('http://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic');
 /*
     Notes:
 
@@ -8,16 +9,16 @@
 */
 /* ================================================== (AQ Colors) ================================================== */
 .survey-theme-colors {
-  color: #ffffff;
-  background-color: #454545;
+  color: white;
+  background-color: green;
 }
 .survey-theme-colors-selected {
-  color: #ffffff;
+  color: white;
   background-color: #a7c5df;
 }
 .survey-theme-colors-disabled {
-  color: #ffffff;
-  background-color: rgba(69, 69, 69, 0.4);
+  color: white;
+  background-color: rgba(0, 128, 0, 0.4);
 }
 /* ======================================================= (Common) ========================================================*/
 * {
@@ -274,7 +275,7 @@ br[_mce_bogus] {
 }
 .fir-icon .rounded .fir-bg,
 .fir-icon .square .fir-bg {
-  fill: #ffffff;
+  fill: white;
 }
 .fir-icon .rounded .fir-selected,
 .fir-icon .square .fir-selected {
@@ -298,7 +299,7 @@ br[_mce_bogus] {
   fill: transparent;
 }
 .fir-icon .scale .fir-small {
-  fill: #c5d600;
+  fill: green;
 }
 .fir-icon.selected .scale .fir-large {
   fill: #a7c5df;
@@ -340,7 +341,7 @@ br[_mce_bogus] {
   margin-left: 0px;
 }
 .fir-icon i {
-  color: #c5d600;
+  color: green;
 }
 .fir-icon.selected i {
   color: #a7c5df;
@@ -374,7 +375,7 @@ br[_mce_bogus] {
 .non-touch .fir-icon .square:hover .fir-selected,
 .non-touch .clickableCell:hover .fir-icon .rounded .fir-selected,
 .non-touch .clickableCell:hover .fir-icon .square .fir-selected {
-  fill: #c5d600;
+  fill: green;
 }
 .non-touch .fir-icon .rounded:hover:active .fir-selected,
 .non-touch .fir-icon .square:hover:active .fir-selected,
@@ -390,7 +391,7 @@ br[_mce_bogus] {
 }
 .non-touch .clickableCell:hover .fir-icon .scale .fir-medium,
 .non-touch .fir-icon .scale:hover .fir-medium {
-  fill: #c5d600;
+  fill: green;
 }
 .non-touch .clickableCell:hover:active .fir-icon .scale .fir-large,
 .non-touch .fir-icon .scale:hover:active .fir-large {
@@ -410,7 +411,7 @@ br[_mce_bogus] {
 }
 .non-touch .clickableCell:hover:active .fir-icon.disabled .scale .fir-small,
 .non-touch .fir-icon.disabled .scale:hover:active .fir-small {
-  fill: #c5d600;
+  fill: green;
 }
 /*********************************************
  FIR FONT-AWESOME
@@ -555,7 +556,7 @@ textarea {
   position: relative;
 }
 .devContainer .grid {
-  background-color: #ffffff;
+  background-color: white;
 }
 .devContainer .question-text {
   color: #454545;
@@ -936,7 +937,7 @@ textarea {
 }
 .fir-icon .rounded .fir-bg,
 .fir-icon .square .fir-bg {
-  fill: #ffffff;
+  fill: white;
 }
 .fir-icon .rounded .fir-selected,
 .fir-icon .square .fir-selected {
@@ -960,7 +961,7 @@ textarea {
   fill: transparent;
 }
 .fir-icon .scale .fir-small {
-  fill: #c5d600;
+  fill: green;
 }
 .fir-icon.selected .scale .fir-large {
   fill: #a7c5df;
@@ -1007,7 +1008,7 @@ textarea {
   margin-left: 0px;
 }
 .fir-icon i {
-  color: #c5d600;
+  color: green;
 }
 .fir-icon.selected i {
   color: #a7c5df;
@@ -1041,7 +1042,7 @@ textarea {
 .non-touch .fir-icon .square:hover .fir-selected,
 .non-touch .clickableCell:hover .fir-icon .rounded .fir-selected,
 .non-touch .clickableCell:hover .fir-icon .square .fir-selected {
-  fill: #c5d600;
+  fill: green;
 }
 .non-touch .fir-icon .rounded:hover:active .fir-selected,
 .non-touch .fir-icon .square:hover:active .fir-selected,
@@ -1057,7 +1058,7 @@ textarea {
 }
 .non-touch .clickableCell:hover .fir-icon .scale .fir-medium,
 .non-touch .fir-icon .scale:hover .fir-medium {
-  fill: #c5d600;
+  fill: green;
 }
 .non-touch .clickableCell:hover:active .fir-icon .scale .fir-large,
 .non-touch .fir-icon .scale:hover:active .fir-large {
@@ -1077,7 +1078,7 @@ textarea {
 }
 .non-touch .clickableCell:hover:active .fir-icon.disabled .scale .fir-small,
 .non-touch .fir-icon.disabled .scale:hover:active .fir-small {
-  fill: #c5d600;
+  fill: green;
 }
 .buttonSelect {
   max-width: 932px;
@@ -1132,18 +1133,18 @@ textarea {
 .btn-select label {
   position: relative;
   max-width: 100%;
-  background-color: #454545;
+  background-color: green;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  border-bottom: 1px solid #1f1f1f;
+  border-bottom: 1px solid #003400;
   display: inline-block;
   cursor: pointer;
 }
 .btn-select label .bs-text {
   padding: 7px 1em 6px 30px;
   text-align: left;
-  color: #ffffff;
+  color: white;
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
   transform-style: preserve-3d;
@@ -1183,7 +1184,7 @@ textarea {
   transition: opacity 100ms ease;
 }
 .btn-select label .bs-fir svg .fir-bg {
-  fill: #454545;
+  fill: green;
 }
 .btn-select label .bs-fir svg .fir-base {
   fill: rgba(255, 255, 255, 0.9);
@@ -1193,16 +1194,16 @@ textarea {
 }
 .btn-select label:hover,
 .btn-select label:focus {
-  background-color: #6b6b6b;
-  border-bottom-color: #383838;
+  background-color: #00cd00;
+  border-bottom-color: #006700;
 }
 .btn-select label:hover svg .fir-bg,
 .btn-select label:focus svg .fir-bg {
-  fill: #6b6b6b;
+  fill: #00cd00;
 }
 .btn-select label:hover svg .fir-base,
 .btn-select label:focus svg .fir-base {
-  fill: #ffffff;
+  fill: white;
 }
 .btn-select input[type="radio"]:checked + label,
 .btn-select input[type="checkbox"]:checked + label {
@@ -1219,11 +1220,11 @@ textarea {
 }
 .btn-select input[type="radio"]:checked + label svg .fir-base,
 .btn-select input[type="checkbox"]:checked + label svg .fir-base {
-  fill: #ffffff;
+  fill: white;
 }
 .btn-select input[type="radio"]:checked + label svg .fir-selected,
 .btn-select input[type="checkbox"]:checked + label svg .fir-selected {
-  fill: #ffffff;
+  fill: white;
 }
 .bsg-grid.bsg-grid-respond .btn-select {
   display: inline-block;
@@ -1257,16 +1258,16 @@ textarea {
 
   Rules of thumb are...
     • In the markup, styles use hyphen-case, JS uses camelCase
+    • Use 'em' units for font sizes (ex. font-size: 1.125em;). This way the user can increase or decrease all font sizes proportionally by adjusting the @general-font-size variable (which is used by the theme editor UI as well).
     • Use the variables.
-        - Get as far as you can styling the variables before adding additional styles.
         - The variables are piped into the theme editor and used for making adjustments using the UI, so don't delete any of the preset variables.
-        - You can add theme specific variables at the bottom of the variables list if you want to provide some customization controls or for your own convenience.
         - In general, avoid messing with any of the styles that are using the variables in the theme file.
+        - You can add theme specific variables at the bottom of the variables list if you want to provide some customization controls or for your own convenience.
     • Stay flat.
-        - Avoid too much style nesting. By keeping things flat, you'll make it much easier for users to perform simple overrides in the theme editor's css injector. Wouldn't you rather override ".instructions" than ".survey-body .question .instructions"?
+        - Avoid too much style nesting. By keeping things flat, you'll make it much easier for users to perform simple overrides in the theme editor's css injector. Wouldn't you rather override ".instructions" instead of ".survey-body .question .instructions"?
     • Stay Responsive. The responsive strategy is as follows..
         - Mobile first. Style the survey with a narrow viewport first, apply all the mobile styles before any desktop styling media queries.
-        - Then Desktop. You can use the "@media @desktop {}" media query in any selector to apply it's stylings over the @breakpoint (768px by default here).
+        - Then Desktop. You can use the "@media @desktop {}" media query in any selector to apply it's stylings over the @breakpoint (there are examples of this scattered about).
         - BUT TABLES ARE SPECIAL. Tables attempt to stay a table for as long as possible before collapsing into a list for narrow viewports, therefore they don't use media queries. There are sepparate sections (see table of contents below) for styling the list & desktop table modes exclusively.
 */
 /* ============================================ TABLE OF CONTENTS ============================================ */
@@ -1274,56 +1275,44 @@ textarea {
     --- Variables
     --- Resets
     --- Reusable Classes
-    --- Survey Content
-    --- Survey Content > Logo
-    --- Survey Content > Progress Bar
-    --- Survey Content > Comment
-    --- Survey Content > Question
-    --- Survey Content > Question > Question Text
-    --- Survey Content > Question > Instructions
-    --- Survey Content > Question > Answers
-    --- Survey Content > Question > Answers > Mobile First Grid Styling
-    --- Survey Content > Question > Answers > Desktop Grid Styling
-    --- Survey Content > Buttons
-    --- Survey Content > Exit Page
-    --- Survey Content > Errors
-    --- Survey Content > Extra Info
-    --- Survey Content > Footer
+    --- Survey Page (html, body, etc)
+    --- Logo
+    --- Progress Bar
+    --- Comment
+    --- Question
+    --- Question > Question Text
+    --- Question > Instructions
+    --- Question > Answers
+    --- Question > Answers > Mobile First Table Styling
+    --- Question > Answers > Desktop Table Styling
+    --- Buttons
+    --- Exit Page
+    --- Errors
+    --- Extra Info
+    --- Footer
 */
-/* =============================================== (Variables) =============================================== */
-/*
-  For importing fonts...
-  First check out our list of fonts already available in respondent-view-font-families.less
-  To import any of those, just:
-  @import @the-fonts-variable-name;
-
-  If you want to use a webfont not available in our list, make your own variable to pipe into an import statement like this...
-  @the-url-for-the-font-import: url(http://fonts.googleapis.com/css?family=Lato:400,300,400italic,700);
-  @import @the-url-for-the-font-import;
-
-  Use only 1 import statement in a theme, all your fonts should load from the same source.
-*/
+/* ============================================= ( Variables ) ============================================= */
 /*
   Add additional theme specific variables below.
   Use a prefix, something like "@contemporary-fg-border-radius" if the theme was named "contemporary".
   Creating variables allows the user to easily change things, they may appear in the theme editor UI as controls.
 */
-/* ================================================ (Resets) ================================================ */
+/* =============================================== ( Resets ) =============================================== */
 /* 
     There are already some resets in place by default, but you can add your own resets or normalize styles here.
 /*
 
 
-/* =========================================== (Reusable Classes) =========================================== */
+/* ========================================== ( Reusable Classes ) ========================================== */
 .large-text {
   font-size: 1.4em;
 }
 .small-text {
   font-size: 0.75em;
 }
-/* ============================================ (Survey Content) ============================================ */
+/* ============================================ ( Survey Page ) ============================================ */
 html {
-  font-family: Arial, "MS Trebuchet", sans-serif;
+  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
   font-size: 12.8px;
 }
 @media (min-width: 768px) {
@@ -1332,7 +1321,7 @@ html {
   }
 }
 .survey-page {
-  background-color: #ffffff;
+  background-color: white;
   color: #454545;
 }
 @media (min-width: 768px) {
@@ -1343,7 +1332,7 @@ html {
 .survey-body {
   margin: 0 auto;
   padding: 1em 14px;
-  background-color: #ffffff;
+  background-color: white;
   position: relative;
 }
 @media (min-width: 768px) {
@@ -1352,7 +1341,7 @@ html {
     padding-right: 18px;
   }
 }
-/* ========================================== (Survey Content > Logo) ======================================== */
+/* ================================================= ( Logo ) =============================================== */
 .logo {
   text-align: center;
 }
@@ -1362,7 +1351,7 @@ html {
 .logo-right {
   text-align: right;
 }
-/* ==================================== (Survey Content > Progress Bar) ===================================== */
+/* ============================================ ( Progress Bar ) ============================================ */
 /*
   Left a basic progress bar built out, but feel to make your own!
 */
@@ -1411,40 +1400,40 @@ html {
 }
 .progress-text {
   color: #454545;
-  font-family: Arial, "MS Trebuchet", sans-serif;
+  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
   line-height: 1em;
   padding-left: 0.5em;
 }
-/* ======================================= (Survey Content > Comment) ======================================== */
-/* ====================================== (Survey Content > Question) ======================================= */
+/* ============================================== ( Comment ) =============================================== */
+/* ============================================= ( Question ) ============================================== */
 .question {
   margin-top: 1em;
   clear: both;
 }
-/* =============================== (Survey Content > Question > Question Text) ============================== */
+/* ====================================== ( Question > Question Text ) ===================================== */
 .question-text {
   color: #454545;
   font-size: 16px;
-  font-family: Arial, "MS Trebuchet", sans-serif;
+  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
 }
 .hideQuestionText .question-text {
   display: none;
 }
-/* =============================== (Survey Content > Question > Instructions) =============================== */
+/* ====================================== ( Question > Instructions ) ====================================== */
 .instruction-text {
   color: rgba(69, 69, 69, 0.9);
   font-size: 16px;
-  font-family: Arial, "MS Trebuchet", sans-serif;
+  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
 }
 /* Programmers have the option to hide the respondent instruction text */
 .hideInstructionText .instruction-text {
   display: none;
 }
-/* ================================== (Survey Content > Question > Answers ================================== */
+/* ========================================= ( Question > Answers ) ========================================= */
 .answers {
   color: #454545;
   font-size: 16px;
-  font-family: Arial, "MS Trebuchet", sans-serif;
+  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
 }
 select {
   font-size: 1em;
@@ -1472,7 +1461,7 @@ textarea {
 textarea:focus {
   border: 1px solid #a7c5df;
 }
-/* ==================== (Survey Content > Question > Answers > Mobile First Grid Styles) ==================== */
+/* =========================== ( Question > Answers > Mobile First Table Styles ) =========================== */
 .cell-text {
   padding: 0 0.4em;
 }
@@ -1513,7 +1502,7 @@ input[type="radio"] + .cell-text {
 .legend-level-3 {
   font-size: 1.3em;
 }
-/* ====================== (Survey Content > Question > Answers > Desktop Grid Styling) ====================== */
+/* ============================= ( Question > Answers > Desktop Table Styling ) ============================= */
 /*
   All the desktop grid styles need to have the .grid-desktop-mode prefixed before
   These take place until a table absolutely must collapse.. It's a long story.
@@ -1550,7 +1539,7 @@ input[type="radio"] + .cell-text {
 .grid-table-mode .element {
   padding: 0.4em;
 }
-/* ======================================== (Survey Content > Buttons) ======================================= */
+/* =============================================== ( Buttons ) ============================================== */
 /*
   "Continue", "Finish", etc.
   Button Select buttons are styled in it's own less file, use the variables for styling those.
@@ -1567,9 +1556,9 @@ input[type="radio"] + .cell-text {
 }
 .button {
   background-color: #454545;
-  color: #ffffff;
+  color: white;
   font-size: 16px;
-  font-family: Arial, "MS Trebuchet", sans-serif;
+  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
   border: 1px solid #2b2b2b;
   -webkit-appearance: none;
   -webkit-border-radius: 0;
@@ -1592,9 +1581,9 @@ input[type="radio"] + .cell-text {
 .button.back,
 .button.randomize {
   background-color: #454545;
-  color: #ffffff;
+  color: white;
   font-size: 16px;
-  font-family: Arial, "MS Trebuchet", sans-serif;
+  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
   border: 1px solid #2b2b2b;
 }
 .button.back:hover,
@@ -1604,23 +1593,23 @@ input[type="radio"] + .cell-text {
   background-color: #6b6b6b;
   border-color: #525252;
 }
-/* ================================== (Survey Content > Exit Page) ===================================== */
-/* ======================================= (Survey Content > Errors) ======================================== */
+/* ============================================ ( Exit Page ) =============================================== */
+/* =============================================== ( Errors ) =============================================== */
 /*
     Survey page errors are displayed at the top of the page and are wrapped in a .survey-page-error container
     Survey question errors are displayed WITHIN a question and are wrapped in .survey-q-error containers
 */
 .survey-error {
-  background-color: #ff0000;
-  color: #ffffff;
+  background-color: red;
+  color: white;
   font-size: 16px;
-  font-family: Arial, "MS Trebuchet", sans-serif;
+  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
 }
 .question-error {
   background-color: transparent;
-  color: #ff0000;
+  color: red;
   font-size: 16px;
-  font-family: Arial, "MS Trebuchet", sans-serif;
+  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
 }
 .cell.hasError,
 .element.hasError:hover,
@@ -1628,7 +1617,7 @@ input[type="radio"] + .cell-text {
 .colLegendErr .oe {
   background-color: rgba(255, 0, 0, 0.1);
 }
-/* ===================================== (Survey Content > Extra Info) ======================================= */
+/* ============================================ ( Extra Info ) ============================================== */
 /*  
     This is mainly used in QA mode for:
         - page breaks
@@ -1639,20 +1628,20 @@ input[type="radio"] + .cell-text {
     so they do need some styling.
 */
 .survey-info {
-  background-color: #ffff00;
+  background-color: yellow;
   color: #454545;
   font-size: 16px;
-  font-family: Arial, "MS Trebuchet", sans-serif;
+  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
   padding: 10px;
 }
 .survey-warning {
-  background-color: #ffff00;
+  background-color: yellow;
   color: #454545;
   font-size: 16px;
-  font-family: Arial, "MS Trebuchet", sans-serif;
+  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
   padding: 10px;
   font-weight: bold;
 }
@@ -1666,15 +1655,21 @@ input[type="radio"] + .cell-text {
   padding: 10px;
   text-align: center;
   text-decoration: none;
+  max-width: 932px;
 }
-/* ======================================== (Survey Content > Footer) ======================================= */
+@media (min-width: 768px) {
+  .autosave-restart {
+    max-width: 924px;
+  }
+}
+/* =============================================== ( Footer ) ============================================== */
 .footer {
   color: #454545;
   font-size: 16px;
-  font-family: Arial, "MS Trebuchet", sans-serif;
+  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
 }
 .footer a {
-  color: #0000ff;
+  color: blue;
 }
 .footer a:hover,
 .footer a:focus,
@@ -1682,7 +1677,7 @@ input[type="radio"] + .cell-text {
   color: #3333ff;
 }
 .dq-rating-colors-demo {
-  color: #ffffff;
+  color: white;
 }
 .dq-rating-colors-demo .like {
   background-color: #c5d600;

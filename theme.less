@@ -12,16 +12,16 @@
 
   Rules of thumb are...
     • In the markup, styles use hyphen-case, JS uses camelCase
+    • Use 'em' units for font sizes (ex. font-size: 1.125em;). This way the user can increase or decrease all font sizes proportionally by adjusting the @general-font-size variable (which is used by the theme editor UI as well).
     • Use the variables.
-        - Get as far as you can styling the variables before adding additional styles.
         - The variables are piped into the theme editor and used for making adjustments using the UI, so don't delete any of the preset variables.
-        - You can add theme specific variables at the bottom of the variables list if you want to provide some customization controls or for your own convenience.
         - In general, avoid messing with any of the styles that are using the variables in the theme file.
+        - You can add theme specific variables at the bottom of the variables list if you want to provide some customization controls or for your own convenience.
     • Stay flat.
-        - Avoid too much style nesting. By keeping things flat, you'll make it much easier for users to perform simple overrides in the theme editor's css injector. Wouldn't you rather override ".instructions" than ".survey-body .question .instructions"?
+        - Avoid too much style nesting. By keeping things flat, you'll make it much easier for users to perform simple overrides in the theme editor's css injector. Wouldn't you rather override ".instructions" instead of ".survey-body .question .instructions"?
     • Stay Responsive. The responsive strategy is as follows..
         - Mobile first. Style the survey with a narrow viewport first, apply all the mobile styles before any desktop styling media queries.
-        - Then Desktop. You can use the "@media @desktop {}" media query in any selector to apply it's stylings over the @breakpoint (768px by default here).
+        - Then Desktop. You can use the "@media @desktop {}" media query in any selector to apply it's stylings over the @breakpoint (there are examples of this scattered about).
         - BUT TABLES ARE SPECIAL. Tables attempt to stay a table for as long as possible before collapsing into a list for narrow viewports, therefore they don't use media queries. There are sepparate sections (see table of contents below) for styling the list & desktop table modes exclusively.
 */
 /* ============================================ TABLE OF CONTENTS ============================================ */
@@ -29,64 +29,63 @@
     --- Variables
     --- Resets
     --- Reusable Classes
-    --- Survey Content
-    --- Survey Content > Logo
-    --- Survey Content > Progress Bar
-    --- Survey Content > Comment
-    --- Survey Content > Question
-    --- Survey Content > Question > Question Text
-    --- Survey Content > Question > Instructions
-    --- Survey Content > Question > Answers
-    --- Survey Content > Question > Answers > Mobile First Grid Styling
-    --- Survey Content > Question > Answers > Desktop Grid Styling
-    --- Survey Content > Buttons
-    --- Survey Content > Exit Page
-    --- Survey Content > Errors
-    --- Survey Content > Extra Info
-    --- Survey Content > Footer
+    --- Survey Page (html, body, etc)
+    --- Logo
+    --- Progress Bar
+    --- Comment
+    --- Question
+    --- Question > Question Text
+    --- Question > Instructions
+    --- Question > Answers
+    --- Question > Answers > Mobile First Table Styling
+    --- Question > Answers > Desktop Table Styling
+    --- Buttons
+    --- Exit Page
+    --- Errors
+    --- Extra Info
+    --- Footer
 */
-/* =============================================== (Variables) =============================================== */
+/* ============================================= ( Variables ) ============================================= */
 
-// ********* Color Palette Chips (these work with the theme editor color palette selector)
-  // Use these to allow the user to change the color pallete for the theme and get a nice result. The colors you set here will be used by default.
-  // In general, pretend that these are the only colors you can use, they all have a recomended purpose, but you might want your progress bar fill to match the background color and stuff. You might not even need them all.
+// **************** Color Palette Chips **************** //
+  // Use these to allow the user to change the color pallete for the theme and get a nice result. The colors you set here will be used by default when selecting your theme.
+  // In general, pretend that these are the only colors you can use, they all have a recomended purpose, but you might want your progress bar fill to match the background color or something. You might not even need them all.
 @clr-1: #f8f8f8; // Background  - the very back, often not seen on mobile
 @clr-2: white; // Foreground  - the "page" on top of the background that contains the survey content
 @clr-3: #454545; // Text  - for most text, usually some form of black
-@clr-4: #ddd; // Borders  - general framing color for borders, input borders, etc.
-@clr-5: #A7C5DF; // Selected  - button bg color when selected, selected fir item, active text input
-@clr-6: red; // Accent  - colored question text, maybe for some decritive elements
+@clr-4: #ddd; // Borders  - general framing color for table borders, input borders, etc.
+@clr-5: lightgreen; // Buttons - background color on answer buttons like Button Select.
+@clr-6: green; // Selected  - button bg color when selected, selected fir item, active text input
 
   // not exposed in ui color pallete picker
+@accent-clr: purple; // Accent  - used for Links, maybe decritive elements, maybe survey button (continue/finish) colors
 @error-clr: red; // usually a shade of red
 @info-clr: yellow;
 @warning-clr: yellow; // usually a shade of yellow
+@dq-like: #C5D600;
+@dq-neutral: #00B4D6;
+@dq-dislike: #BA0000;
 
 
-// ********* General
+// ********************** General ********************** //
 @bg-color: @clr-1;
 @fg-color: @clr-2;
 @text-color: @clr-3;
 @border-color: @clr-4;
-/*
-  For importing fonts...
-  First check out our list of fonts already available in respondent-view-font-families.less
-  To import any of those, just:
-  @import @the-fonts-variable-name;
 
-  If you want to use a webfont not available in our list, make your own variable to pipe into an import statement like this...
-  @the-url-for-the-font-import: url(http://fonts.googleapis.com/css?family=Lato:400,300,400italic,700);
-  @import @the-url-for-the-font-import;
+// Fonts
+// Add any google font by replacing this URL. whatever @webfont equals will be the imported google font.
+@webfont: "http://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic";
+.gFontImport (@url) {
+    @import url('@{url}');
+}
+.gFontImport(@webfont);
 
-  Use only 1 import statement in a theme, all your fonts should load from the same source.
-*/
-// @web-font: url(http://fonts.googleapis.com/css?family=Raleway:100|Josefin+Slab);
-// @import @{web-font};
-@primary-font-family: Arial,"MS Trebuchet",sans-serif; // used by interface buttons, progressbar, comments, etc.
+@primary-font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
 @general-font-size: 16px;
 
 
-// ********* Progress Bar
+// ******************** Progress Bar ******************** //
 @progress-border-color: contrast(@fg-color, darken(@clr-4, 15%), lighten(@clr-4, 20%), 53%);
 @progress-empty-color: transparent;
 @progress-fill-color: lighten(@progress-border-color, 15%);
@@ -95,19 +94,19 @@
 @progress-font-family: @primary-font-family;
 
 
-// ********* Question Text
+// ******************* Question Text ******************* //
 @question-text-color: @clr-3;
 @question-font-size: @general-font-size;
 @question-font-family: @primary-font-family;
 
 
-// ********* Instruction Text
+// ****************** Instruction Text ****************** //
 @instruction-text-color: fadeout(@clr-3, 10%);
 @instruction-font-size: @general-font-size;
 @instruction-font-family: @primary-font-family;
 
 
-// ********* Answers
+// ********************** Answers ********************** //
 @answer-text-color: @clr-3;
 @answer-font-size: @general-font-size;
 @answer-font-family: @primary-font-family;
@@ -120,30 +119,24 @@
 
 // Text Inputs
 @input-border-color: @clr-4;
-@input-border-color-active: @clr-5;
+@input-border-color-active: @clr-6;
 
 // FIR ("Form Image Replacement", the svg radios & checkboxes)
 @fir-border: @clr-4;
 @fir-base: @clr-2;
-@fir-hover: #c5d600;
-@fir-selected: @clr-5;
+@fir-hover: @clr-5;
+@fir-selected: @clr-6;
 @fir-size: 20px;
 
 
-// ********* DQ Stuff (DQ = dynamic question)
-@dq-like: #C5D600;
-@dq-neutral: #00B4D6;
-@dq-dislike: #BA0000;
-
-
-// ********* Buttons
+// ********************** Buttons ********************** //
 // Answer Buttons (in-survey buttons like button select)
 @btn-text-color: @clr-2;
 @btn-font-size: @general-font-size;
 @btn-font-family: @primary-font-family;
-@btn-bg-color: @clr-3;
+@btn-bg-color: @clr-5;
 @btn-bg-color-hover: lighten(@btn-bg-color, 15%);
-@btn-bg-color-selected: @clr-5;
+@btn-bg-color-selected: @clr-6;
 @btn-border-color: darken(@btn-bg-color, 15%);
 @btn-border-color-hover: lighten(@btn-border-color, 10%);
 @btn-border-color-selected: darken(@btn-bg-color-selected, 15%);
@@ -166,7 +159,7 @@
 @survey-sd-btn-border-color: darken(@survey-sd-btn-bg-color, 10%);
 @survey-sd-btn-border-color-hover: darken(@survey-sd-btn-bg-color-hover, 10%);
 
-// ********* Messaging
+// ********************* Messaging ********************* //
 // Survey Errors (error messaging at the page level)
 @survey-error-text-color: @clr-2;
 @survey-error-font-size: @general-font-size;
@@ -192,7 +185,7 @@
 @survey-warning-font-family: @primary-font-family;
 @survey-warning-bg-color: @warning-clr;
 
-// ********* Footer
+// *********************** Footer *********************** //
 @footer-font-color: @clr-3;
 @footer-font-size: @general-font-size;
 @footer-font-family: @primary-font-family;
@@ -201,7 +194,8 @@
 
 
 
-// ********* Structural Controls (these don't appear in the Theme Editor UI)
+// **************** Structural Controls **************** //
+  // these don't appear in the Theme Editor UI
 // Breakpoint
 @breakpoint: 768px; // set the breakpoint here, then use "@media @desktop {}" for desktop styles in your theme.
 @desktop: ~"(min-width: @{breakpoint})";
@@ -216,17 +210,13 @@
 @fg-inner-width-mobile: @fg-width - (@fg-padding-left-right-mobile * 2); // fg width minus padding, used 
 @fg-inner-width-desktop: @fg-width - (@fg-padding-left-right-desktop * 2);
 
-// Buttons (Button Select questions, etc)
+// Buttons Select Questions
 @btn-select-default-max-width: 320px; // widest a button can be by default (320px is 1/3 of 960px, so would fit 3 wide by default)
 @btn-select-spacing: 0 2px 4px; // set padding around buttons to control spacing when in grid mode, left/right are stripped in list mode.
 @btn-select-border-radius: 3px;
 
 
-@mobile-font-size: 0.875em;
-@desktop-font-size: 0.750em;
-
-
-// ********* Theme Specific
+// ******************* Theme Specific ******************* //
 /*
   Add additional theme specific variables below.
   Use a prefix, something like "@contemporary-fg-border-radius" if the theme was named "contemporary".
@@ -234,13 +224,14 @@
 */
 
 
-/* ================================================ (Resets) ================================================ */
+
+/* =============================================== ( Resets ) =============================================== */
 /* 
     There are already some resets in place by default, but you can add your own resets or normalize styles here.
 /*
 
 
-/* =========================================== (Reusable Classes) =========================================== */
+/* ========================================== ( Reusable Classes ) ========================================== */
 .large-text {
   font-size: 1.4em;
 }
@@ -250,10 +241,10 @@
 }
 
 
-/* ============================================ (Survey Content) ============================================ */
+/* ============================================ ( Survey Page ) ============================================ */
 html {
   font-family: @primary-font-family;
-  font-size: @general-font-size * 0.8;
+  font-size: @general-font-size * 0.8; // use a multiplyer for mobile font size so that user only has to change general font size to get proportional resizing.
   @media @desktop {
     font-size: @general-font-size;
   }
@@ -278,7 +269,7 @@ html {
   }
 }
 
-/* ========================================== (Survey Content > Logo) ======================================== */
+/* ================================================= ( Logo ) =============================================== */
 .logo { // logo styles can go here
   text-align: center; // centered by default
   img {}
@@ -293,7 +284,7 @@ html {
 }
 
 
-/* ==================================== (Survey Content > Progress Bar) ===================================== */
+/* ============================================ ( Progress Bar ) ============================================ */
 /*
   Left a basic progress bar built out, but feel to make your own!
 */
@@ -355,13 +346,13 @@ html {
 }
 
 
-/* ======================================= (Survey Content > Comment) ======================================== */
+/* ============================================== ( Comment ) =============================================== */
 .comment {}
 
 .comment-text {}
 
 
-/* ====================================== (Survey Content > Question) ======================================= */
+/* ============================================= ( Question ) ============================================== */
 // Question Container 
 .question {
   margin-top: 1em;
@@ -369,7 +360,7 @@ html {
 }
 
 
-/* =============================== (Survey Content > Question > Question Text) ============================== */
+/* ====================================== ( Question > Question Text ) ===================================== */
 .question-text {
   color: @question-text-color;
   font-size: @question-font-size;
@@ -380,7 +371,7 @@ html {
 .hideQuestionText .question-text { display: none; }
 
 
-/* =============================== (Survey Content > Question > Instructions) =============================== */
+/* ====================================== ( Question > Instructions ) ====================================== */
 .instruction-text {
   color: @instruction-text-color;
   font-size: @instruction-font-size;
@@ -391,7 +382,7 @@ html {
 .hideInstructionText .instruction-text { display: none; }
 
 
-/* ================================== (Survey Content > Question > Answers ================================== */
+/* ========================================= ( Question > Answers ) ========================================= */
 // Answers Container
 .answers {
   color: @question-text-color;
@@ -432,7 +423,7 @@ textarea {
   }
 }
 
-/* ==================== (Survey Content > Question > Answers > Mobile First Grid Styles) ==================== */
+/* =========================== ( Question > Answers > Mobile First Table Styles ) =========================== */
 // Mobile col-legends (<label>)
 .cell-text {
   padding: 0 0.4em;
@@ -489,7 +480,7 @@ textarea {
 .row-na {}
 
 
-/* ====================== (Survey Content > Question > Answers > Desktop Grid Styling) ====================== */
+/* ============================= ( Question > Answers > Desktop Table Styling ) ============================= */
 /*
   All the desktop grid styles need to have the .grid-desktop-mode prefixed before
   These take place until a table absolutely must collapse.. It's a long story.
@@ -531,7 +522,7 @@ textarea {
 }
 
 
-/* ======================================== (Survey Content > Buttons) ======================================= */
+/* =============================================== ( Buttons ) ============================================== */
 /*
   "Continue", "Finish", etc.
   Button Select buttons are styled in it's own less file, use the variables for styling those.
@@ -582,7 +573,7 @@ textarea {
   }
 }
 
-/* ================================== (Survey Content > Exit Page) ===================================== */
+/* ============================================ ( Exit Page ) =============================================== */
 // Page Container
 .exit-message {}
 
@@ -593,7 +584,7 @@ textarea {
 .exit-message-text {}
 
 
-/* ======================================= (Survey Content > Errors) ======================================== */
+/* =============================================== ( Errors ) =============================================== */
 /*
     Survey page errors are displayed at the top of the page and are wrapped in a .survey-page-error container
     Survey question errors are displayed WITHIN a question and are wrapped in .survey-q-error containers
@@ -623,7 +614,7 @@ textarea {
 }
 
 
-/* ===================================== (Survey Content > Extra Info) ======================================= */
+/* ============================================ ( Extra Info ) ============================================== */
 /*  
     This is mainly used in QA mode for:
         - page breaks
@@ -671,14 +662,18 @@ textarea {
   padding: 10px;
   text-align: center;
   text-decoration: none;
+  max-width: @fg-inner-width-mobile;
   &:hover, &:focus {
     // background: lighten(@autosave-btn-color, 5);
     // color: @autosave-btn-text-color;
   }
+  @media @desktop {
+    max-width: @fg-inner-width-desktop;
+  }
 }
 
 
-/* ======================================== (Survey Content > Footer) ======================================= */
+/* =============================================== ( Footer ) ============================================== */
 .footer {
   color: @footer-font-color;
   font-size: @footer-font-size;
