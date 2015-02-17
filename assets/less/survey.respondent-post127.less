@@ -7,8 +7,15 @@
 
 */
 
-@preferred-survey-width: 960px;
-@preferred-item-width: @preferred-survey-width - 59px;
+// Foreground Measurements
+@fg-width: 960px;
+  // ^ sets min-width of the foreground. min instead of max because tables need to be able to extend the width in certain cases.
+  // that's why we provide the following inner width for keeping other question types (like Button Selects) from expanding the fg width.
+@fg-padding-top-bottom: 1em;
+@fg-padding-left-right-mobile: 14px; // must use same units as @fg-width for equasion below to work.
+@fg-padding-left-right-desktop: 18px; // also must use same units as @fg-width
+@fg-inner-width-mobile: @fg-width - (@fg-padding-left-right-mobile * 2); // fg width minus padding, used 
+@fg-inner-width-desktop: @fg-width - (@fg-padding-left-right-desktop * 2);
 
 /* ================================================== (AQ Colors) ================================================== */
 .survey-theme-colors {
@@ -97,12 +104,12 @@ br[_mce_bogus] { display: none; }
 }
 .survey-body, .survey-extra-header, .footer {
   margin: 0 auto;
-  min-width: @preferred-survey-width;
+  min-width: @fg-width;
   display: inline-block;
   vertical-align: top;
   max-width: 100%;
 }
-@media (max-width: @preferred-survey-width) {
+@media (max-width: @fg-width) {
   .survey-body, .survey-extra-header, .footer {
     display: block;
     min-width: 0;
@@ -110,12 +117,12 @@ br[_mce_bogus] { display: none; }
 }
 .answers {
   display: table;
-  min-width: @preferred-item-width;
+  min-width: @fg-inner-width-desktop;
   .noCols & {
     display: block;
   }
 }
-@media (max-width: @preferred-survey-width) {
+@media (max-width: @fg-width) {
   .answers {
     width: 100%;
     min-width: 0;
@@ -134,7 +141,10 @@ br[_mce_bogus] { display: none; }
 .survey-buttons {
 
     /* DOES NOT APPLY TO ".answers" and it's children */
-    max-width: @preferred-item-width;
+    max-width: @fg-inner-width-mobile;
+      @media @desktop {
+        max-width: @fg-inner-width-desktop;
+      }
     }
 
 /* Auto Width */
@@ -163,70 +173,13 @@ br[_mce_bogus] { display: none; }
 
 /* =================================================== (Survey Content) =================================================== */
 
-.survey-body > form {
+.survey-body > form, 
+.survey-info, 
+.survey-warning {
   clear: both;
 }
 
 /* ============================================ (Survey Content > Page Errors) =============================================*/
-
-
-/*
-    Error container for messages displayed at the top of the page
-    See ".survey-q-error" to modify the style of messages displayed WITHIN a question
-*/
-
-
-/* ============================================ (Survey Content > Extra Info) ==============================================*/
-
-/*
-    The respondent has already taken the survey message, and ..
-
-    This is also used in QA mode for:
-
-        - page breaks
-        - "show question attributes"
-        - "show source code"
-        - and other messages
-*/
-
-
-/* ================================================= (Survey Content > Logo) ===============================================*/
-
-
-/*
-    This element will not get written to the page if a logo is not selected in builder
-*/
-
-.logo-image {
-  max-width: 100%;
-  max-height: 5em;
-  @media @desktop {
-    max-width: 40%;
-    max-height: 8em;
-  }
-}
-
-/* ============================================ (Survey Content > Progress Bar =============================================*/
-
-
-
-/* ========================================== (Survey Content > Survey Question) ===========================================*/
-
-
-
-/* ====================================== (Survey Content > Survey Question > Error) =======================================*/
-
-
-
-/* =================================== (Survey Content > Survey Question > Question Text) ==================================*/
-
-
-
-/* =================================== (Survey Content > Survey Question > Instructions) ===================================*/
-
-
-
-/* ==================================== (Survey Content > Survey Question > Answers) =======================================*/
 
 /*********************************************
  FIR - Form Image Replacement (see fir.less for comments)
@@ -663,7 +616,10 @@ textarea {
   /* Set table width class -- ".setWidth" is added to table.grid dynamically via JS for questions with less that ten cols */
   &.setWidth {
     /* Set width for questions with less than ten cols */
-    max-width: @preferred-item-width;
+    max-width: @fg-inner-width-mobile;
+    @media @desktop {
+      max-width: @fg-inner-width-desktop
+    }
   }
 
       /* Auto Width */

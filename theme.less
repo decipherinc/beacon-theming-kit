@@ -50,12 +50,12 @@
 // **************** Color Palette Chips **************** //
   // Use these to allow the user to change the color pallete for the theme and get a nice result. The colors you set here will be used by default when selecting your theme.
   // In general, pretend that these are the only colors you can use, they all have a recomended purpose, but you might want your progress bar fill to match the background color or something. You might not even need them all.
-@clr-1: #f8f8f8; // Background  - the very back, often not seen on mobile
+@clr-1: grey; // Background  - the very back, often not seen on mobile
 @clr-2: white; // Foreground  - the "page" on top of the background that contains the survey content
 @clr-3: #454545; // Text  - for most text, usually some form of black
 @clr-4: #ddd; // Borders  - general framing color for table borders, input borders, etc.
-@clr-5: lightgreen; // Buttons - background color on answer buttons like Button Select.
-@clr-6: green; // Selected  - button bg color when selected, selected fir item, active text input
+@clr-5: green; // Buttons - background color on answer buttons like Button Select.
+@clr-6: orange; // Selected  - button bg color when selected, selected fir item, active text input
 
   // not exposed in ui color pallete picker
 @accent-clr: purple; // Accent  - used for Links, maybe decritive elements, maybe survey button (continue/finish) colors
@@ -114,7 +114,6 @@
 // Tables
 @table-border-color: @clr-4;
 @table-legend-bg-color: contrast(@fg-color, lighten(@fg-color, 10%), darken(@fg-color, 7%), 53%);
-//@table-alternating-row-color: @table-legend-bg-color; 
 @table-cell-hover-color: lighten(@table-legend-bg-color, 12%);
 
 // Text Inputs
@@ -302,6 +301,11 @@ html {
       top: 1em;
       right: 3%;
       float: none;
+    }
+    &:after {
+      content: " ";
+      display: table;
+      clear: both;
     }
   }
 }
@@ -529,8 +533,7 @@ textarea {
 */
 .survey-buttons {
   text-align: center;
-  margin: 1em 0;
-  padding-right: 1em;
+  margin: 1em 0 0;
   @media @desktop {
     text-align: right;
   }
@@ -650,23 +653,17 @@ textarea {
 
 // Autosave Restart Message 
 .autosave-restart {
-  // max-width: @fg-inner-width-mobile;
-  // background: @autosave-btn-color;
   border: 1px solid #3670A0;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
-  // color: @autosave-btn-text-color;
   display: block;
   margin-bottom: 10px;
   padding: 10px;
   text-align: center;
   text-decoration: none;
   max-width: @fg-inner-width-mobile;
-  &:hover, &:focus {
-    // background: lighten(@autosave-btn-color, 5);
-    // color: @autosave-btn-text-color;
-  }
+  &:hover, &:focus {}
   @media @desktop {
     max-width: @fg-inner-width-desktop;
   }

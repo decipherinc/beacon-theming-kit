@@ -6,7 +6,12 @@ $.fn.prop = $.fn.prop || $.fn.attr;
 jQuery(document).ready(function () {
 
     var gridsAutoOptimize = $(), gridsForceDesktop = $(), gridsGroupByColCount = 0, rowClasses = [], lastWindowWidth, gridWidths = [], gridParentWidths = [];
-    var resizeTimer, resizeTimer2, paintTimer, paintTimerCount = 0;
+    var resizeTimer, resizeTimer2, paintTimer, paintTimerCount = 0, unevenLabelTimer = null;
+
+    function gridSetting(grid, settingName) {
+        var val = grid.data('settings') || '';
+        return val.indexOf(settingName) > -1;
+    }
 
     // Smart open-ended repositioning
 
@@ -32,7 +37,7 @@ jQuery(document).ready(function () {
 
      */
 
-    function updateOELabels(){
+    function handleOEKeypress(){
 
         /* On OE keypress, update all spans */
 
@@ -42,29 +47,31 @@ jQuery(document).ready(function () {
         }
         return true;
     }
-    function showMobileOE() {
+    function handleOELabelClick() {
 
         /* On span click, replace the span with the actual OE input */
+        moveOE($(this), 'fast');
 
-        var $cell = $(this);
+    }
+    function moveOE($cell, speed) {
         if ($cell.hasClass('awaitingOE')) {
             var $span = $cell.find('.mobile-oe-legend'), $oe = $('#' + $span.attr('data-for').replace(/\./g, '\\.'));
 
             // Instantly hide the OE
             $oe.hide(0, function(){
                 // Hide the target cell's span
-                $span.hide('fast');
+                $span.hide(speed);
                 // Show the origin cell's span (if necessary)
                 if ($oe.closest('.cell').hasClass('supportsOE')) {
-                    $oe.closest('.cell').toggleClass('awaitingOE activeOE').find('.mobile-oe-legend').show('fast');
+                    $oe.closest('.cell').toggleClass('awaitingOE activeOE').find('.mobile-oe-legend').show(speed);
                 }
                 // Move then show the OE
-                $oe.appendTo($cell.find('.mobile-col-legend')).show('fast');
+                $oe.appendTo($cell.find('.mobile-col-legend')).show(speed);
                 $cell.toggleClass('awaitingOE activeOE');
             });
         }
     }
-    function moveOE(telement, isMobile) {
+    function optimizeOE(telement, isMobile) {
 
         /* Method for moving all OEs to their necessary locations, and bind keypress/click functions */
 
@@ -79,10 +86,10 @@ jQuery(document).ready(function () {
         }
 
         // Grids with problematic row-legends
-        if (telement.hasClass("grid-single-col") || telement.hasClass("grid-group-by-col")) {
+        if (gridSetting(telement, 'single-col') || gridSetting(telement, 'group-by-col')) {
 
             // If going to mobile/list view, perform the move.
-            if (isMobile || telement.hasClass("grid-list-mode")) {
+            if (isMobile || telement.hasClass('grid-list-mode')) {
 
                 // Loop through row legend OEs
                 telement.find('.row-legend .oe-left, .row-legend .oe-right').each(function(){
@@ -90,7 +97,7 @@ jQuery(document).ready(function () {
                     // Flag the OE with a class, so we know it's been moved.
                     var $oe = $(this).addClass('hasOEMobile');
                     // Scenario single-column
-                    if (telement.hasClass("grid-single-col") || telement.hasClass("grid-list-mode")) {
+                    if (gridSetting(telement, 'single-col') || telement.hasClass('grid-list-mode')) {
                         // Move the OE to the adjacent element cell. There's no repeating rows with single-columns, so no event bindings are necessary.
                         if ($oe.hasClass('oe-left')) {
                             $oe.appendTo($oe.parent().next('.element').find('.mobile-col-legend'));
@@ -101,19 +108,25 @@ jQuery(document).ready(function () {
                     } else {
                         // Bind the keypress event if we haven't already.
                         if (!$oe.hasClass('supportsOEMobile')) {
-                            $oe.addClass('supportsOEMobile').keyup(updateOELabels);
+                            $oe.addClass('supportsOEMobile').keyup(handleOEKeypress);
                         }
                         // Loop through each of this row's element cells.
+                        var first = true;
                         $oe.closest('.row').find('.element').each(function(){
                             // Flag the cell with a class, so we know it requires click events.
                             var $cell = $(this).addClass('awaitingOE');
                             // Inject the span into the cell and bind its click event, if we haven't already.
                             if (!$cell.hasClass('supportsOE')){
-                                $cell.addClass('supportsOE').click(showMobileOE);
+                                $cell.addClass('supportsOE').click(handleOELabelClick);
                                 $cell.find('.mobile-col-legend').append('<span class="mobile-oe-legend" data-for="' + $oe.attr('id') + '">' + $oe.val() + '</span>');
                             }
                             // Update its span text.
                             $cell.find('.mobile-oe-legend').html($oe.val());
+                            // Show the OE on the first eligable row.
+                            if (first) {
+                                moveOE($cell, 0);
+                                first = false;
+                            }
                         });
                     }
                 });
@@ -125,7 +138,7 @@ jQuery(document).ready(function () {
                     // Unflag the OE class, since it's being moved back.
                     var $oe = $(this).removeClass('hasOEMobile');
                     // Remove the supporting classes from the row's element cells, so click events don't work.
-                    if (!telement.hasClass("grid-single-col") && !telement.hasClass("grid-list-mode")) {
+                    if (!gridSetting(telement, 'single-col') && !telement.hasClass('grid-list-mode')) {
                         $oe.closest('.row').find('.element').removeClass('awaitingOE activeOE');
                     }
                     // If the OE was moved, undo those changes.
@@ -146,15 +159,15 @@ jQuery(document).ready(function () {
         } else {
 
             // If going to mobile/list view, perform the move.
-            if (isMobile || telement.hasClass("grid-list-mode")) {
+            if (isMobile || telement.hasClass('grid-list-mode')) {
 
                 // Loop through col legend OEs
                 telement.find('.col-legend .oe-top, .col-legend .oe-bottom').each(function(){
                     // Flag the OE with a class, so we know it's been moved. Get the cell's position in the row.
-                    var $oe = $(this).addClass('hasOEMobile'), index = $oe.closest('.row').find('.cell').index($oe.parent());
+                    var $oe = $(this).addClass('hasOEMobile'), index = $oe.closest('.row').find('.cell').index($oe.parent()), first = true;
                     // Bind the keypress event if we haven't already.
                     if (!$oe.hasClass('supportsOEMobile')) {
-                        $oe.addClass('supportsOEMobile').keyup(updateOELabels);
+                        $oe.addClass('supportsOEMobile').keyup(handleOEKeypress);
                     }
                     // Loop through each row with element cells.
                     $oe.closest('.grid').find('.row-elements').each(function(){
@@ -162,11 +175,16 @@ jQuery(document).ready(function () {
                         var $cell = $(this).find('.cell').eq(index).addClass('awaitingOE');
                         // Inject the span into the cell and bind its click event, if we haven't already.
                         if (!$cell.hasClass('supportsOE')){
-                            $cell.addClass('supportsOE').click(showMobileOE);
+                            $cell.addClass('supportsOE').click(handleOELabelClick);
                             $cell.find('.cell-body').append('<span class="mobile-oe-legend" data-for="' + $oe.attr('id') + '">' + $oe.val() + '</span>');
                         }
                         // Update its span text.
                         $cell.find('.mobile-oe-legend').html($oe.val());
+                        // Show the OE on the first eligable row.
+                        if (first) {
+                            moveOE($cell, 0);
+                            first = false;
+                        }
                     });
                 });
 
@@ -207,7 +225,7 @@ jQuery(document).ready(function () {
         currowcount = telement.find(".row").length;
         goalrowcount = 0;
         height = telement.data('height');
-        simple = telement.hasClass('grid-simple-markup');
+        simple = gridSetting(telement, 'simple-markup');
 
         // If this is the parent of a multicol table, skip it.
         if (telement.hasClass("grid-multi-col") || telement.hasClass("grid-multi-col-subgrid")) {
@@ -335,7 +353,7 @@ jQuery(document).ready(function () {
 
         });
     }
-    function autosizeCols($telement, isMobile, autoOptimize) {
+    function autosizeCols($telement, isMobile, autoOptimize, firstRun) {
 
         // Set all column widths to be as wide as the current widest column (desktop mode only) to prevent bias.
 
@@ -345,54 +363,75 @@ jQuery(document).ready(function () {
         //    just ignore set widths and continue shrinking columns to fit the window as much as possible. This is
         //    not acceptable, so insert invisible <div>s into cells to force the width to be recognized.
 
+        // Skip no-col tables or tables premarked for skipping.
+        if ($telement.parent().parent().hasClass('noCols') || $telement.parent().parent().hasClass('skipAutosize')) { return true; }
+
         var success = true;
-        if (!$telement.hasClass("grid-single-col")) { // Skip single-column tables.
 
-            // Get the first row of col-group or element cells.
-            var $cells = $telement.find('.row-col-legends, .row-elements').not('.colGroup').first().find('.col-legend, .element');
+        // Create a list of col-legends to equalize.
+        var $cells = $telement.find('.row-col-legends').not('.colGroup').first().find('.col-legend');
 
-            // Reset the col widths back to default if necessary.
-            if (autoOptimize) {
-                $cells.width('');
-                $cells.filter(':data(width)').each(function(){
-                    var $this = $(this);
-                    $this.css('width', $this.data('width'));
-                });
-            } else if (isMobile) {
-                $cells.find('.force-width').remove();
-            }
+        // If there are no cells to autosize, then we're all set
+        if ($cells.length === 0) {
+            return success;
+        }
 
-            // If switching to desktop mode, then...
-            if (!isMobile) {
-
-                // Get the list of cells to update.
-                var max= 0;
-
-                // Get the width of the widest column.
-                $cells.each(function(){
-                    max = Math.max($(this).width(), max);
-                });
-
-                // Apply that width to all the cells.
-                if (autoOptimize) {
-                    $cells.width(max);
-                } else {
-                    var $filler = $cells.find('.force-width');
-                    if ($filler.length === 0) {
-                        $cells.append('<div class="force-width" style="width:' + max + 'px"></div>');
-                    } else {
-                        $filler.width(max);
-                    }
+        // Reset the col widths back to default if necessary.
+        if (autoOptimize && !firstRun) {
+            $cells.width('').css('min-width', '');
+            $cells.filter(':data(width)').each(function(){
+                var $this = $(this);
+                $this.css('width', $this.data('width'));
+                $this.css('min-width', $this.data('width'));
+            });
+        } else if (autoOptimize && firstRun) {
+            $cells.filter('[style*="width"]').each(function(){
+                var $this = $(this), inlineWidth = $this.prop("style").width;
+                if (inlineWidth) {
+                    $this.data('width', inlineWidth);
                 }
+            });
+        } else if (isMobile) {
+            $cells.find('.force-width').remove();
+        }
 
-                // If the width was not successfully set, the table is too narrow to support the width. Return false.
-                $cells.each(function(){
-                    if (Math.abs($(this).width() - max) > 1) { // Allow a 1-pixel margin for error.
-                        success = false;
-                        return false;
-                    }
-                });
+        // If switching to desktop mode, then...
+        if (!isMobile) {
+
+            // Get the width of the widest column.
+
+            // If column widths have been explicitly specified, first apply a 'width:auto' to the table before
+            // checking cell measurements, as the browser normally tries to size columns 'proportionally by content'
+            // which is impossible to get accurate minimum column sizes from. Revert the table size back afterward.
+            var max= 0;
+            if (gridSetting($telement, 'ss-colWidth')) { $telement.width('auto'); }
+            $cells.each(function(){
+                max = Math.max($(this).width(), max);
+            });
+            if (gridSetting($telement, 'ss-colWidth')) { $telement.width(''); }
+
+            // Apply that width to all the cells.
+            if (autoOptimize) {
+                $cells.width(max);
+                $cells.css('min-width', $cells.first().prop("style").width);
+                if (!$telement.hasClass('setWidth')) { max = $cells.first().width(); }
+            } else {
+                var $filler = $cells.find('.force-width');
+                if ($filler.length === 0) {
+                    $filler = $cells.append('<div class="force-width" style="width:' + max + 'px"></div>');
+                } else {
+                    $filler.width(max);
+                }
             }
+
+            // If the width was not successfully set, the table is too narrow to support the width. Return false.
+            $cells.each(function(){
+                if (Math.abs($(this).width() - max) > 1) { // Allow a 1-pixel margin for error.
+                    success = false;
+                    return false;
+                }
+            });
+
         }
         return success;
     }
@@ -401,38 +440,39 @@ jQuery(document).ready(function () {
         // Loop through each auto-optimize table and reoptimize it if necessary.
 
         gridsAutoOptimize.each(function(i){
-            if ($(this).width() !== gridWidths[i] || $(this).parent().width() !== gridParentWidths[i]) {
-                optimizeTable.call(this);
+            if ($(this).hasClass('grid-list-mode') || $(this).width() !== gridWidths[i] || $(this).parent().parent().width() !== gridParentWidths[i]) {
+                optimizeTable.call(this, false);
                 gridWidths[i] = $(this).width();
-                gridParentWidths[i] = $(this).parent().width();
+                gridParentWidths[i] = $(this).parent().parent().width();
             }
         });
         gridsForceDesktop.each(function(){autosizeCols($(this), false, false);});
+
     }
-    function optimizeTable() {
+    function optimizeTable(firstRun) {
 
         // Optimize the provided table.
 
         // If there is too much content in a grid to fit onscreen, switches the grid to Mobile view. Otherwise, returns to Desktop view.
         // Runs dependent table functions afterward if necessary.
 
-        var $grid = $(this), wasMobile = $grid.hasClass("grid-mobile-mode");
+        var $grid = $(this), wasMobile = $grid.hasClass("grid-list-mode");
 
         // Restore the grid to Desktop view.
-        $grid.removeClass("grid-mobile-mode").addClass("grid-desktop-mode");
+        $grid.removeClass("grid-list-mode").addClass("grid-table-mode");
         if (wasMobile) {
-            if ($grid.hasClass("grid-force-left-legend")) {forceLeftLegend($grid, false);}
-            if ($grid.hasClass("grid-group-by-col")) {regroupGroupByCols($grid, false);}
-            moveOE($grid, false);
+            if (gridSetting($grid, "force-left-legend")) {forceLeftLegend($grid, false);}
+            if (gridSetting($grid, "group-by-col")) {regroupGroupByCols($grid, false);}
+            optimizeOE($grid, false);
         }
 
         // If the grid cannot fit after autosizing, or cannot fit its parents width, switch it to Mobile view.
-        if (!autosizeCols($grid, false, true) || $grid.width() > $grid.parent().width()) {
-            $grid.removeClass("grid-desktop-mode").addClass("grid-mobile-mode");
+        if (!autosizeCols($grid, false, true, firstRun) || $grid.width() > $grid.parent().parent().width()) {
+            $grid.removeClass("grid-table-mode").addClass("grid-list-mode");
             autosizeCols($grid, true, true);
-            moveOE($grid, true);
-            if ($grid.hasClass("grid-force-left-legend")) {forceLeftLegend($grid, true);}
-            if ($grid.hasClass("grid-group-by-col")) {regroupGroupByCols($grid, true);}
+            optimizeOE($grid, true);
+            if (gridSetting($grid, "force-left-legend")) {forceLeftLegend($grid, true);}
+            if (gridSetting($grid, "group-by-col")) {regroupGroupByCols($grid, true);}
         }
     }
     function handleResize() {
@@ -464,7 +504,7 @@ jQuery(document).ready(function () {
         // position everything. As the grid's parent element should always be smaller than the screen, we can compare
         // its width against the window width to check if the screen has repainted or not.
 
-        return gridsAutoOptimize.eq(0).parent().width() <= $(window).width();
+        return gridsAutoOptimize.last().parent().parent().width() <= $(window).width();
     }
 
     lastWindowWidth = $(window).width();
@@ -496,47 +536,44 @@ jQuery(document).ready(function () {
         }
 
         // Handle Group-by-Col, special OE cases, and Force-Left-Legend grids
-        if ($grid.hasClass("grid-group-by-col")) {
+        if (gridSetting($grid, "group-by-col")) {
             gridsGroupByColCount++;
             prepareGroupByCols($grid, gridsGroupByColCount);
         }
-        moveOE($grid, $grid.hasClass("grid-mobile-mode"));
-        if ($grid.hasClass("grid-force-left-legend")) {
-            forceLeftLegend($grid, $grid.hasClass("grid-mobile-mode"));
+        optimizeOE($grid, $grid.hasClass("grid-list-mode"));
+        if (gridSetting($grid, "force-left-legend")) {
+            forceLeftLegend($grid, $grid.hasClass("grid-list-mode"));
         }
 
         // Handle Auto-Optimized grids
-        if ($grid.hasClass("grid-auto-optimize")) {
+        if (gridSetting($grid, "auto-optimize") && gridSetting($grid, "table-mode")) {
             // Add to relevant lists and optimize immediately.
             if (gridsAutoOptimize.length > 0) { gridsAutoOptimize = gridsAutoOptimize.add($grid); } else { gridsAutoOptimize = $grid; }
-            if (isScreenPainted()) optimizeTable.call($grid);
+            if (isScreenPainted()) optimizeTable.call($grid, true);
             gridWidths.push($grid.width());
-            gridParentWidths.push($grid.parent().width());
+            gridParentWidths.push($grid.parent().parent().width());
         } else {
         // Handle Non-Optimized grids
             // Check for Force-Desktop/Mobile grids in the wrong mode
-            if ($grid.hasClass("grid-force-desktop")) {
+            if (gridSetting($grid, "force-desktop")) {
                 if (gridsForceDesktop.length > 0) { gridsForceDesktop = gridsForceDesktop.add($grid); } else { gridsForceDesktop = $grid; }
-                autosizeCols($grid, false, false);
+                if (!$grid.hasClass("grid-list-mode")) { autosizeCols($grid, false, false); }
             }
-            if ($grid.hasClass("grid-force-mobile") && $grid.hasClass("grid-desktop-mode")) {
-                $grid.removeClass("grid-desktop-mode").addClass("grid-mobile-mode");
+            if ((gridSetting($grid, "force-mobile") || gridSetting($grid, "list-mode")) && $grid.hasClass("grid-table-mode")) {
+                $grid.removeClass("grid-table-mode").addClass("grid-list-mode");
                 autosizeCols($grid, true, false);
-                moveOE($grid, true);
-                if ($grid.hasClass("grid-group-by-col")) {
+                optimizeOE($grid, true);
+                if (gridSetting($grid, "group-by-col")) {
                     regroupGroupByCols($grid, true);
                 }
-                if ($grid.hasClass("grid-force-left-legend")) {
+                if (gridSetting($grid, "force-left-legend")) {
                     forceLeftLegend($grid, true);
                 }
-            } else if ($grid.hasClass("grid-force-desktop") && $grid.hasClass("grid-mobile-mode")) {
-                $grid.removeClass("grid-mobile-mode").addClass("grid-desktop-mode");
-                moveOE($grid, false);
-                if ($grid.hasClass("grid-group-by-col")) {
+            } else if (gridSetting($grid, "force-desktop") && $grid.hasClass("grid-list-mode")) {
+                $grid.removeClass("grid-list-mode").addClass("grid-table-mode");
+                optimizeOE($grid, false);
+                if (gridSetting($grid, "group-by-col")) {
                     regroupGroupByCols($grid, false);
-                }
-                if ($grid.hasClass("grid-force-left-legend")) {
-                    forceLeftLegend($grid, false);
                 }
                 autosizeCols($grid, false, false);
             }
@@ -548,7 +585,7 @@ jQuery(document).ready(function () {
         // Check every 1/10th second if the screen is painted yet. If so, optimize the tables.
 
         // Give up if it takes more than 5 seconds for the screen to paint.
-        if (paintTimerCount++ > 50) {return; }
+        if (paintTimerCount++ > 50) { paintTimerCount = 0; return; }
 
         if (isScreenPainted()) {
             paintTimerCount = 0;
@@ -598,6 +635,31 @@ jQuery(document).ready(function () {
             resizeTimer2 = setTimeout(checkBreakpointReached, 100);
         }
     });
+
+    // On window load and resize, equalize an left column legends on lists only.
+    function fixUnequalLabelWidths() {
+
+        if (unevenLabelTimer !== null) {
+            clearTimeout(unevenLabelTimer);
+            unevenLabelTimer = setTimeout(fixUnequalLabelWidths, 100);
+        }
+
+        var $elements = $('.cell-legend-left').find('label').css('display', 'inline-block');
+        $elements.closest('.grid').filter('.grid-list-mode').each(function(){
+            var $qelements = $(this).find($elements), maxWidth = 0;
+            $qelements.width('').each(function(){
+                maxWidth = Math.max($(this).width() + 1, maxWidth);
+            });
+            $qelements.width(maxWidth);
+        });
+
+        unevenLabelTimer = setTimeout(function(){
+            unevenLabelTimer = null;
+        }, 100);
+
+    }
+    $(window).bind('load orientationchange resize', fixUnequalLabelWidths);
+    fixUnequalLabelWidths();
 
     // Opens jQuery UI Dialog for the Support Form
     $('a[href*="/support"]', "#surveyFooter").click(function (e) {
@@ -759,8 +821,13 @@ jQuery(document).ready(function () {
             $(this).addClass(newClass);
         }
     });
+    /* Hide FIR when QA codes turned on for these DQs*/
+    if (window.cmsData && window.cmsData.qacodes) {
+        // NOTE: Selecting the parent of the the targeted elements (e.g. '.survey-q .fir-icon')
+        $(".sq-atm1d-widget, .sq-cardsort").parent().find(".fir-icon").remove();
+    }
     var SVGSupport = !!document.createElementNS && !!document.createElementNS('http://www.w3.org/2000/svg', "svg").createSVGRect;
-    $(".survey-q .answers:has(.fir-icon)").each(function() {
+    $(".question .answers:has(.fir-icon)").each(function() {
         var $me          = $(this),
             $firRadio    = $me.find('.fir-radio .fir-icon'),
             $firCheckbox = $me.find('.fir-checkbox .fir-icon'),
@@ -799,6 +866,7 @@ jQuery(document).ready(function () {
                 $input.after($firRadio.clone());
                 // uncheck radio
                 $input.parents(".cell").click(function(e) {
+                    if ($(e.target).is(".oe")) { return false; }
                     if (!$(this).is('.ui-droppable, .no-uncheck')) {
                         if ($input.is(":checked")) {
                             $input.prop('checked', false).trigger('change');

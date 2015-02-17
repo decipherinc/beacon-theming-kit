@@ -10,6 +10,16 @@
 
 .dq-rating-colors-demo {
   color: @fg-color;
+  min-width: @fg-inner-width-mobile;
+  @media @desktop {
+    min-width: @fg-inner-width-desktop;
+  }
+  .like, .neutral, .dislike {
+    width: 33.33%;
+    height: 15em; 
+    display:inline-block;
+    padding: 1em;
+  }
   .like {
     background-color: @dq-like;
   }

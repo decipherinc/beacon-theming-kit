@@ -14,7 +14,7 @@
 }
 .survey-theme-colors-selected {
   color: white;
-  background-color: #a7c5df;
+  background-color: orange;
 }
 .survey-theme-colors-disabled {
   color: white;
@@ -177,7 +177,7 @@ br[_mce_bogus] {
 }
 .answers {
   display: table;
-  min-width: 901px;
+  min-width: 924px;
 }
 .noCols .answers {
   display: block;
@@ -199,7 +199,20 @@ br[_mce_bogus] {
 .instruction-text,
 .survey-buttons {
   /* DOES NOT APPLY TO ".answers" and it's children */
-  max-width: 901px;
+  max-width: 932px;
+}
+@media (min-width: 768px) {
+  .survey-info,
+  .survey-extra-approval,
+  .logo,
+  .survey-error,
+  .exit-message,
+  .comment,
+  .question-text,
+  .instruction-text,
+  .survey-buttons {
+    max-width: 924px;
+  }
 }
 /* Auto Width */
 .customWidth .survey-q-error,
@@ -224,45 +237,12 @@ br[_mce_bogus] {
   overflow: hidden;
 }
 /* =================================================== (Survey Content) =================================================== */
-.survey-body > form {
+.survey-body > form,
+.survey-info,
+.survey-warning {
   clear: both;
 }
 /* ============================================ (Survey Content > Page Errors) =============================================*/
-/*
-    Error container for messages displayed at the top of the page
-    See ".survey-q-error" to modify the style of messages displayed WITHIN a question
-*/
-/* ============================================ (Survey Content > Extra Info) ==============================================*/
-/*
-    The respondent has already taken the survey message, and ..
-
-    This is also used in QA mode for:
-
-        - page breaks
-        - "show question attributes"
-        - "show source code"
-        - and other messages
-*/
-/* ================================================= (Survey Content > Logo) ===============================================*/
-/*
-    This element will not get written to the page if a logo is not selected in builder
-*/
-.logo-image {
-  max-width: 100%;
-  max-height: 5em;
-}
-@media (min-width: 768px) {
-  .logo-image {
-    max-width: 40%;
-    max-height: 8em;
-  }
-}
-/* ============================================ (Survey Content > Progress Bar =============================================*/
-/* ========================================== (Survey Content > Survey Question) ===========================================*/
-/* ====================================== (Survey Content > Survey Question > Error) =======================================*/
-/* =================================== (Survey Content > Survey Question > Question Text) ==================================*/
-/* =================================== (Survey Content > Survey Question > Instructions) ===================================*/
-/* ==================================== (Survey Content > Survey Question > Answers) =======================================*/
 /*********************************************
  FIR - Form Image Replacement (see fir.less for comments)
  *********************************************/
@@ -283,7 +263,7 @@ br[_mce_bogus] {
 }
 .fir-icon.selected .rounded .fir-selected,
 .fir-icon.selected .square .fir-selected {
-  fill: #a7c5df;
+  fill: orange;
 }
 .fir-icon.disabled .rounded .fir-selected,
 .fir-icon.disabled .square .fir-selected {
@@ -302,7 +282,7 @@ br[_mce_bogus] {
   fill: green;
 }
 .fir-icon.selected .scale .fir-large {
-  fill: #a7c5df;
+  fill: orange;
 }
 .fir-icon.disabled .scale .fir-medium {
   fill: transparent;
@@ -344,7 +324,7 @@ br[_mce_bogus] {
   color: green;
 }
 .fir-icon.selected i {
-  color: #a7c5df;
+  color: orange;
 }
 .fir-hidden {
   display: none !important;
@@ -383,7 +363,7 @@ br[_mce_bogus] {
 .non-touch .fir-icon.selected .square:hover .fir-selected,
 .non-touch .clickableCell:hover .fir-icon.selected .rounded .fir-selected,
 .non-touch .clickableCell:hover .fir-icon.selected .square .fir-selected {
-  fill: #a7c5df;
+  fill: orange;
 }
 .non-touch .clickableCell:hover .fir-icon.disabled .rounded .fir-selected,
 .non-touch .clickableCell:hover .fir-icon.disabled .square .fir-selected {
@@ -395,7 +375,7 @@ br[_mce_bogus] {
 }
 .non-touch .clickableCell:hover:active .fir-icon .scale .fir-large,
 .non-touch .fir-icon .scale:hover:active .fir-large {
-  fill: #a7c5df;
+  fill: orange;
 }
 .non-touch .clickableCell:hover .fir-icon.selected .scale .fir-medium,
 .non-touch .clickableCell:hover .fir-icon.selected .scale .fir-small,
@@ -655,7 +635,12 @@ textarea {
 }
 .grid.grid-table-mode.setWidth {
   /* Set width for questions with less than ten cols */
-  max-width: 901px;
+  max-width: 932px;
+}
+@media (min-width: 768px) {
+  .grid.grid-table-mode.setWidth {
+    max-width: 924px;
+  }
 }
 .customWidth .grid.grid-table-mode.setWidth,
 .flexGrid .grid.grid-table-mode.setWidth {
@@ -945,7 +930,7 @@ textarea {
 }
 .fir-icon.selected .rounded .fir-selected,
 .fir-icon.selected .square .fir-selected {
-  fill: #a7c5df;
+  fill: orange;
 }
 .fir-icon.disabled .rounded .fir-selected,
 .fir-icon.disabled .square .fir-selected {
@@ -964,7 +949,7 @@ textarea {
   fill: green;
 }
 .fir-icon.selected .scale .fir-large {
-  fill: #a7c5df;
+  fill: orange;
 }
 .fir-icon.disabled .scale .fir-medium {
   fill: transparent;
@@ -1011,7 +996,7 @@ textarea {
   color: green;
 }
 .fir-icon.selected i {
-  color: #a7c5df;
+  color: orange;
 }
 .fir-hidden {
   display: none !important;
@@ -1050,7 +1035,7 @@ textarea {
 .non-touch .fir-icon.selected .square:hover .fir-selected,
 .non-touch .clickableCell:hover .fir-icon.selected .rounded .fir-selected,
 .non-touch .clickableCell:hover .fir-icon.selected .square .fir-selected {
-  fill: #a7c5df;
+  fill: orange;
 }
 .non-touch .clickableCell:hover .fir-icon.disabled .rounded .fir-selected,
 .non-touch .clickableCell:hover .fir-icon.disabled .square .fir-selected {
@@ -1062,7 +1047,7 @@ textarea {
 }
 .non-touch .clickableCell:hover:active .fir-icon .scale .fir-large,
 .non-touch .fir-icon .scale:hover:active .fir-large {
-  fill: #a7c5df;
+  fill: orange;
 }
 .non-touch .clickableCell:hover .fir-icon.selected .scale .fir-medium,
 .non-touch .clickableCell:hover .fir-icon.selected .scale .fir-small,
@@ -1207,8 +1192,8 @@ textarea {
 }
 .btn-select input[type="radio"]:checked + label,
 .btn-select input[type="checkbox"]:checked + label {
-  background-color: #a7c5df;
-  border-bottom-color: #6fa0cb;
+  background-color: orange;
+  border-bottom-color: #b37300;
 }
 .btn-select input[type="radio"]:checked + label svg,
 .btn-select input[type="checkbox"]:checked + label svg {
@@ -1216,7 +1201,7 @@ textarea {
 }
 .btn-select input[type="radio"]:checked + label svg .fir-bg,
 .btn-select input[type="checkbox"]:checked + label svg .fir-bg {
-  fill: #a7c5df;
+  fill: orange;
 }
 .btn-select input[type="radio"]:checked + label svg .fir-base,
 .btn-select input[type="checkbox"]:checked + label svg .fir-base {
@@ -1326,7 +1311,7 @@ html {
 }
 @media (min-width: 768px) {
   .survey-page {
-    background-color: #f8f8f8;
+    background-color: grey;
   }
 }
 .survey-body {
@@ -1372,6 +1357,11 @@ html {
     top: 1em;
     right: 3%;
     float: none;
+  }
+  .progress-bar:after {
+    content: " ";
+    display: table;
+    clear: both;
   }
 }
 .progress-bottom {
@@ -1448,7 +1438,7 @@ input[type="text"] {
   border-radius: 4px;
 }
 input[type="text"]:focus {
-  border: 1px solid #a7c5df;
+  border: 1px solid orange;
 }
 textarea {
   width: 100%;
@@ -1459,7 +1449,7 @@ textarea {
   cursor: text;
 }
 textarea:focus {
-  border: 1px solid #a7c5df;
+  border: 1px solid orange;
 }
 /* =========================== ( Question > Answers > Mobile First Table Styles ) =========================== */
 .cell-text {
@@ -1546,8 +1536,7 @@ input[type="radio"] + .cell-text {
 */
 .survey-buttons {
   text-align: center;
-  margin: 1em 0;
-  padding-right: 1em;
+  margin: 1em 0 0;
 }
 @media (min-width: 768px) {
   .survey-buttons {
@@ -1678,6 +1667,20 @@ input[type="radio"] + .cell-text {
 }
 .dq-rating-colors-demo {
   color: white;
+  min-width: 932px;
+}
+@media (min-width: 768px) {
+  .dq-rating-colors-demo {
+    min-width: 924px;
+  }
+}
+.dq-rating-colors-demo .like,
+.dq-rating-colors-demo .neutral,
+.dq-rating-colors-demo .dislike {
+  width: 33.33%;
+  height: 15em;
+  display: inline-block;
+  padding: 1em;
 }
 .dq-rating-colors-demo .like {
   background-color: #c5d600;
