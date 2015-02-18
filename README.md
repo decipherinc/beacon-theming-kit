@@ -9,8 +9,11 @@ When you're done creating your theme styles...
 * For now, ask Daniel Rippstein how to get the theme file into the system properly.
 
 #Setting Up the Development Environment
+
 ###Initial Install
+
 You change something in themes.less, save, your styles are compiled and the browser refreshes automatically. That's what we're going to set up in a couple easy steps. It will run on a local server, allowing all your online dependencies to be pulled down (jquery, font-awesome, any google fonts).
+
 1. Open up "Terminal" or "Command Prompt" on windows (we'll call it "terminal" from here on). 
 2. If you don't have node.js installed, install it from  http://nodejs.org/  look for the big obvious 'Install' button.
 3. If you don't have grunt.js installed, install it by entering `npm install -g grunt-cli` into the terminal. If you're on a mac and it looks like it didn't work, try `sudo npm install -g grunt-cli` to install as administrator, enter your computer's password when promted.
