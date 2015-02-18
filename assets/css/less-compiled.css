@@ -1294,16 +1294,13 @@ h5,
 h6 {
   font-weight: normal;
 }
-/* ========================================== ( Reusable Classes ) ========================================== 
+/* ========================================== ( Reusable Classes ) ========================================== */
 .large-text {
   font-size: 1.4em;
 }
-
 .small-text {
   font-size: 0.75em;
 }
-
-
 /* ============================================ ( Survey Page ) ============================================ */
 html {
   font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
@@ -1400,6 +1397,7 @@ html {
 .progress-text {
   color: #454545;
   font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
+  font-size: 16px;
   line-height: 1em;
   padding-left: 0.5em;
 }
