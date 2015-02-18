@@ -1268,8 +1268,8 @@ textarea {
     --- Question > Question Text
     --- Question > Instructions
     --- Question > Answers
-    --- Question > Answers > Mobile First Table Styling
-    --- Question > Answers > Desktop Table Styling
+    --- Question > Answers > Table List Mode Styles
+    --- Question > Answers > Table Grid Mode Styles
     --- Buttons
     --- Exit Page
     --- Errors
@@ -1283,18 +1283,27 @@ textarea {
   Creating variables allows the user to easily change things, they may appear in the theme editor UI as controls.
 */
 /* =============================================== ( Resets ) =============================================== */
-/* 
-    There are already some resets in place by default, but you can add your own resets or normalize styles here.
 /*
-
-
-/* ========================================== ( Reusable Classes ) ========================================== */
+    There are already some resets in place by default, but you can add your own resets or normalize styles here.
+*/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+}
+/* ========================================== ( Reusable Classes ) ========================================== 
 .large-text {
   font-size: 1.4em;
 }
+
 .small-text {
   font-size: 0.75em;
 }
+
+
 /* ============================================ ( Survey Page ) ============================================ */
 html {
   font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
@@ -1334,7 +1343,7 @@ html {
   text-align: left;
 }
 .logo-right {
-  text-align: right;
+  float: right;
 }
 /* ============================================ ( Progress Bar ) ============================================ */
 /*
@@ -1395,6 +1404,11 @@ html {
   padding-left: 0.5em;
 }
 /* ============================================== ( Comment ) =============================================== */
+.comment-text {
+  color: #454545;
+  font-size: 16px;
+  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
+}
 /* ============================================= ( Question ) ============================================== */
 .question {
   margin-top: 1em;
@@ -1433,6 +1447,7 @@ select {
 }
 input[type="text"] {
   border: 1px solid #dddddd;
+  font-size: 16px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
@@ -1443,6 +1458,7 @@ input[type="text"]:focus {
 textarea {
   width: 100%;
   border: 1px solid #dddddd;
+  font-size: 16px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
@@ -1451,7 +1467,7 @@ textarea {
 textarea:focus {
   border: 1px solid orange;
 }
-/* =========================== ( Question > Answers > Mobile First Table Styles ) =========================== */
+/* ============================ ( Question > Answers > Table List Mode Styles ) ============================ */
 .cell-text {
   padding: 0 0.4em;
 }
@@ -1460,10 +1476,7 @@ input[type="radio"] + .cell-text {
   padding: 0 0.25em;
 }
 .legend {
-  padding: 7px;
-}
-.element {
-  padding: 0.7em;
+  font-weight: normal;
 }
 .element:hover,
 .element:focus,
@@ -1475,16 +1488,16 @@ input[type="radio"] + .cell-text {
   background-color: transparent;
 }
 .indent-1 {
-  padding-left: 14px;
+  padding-left: 0.5em;
 }
 .indent-2 {
-  padding-left: 21px;
+  padding-left: 1em;
 }
 .indent-3 {
-  padding-left: 28px;
+  padding-left: 1.5em;
 }
 .legend-level-1 {
-  font-size: 1.05em;
+  font-size: 16px;
 }
 .legend-level-2 {
   font-size: 1.25em;
@@ -1492,26 +1505,23 @@ input[type="radio"] + .cell-text {
 .legend-level-3 {
   font-size: 1.3em;
 }
-/* ============================= ( Question > Answers > Desktop Table Styling ) ============================= */
+/* ============================ ( Question > Answers > Table Grid Mode Styles ) ============================ */
 /*
   All the desktop grid styles need to have the .grid-desktop-mode prefixed before
   These take place until a table absolutely must collapse.. It's a long story.
 */
 .grid-table-mode .legend {
-  font-size: 1em;
   background-color: #ededed;
-  padding: 0.4em 0.5em;
+  padding: 7px;
+  font-size: 1em;
 }
 .grid-table-mode .row-legend-group {
-  font-size: 1.2em;
   background-color: #dedede;
 }
 .grid-table-mode input[type="text"] {
-  padding: 1px 0.5em;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px;
-  font-size: 1em;
 }
 .grid-table-mode textarea {
   padding: 2px;
@@ -1523,11 +1533,8 @@ input[type="radio"] + .cell-text {
 .grid-table-mode .nonempty {
   border: 1px solid #dddddd;
 }
-.grid-table-mode.grid-group-by-col .col-legend-group {
-  font-size: 1em;
-}
 .grid-table-mode .element {
-  padding: 0.4em;
+  padding: 7px;
 }
 /* =============================================== ( Buttons ) ============================================== */
 /*
@@ -1583,6 +1590,16 @@ input[type="radio"] + .cell-text {
   border-color: #525252;
 }
 /* ============================================ ( Exit Page ) =============================================== */
+.exit-message-header {
+  color: #454545;
+  font-size: 24px;
+  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
+}
+.exit-message-text {
+  color: #454545;
+  font-size: 16px;
+  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
+}
 /* =============================================== ( Errors ) =============================================== */
 /*
     Survey page errors are displayed at the top of the page and are wrapped in a .survey-page-error container
@@ -1621,21 +1638,19 @@ input[type="radio"] + .cell-text {
   color: #454545;
   font-size: 16px;
   font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  padding: 10px;
 }
 .survey-warning {
   background-color: yellow;
   color: #454545;
   font-size: 16px;
   font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
-  padding: 10px;
-  font-weight: bold;
 }
 .autosave-restart {
-  border: 1px solid #3670A0;
+  color: white;
+  font-size: 16px;
+  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
+  background-color: green;
+  border-bottom: 2px solid #003400;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
@@ -1645,6 +1660,11 @@ input[type="radio"] + .cell-text {
   text-align: center;
   text-decoration: none;
   max-width: 932px;
+}
+.autosave-restart:hover,
+.autosave-restart:focus {
+  background-color: #00cd00;
+  border-color: #006700;
 }
 @media (min-width: 768px) {
   .autosave-restart {

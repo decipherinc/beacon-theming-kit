@@ -37,8 +37,8 @@
     --- Question > Question Text
     --- Question > Instructions
     --- Question > Answers
-    --- Question > Answers > Mobile First Table Styling
-    --- Question > Answers > Desktop Table Styling
+    --- Question > Answers > Table List Mode Styles
+    --- Question > Answers > Table Grid Mode Styles
     --- Buttons
     --- Exit Page
     --- Errors
@@ -82,6 +82,7 @@
 .gFontImport(@webfont);
 
 @primary-font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
+@secondary-font-family: serif;
 @general-font-size: 16px;
 
 
@@ -106,6 +107,12 @@
 @instruction-font-family: @primary-font-family;
 
 
+// ******************* Question Text ******************* //
+@comment-text-color: @clr-3;
+@comment-font-size: @general-font-size;
+@comment-font-family: @primary-font-family;
+
+
 // ********************** Answers ********************** //
 @answer-text-color: @clr-3;
 @answer-font-size: @general-font-size;
@@ -117,6 +124,7 @@
 @table-cell-hover-color: lighten(@table-legend-bg-color, 12%);
 
 // Text Inputs
+@input-font-size: @general-font-size;
 @input-border-color: @clr-4;
 @input-border-color-active: @clr-6;
 
@@ -184,6 +192,16 @@
 @survey-warning-font-family: @primary-font-family;
 @survey-warning-bg-color: @warning-clr;
 
+
+// ********************* Exit Page ********************* //
+@exit-header-text-color: @clr-3;
+@exit-header-font-size: @general-font-size * 1.5;
+@exit-header-font-family: @primary-font-family;
+@exit-p-text-color: @clr-3;
+@exit-p-font-size: @general-font-size;
+@exit-p-font-family: @primary-font-family;
+
+
 // *********************** Footer *********************** //
 @footer-font-color: @clr-3;
 @footer-font-size: @general-font-size;
@@ -225,12 +243,15 @@
 
 
 /* =============================================== ( Resets ) =============================================== */
-/* 
-    There are already some resets in place by default, but you can add your own resets or normalize styles here.
 /*
+    There are already some resets in place by default, but you can add your own resets or normalize styles here.
+*/
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+}
 
 
-/* ========================================== ( Reusable Classes ) ========================================== */
+/* ========================================== ( Reusable Classes ) ========================================== 
 .large-text {
   font-size: 1.4em;
 }
@@ -271,15 +292,16 @@ html {
 /* ================================================= ( Logo ) =============================================== */
 .logo { // logo styles can go here
   text-align: center; // centered by default
-  img {}
 }
+
+.survey-logo-image {}
 
 .logo-left {
   text-align: left;
 }
 
 .logo-right {
-  text-align: right;
+  float: right;
 }
 
 
@@ -353,7 +375,11 @@ html {
 /* ============================================== ( Comment ) =============================================== */
 .comment {}
 
-.comment-text {}
+.comment-text {
+  color: @comment-text-color;
+  font-size: @comment-font-size;
+  font-family: @comment-font-family;
+}
 
 
 /* ============================================= ( Question ) ============================================== */
@@ -389,9 +415,9 @@ html {
 /* ========================================= ( Question > Answers ) ========================================= */
 // Answers Container
 .answers {
-  color: @question-text-color;
-  font-size: @question-font-size;
-  font-family: @question-font-family;
+  color: @answer-text-color;
+  font-size: @answer-font-size;
+  font-family: @answer-font-family;
 }
 
 // Inputs
@@ -407,6 +433,7 @@ select {
 
 input[type="text"] {
   border: 1px solid @input-border-color;
+  font-size: @input-font-size;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
@@ -418,6 +445,7 @@ input[type="text"] {
 textarea {
   width: 100%;
   border: 1px solid @input-border-color;
+  font-size: @input-font-size;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
@@ -427,7 +455,7 @@ textarea {
   }
 }
 
-/* =========================== ( Question > Answers > Mobile First Table Styles ) =========================== */
+/* ============================ ( Question > Answers > Table List Mode Styles ) ============================ */
 // Mobile col-legends (<label>)
 .cell-text {
   padding: 0 0.4em;
@@ -439,13 +467,11 @@ textarea {
 // Legends (includes typical legends and mobile-only col group legends)
 // all legends (row and col)
 .legend {
-  padding: 7px;
+  font-weight: normal;
 }
 
 // Table cells with Inputs
 .element {
-  padding: 0.7em;
-  // Hover Formatting
   &:hover, &:focus, &:active {
     background-color: @table-cell-hover-color;
   }
@@ -459,19 +485,19 @@ textarea {
 // Indentation levels on mobile exclusively
 // Cells need extra indentation to show hierarchy.
 .indent-1 {
-  padding-left: 14px;
+  padding-left: 0.5em;
 }
 .indent-2 {
-  padding-left: 21px;
+  padding-left: 1em;
 }
 .indent-3 {
-  padding-left: 28px;
+  padding-left: 1.5em;
 }
 
 // Legend formatting on mobile exclusively
 // Parents of element cells (such as groups) need extra formatting to show hierarchy.
 .legend-level-1 {
-  font-size: 1.05em;
+  font-size: @general-font-size;
 }
 .legend-level-2 {
   font-size: 1.25em;
@@ -481,30 +507,27 @@ textarea {
 }
 
 // "No Answer" rows
-.row-na {}
+.row-no-answer {}
 
 
-/* ============================= ( Question > Answers > Desktop Table Styling ) ============================= */
+/* ============================ ( Question > Answers > Table Grid Mode Styles ) ============================ */
 /*
   All the desktop grid styles need to have the .grid-desktop-mode prefixed before
   These take place until a table absolutely must collapse.. It's a long story.
 */
 .grid-table-mode {
   .legend {
-    font-size: 1em; // Reset font-sizes back to normal.
     background-color: @table-legend-bg-color;
-    padding: 0.4em 0.5em;
+    padding: 7px;
+    font-size: 1em;
   }
   .row-legend-group {
-    font-size: 1.2em;
     background-color: contrast(@fg-color, darken(@table-legend-bg-color, 6), lighten(@table-legend-bg-color, 10), 53%);
   }
   input[type="text"] {
-    padding: 1px 0.5em;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
     border-radius: 2px;
-    font-size: 1em;
   }
   textarea {
     padding: 2px;
@@ -517,12 +540,11 @@ textarea {
     // table border styling
     border: 1px solid @input-border-color;
   }
-  &.grid-group-by-col .col-legend-group {
-    font-size: 1em;
-  }
+  &.grid-group-by-col .col-legend-group {}
   .element { // cells containing inputs
-    padding: 0.4em;
+    padding: 7px;
   }
+  .row-no-answer {}
 }
 
 
@@ -581,10 +603,18 @@ textarea {
 .exit-message {}
 
 // Header Text 
-.exit-message-header {}
+.exit-message-header {
+  color: @exit-header-text-color;
+  font-size: @exit-header-font-size;
+  font-family: @exit-header-font-family;
+}
 
 // Additional Text/Messages 
-.exit-message-text {}
+.exit-message-text {
+  color: @exit-p-text-color;
+  font-size: @exit-p-font-size;
+  font-family: @exit-p-font-family;
+}
 
 
 /* =============================================== ( Errors ) =============================================== */
@@ -634,10 +664,6 @@ textarea {
   color: @survey-info-text-color;
   font-size: @survey-info-font-size;
   font-family: @survey-info-font-family;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  padding: 10px;
 }
 
 // Warning container 
@@ -647,13 +673,15 @@ textarea {
   color: @survey-warning-text-color;
   font-size: @survey-warning-font-size;
   font-family: @survey-warning-font-family;
-  padding: 10px;
-  font-weight: bold;
 }
 
 // Autosave Restart Message 
 .autosave-restart {
-  border: 1px solid #3670A0;
+  color: @btn-text-color;
+  font-size: @btn-font-size;
+  font-family: @btn-font-family;
+  background-color: @btn-bg-color;
+  border-bottom: 2px solid @btn-border-color;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
@@ -663,7 +691,10 @@ textarea {
   text-align: center;
   text-decoration: none;
   max-width: @fg-inner-width-mobile;
-  &:hover, &:focus {}
+  &:hover, &:focus {
+    background-color: @btn-bg-color-hover;
+    border-color: @btn-border-color-hover;
+  }
   @media @desktop {
     max-width: @fg-inner-width-desktop;
   }

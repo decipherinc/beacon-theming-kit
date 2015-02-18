@@ -23,13 +23,13 @@
   <div class="survey-section">
       <div class="survey-body">
 
-        <div class="surveyLogo survey-logo survey-logo-left group">
-            <img src="assets/img/decipher-logo.png" class="survey-logo-image" alt="logo" align="left">
+        <div class="logo logo-left">
+            <img src="assets/img/decipher-logo.png" class="logo-image" alt="logo">
         </div>
 
-        <div class="progress-bar progress-top" title="progress bar - 0% complete">
-          <div class="progress-box-outer"><span class="progress-box-completed" style="width: 0%;"></span></div>
-          <div class="progress-text"><span class="screen-readers-only">progress bar </span>0%</div>
+        <div class="progress-bar progress-top" title="progress bar - 10% complete">
+          <div class="progress-box-outer"><span class="progress-box-completed" style="width: 10%;"></span></div>
+          <div class="progress-text"><span class="screen-readers-only">progress bar </span>10%</div>
         </div><!-- /.progress-bar -->
 
         <form id="primary" name="primary" method="post" action="/survey/selfserve/53a/150200" enctype="application/x-www-form-urlencoded">
@@ -66,7 +66,7 @@
                                 <td colspan="1" class="cell nonempty mobile-top-border-cell"></td>
                             </tr>
                             <tr class="row row-elements even colCount-1">
-                                <td  class="cell nonempty element indent-1 mobile border-collapse groupingRows OneColumnEl    ">
+                                <td  class="cell nonempty element mobile border-collapse groupingRows OneColumnEl    ">
                                     <span class="cell-sub-wrapper cell-legend-above">
                                         <span class="cell-input cell-sub-column">
                                           <input type="text" name="ans87.0.0" id="ans87.0.0" value="" size="25" class="input text-input"/>
@@ -101,20 +101,19 @@
                             </svg>
                         </span>
                     </div>
-                    <table class="grid grid-list-mode" data-settings="auto-optimize mobile-mode group-by-row table-mode" data-height="" summary="This table contains form elements to answer the survey question">
+                    <table class="grid setWidth grid-table-mode" data-settings="auto-optimize mobile-mode group-by-row table-mode" data-height="" summary="This table contains form elements to answer the survey question">
                         <tbody>
                             <tr class="row mobile-top-border-row">
                                 <td colspan="3" class="cell nonempty mobile-top-border-cell"></td>
                             </tr>
                             <tr class="row row-col-legends row-col-legends-top colCount-2">
                                 <td class="cell empty empty-left empty-top unused mobile border-collapse"></td>
-                                <th scope="col" id="q2_c1" class="cell nonempty legend col-legend col-legend-top col-legend-basic legend-level-1 mobile border-collapse">
+                                <th scope="col" id="q2_c1" class="cell nonempty legend col-legend col-legend-top col-legend-basic legend-level-1 mobile border-collapse   " style="width: 198px; min-width: 198px;">
                                     Love it
                                 </th>
-                                <th scope="col" id="q2_c2" class="cell nonempty legend col-legend col-legend-top col-legend-basic legend-level-1 mobile border-collapse">
+                                <th scope="col" id="q2_c2" class="cell nonempty legend col-legend col-legend-top col-legend-basic legend-level-1 mobile border-collapse   " style="width: 198px; min-width: 198px;">
                                     Hate it
                                 </th>
-
                             </tr>
                         </tbody>
                         <tbody>
@@ -125,7 +124,7 @@
                                 <td headers="q2_c1" class="cell nonempty element indent-1 mobile border-collapse groupingRows    clickableCell">
                                     <span class="cell-sub-wrapper cell-legend-right">
                                         <span class="cell-input cell-sub-column">
-                                            <input type="radio" name="ans91.0.0" value="0"  class="radio"/>
+                                            <input type="radio" name="ans91.0.0" value="0" class="radio fir-hidden">
                                         </span>
                                         <span class="cell-text cell-sub-column"><label>Love it</label> </span>
                                     </span>
@@ -133,12 +132,11 @@
                                 <td headers="q2_c2" class="cell nonempty element indent-1 mobile border-collapse groupingRows    clickableCell">
                                     <span class="cell-sub-wrapper cell-legend-right">
                                         <span class="cell-input cell-sub-column">
-                                            <input type="radio" name="ans91.0.0" value="1"  class="radio"/>
+                                            <input type="radio" name="ans91.0.0" value="1" class="radio fir-hidden">
                                         </span>
                                         <span class="cell-text cell-sub-column"><label>Hate it</label> </span>
                                     </span>
                                 </td>
-
                             </tr>
                             <tr class="row row-elements odd colCount-2">
                                 <th scope="row" class="cell nonempty legend row-legend row-legend-left row-legend-basic legend-level-1 mobile border-collapse  ">
@@ -147,7 +145,7 @@
                                 <td headers="q2_c1" class="cell nonempty element indent-1 mobile border-collapse groupingRows    clickableCell">
                                     <span class="cell-sub-wrapper cell-legend-right">
                                         <span class="cell-input cell-sub-column">
-                                            <input type="radio" name="ans91.0.1" value="0"  class="radio"/>
+                                            <input type="radio" name="ans91.0.1" value="0" class="radio fir-hidden">
                                         </span>
                                         <span class="cell-text cell-sub-column"><label>Love it</label> </span>
                                     </span>
@@ -155,15 +153,27 @@
                                 <td headers="q2_c2" class="cell nonempty element indent-1 mobile border-collapse groupingRows    clickableCell">
                                     <span class="cell-sub-wrapper cell-legend-right">
                                         <span class="cell-input cell-sub-column">
-                                            <input type="radio" name="ans91.0.1" value="1"  class="radio"/>
+                                            <input type="radio" name="ans91.0.1" value="1" class="radio fir-hidden">
                                         </span>
                                         <span class="cell-text cell-sub-column"><label>Hate it</label> </span>
                                     </span>
+                                </td>
+                            </tr><tr class="row row-elements row-no-answer even">
+                            <th scope="row" class="cell nonempty legend row-legend row-legend-left row-legend-basic legend-level-1 mobile border-collapse  ">
+                                No Answer
+                            </th>
+                            <td colspan="2" headers="q2_c2" class="cell nonempty element naCell mobile border-collapse groupingRows   clickableCell">
+                                <span class="cell-sub-wrapper cell-legend-right">
+                                    <span class="cell-input cell-sub-column">
+                                        <input type="checkbox" id="_v2_na_q2.r3" name="_v2_na_q2.r3" value="1" class="input na fir-hidden">
+                                    </span>
+                                    <span class="cell-text cell-sub-column"><label>No Answer</label></span></span>
                                 </td>
 
                             </tr>
                         </tbody>
                     </table>
+
                 </div>
             </div><!-- /.question -->
 
@@ -195,7 +205,7 @@
                                 <td colspan="1" class="cell nonempty mobile-top-border-cell"></td>
                             </tr>
                             <tr class="row row-elements even colCount-1">
-                                <td  class="cell nonempty element indent-1 mobile border-collapse groupingRows OneColumnEl    ">
+                                <td  class="cell nonempty element mobile border-collapse groupingRows OneColumnEl    ">
                                     <span class="cell-sub-wrapper cell-legend-above">
                                         <span class="cell-input cell-sub-column">
                                             <select name="ans100.0.0" id="ans100.0.0" class="input dropdown">
