@@ -1,24 +1,8 @@
 // Mobile first styling, then desktop styling at bottom.
 
-// Button Select Variables (to be overridden by theme)
-@btn-text-color: @clr-2;
-@btn-font-size: @general-font-size;
-@btn-font-family: @primary-font-family;
-@btn-bg-color: @clr-3;
-@btn-bg-color-hover: lighten(@btn-bg-color, 15%);
-@btn-bg-color-selected: @clr-5;
-@btn-border-color: darken(@btn-bg-color, 15%);
-@btn-border-color-hover: lighten(@btn-border-color, 10%);
-@btn-border-color-selected: darken(@btn-bg-color-selected, 15%);
-@btn-select-default-max-width: 320px; // widest a button can be by default (320px is 1/3 of 960px, so would fit 3 wide by default)
-@btn-select-spacing: 0 2px 4px; // set padding around buttons to control spacing when in grid mode, left/right are stripped in list mode.
-@btn-select-border-radius: 3px;
-
-
 .buttonSelect {
-  max-width: @fg-inner-width-mobile;
   @media @desktop {
-    max-width: @fg-inner-width-desktop;
+    max-width: @fg-inner-width;
   }
 }
 
@@ -48,7 +32,7 @@
 
 .btn-select {
   display: block;
-  font-size: @btn-font-size;
+  font-size: @dq-button-font-size;
   max-width: @btn-select-default-max-width;
   padding: @btn-select-spacing;
   padding-left: 0;
@@ -64,17 +48,17 @@
   label {
     position: relative;
     max-width: 100%;
-    background-color: @btn-bg-color;
+    background-color: @dq-button-bg-color;
     -webkit-border-radius: @btn-select-border-radius;
     -moz-border-radius: @btn-select-border-radius;
     border-radius: @btn-select-border-radius;
-    border-bottom: 1px solid @btn-border-color;
+    border-bottom: 1px solid @dq-button-border-color;
     display: inline-block;
     cursor: pointer;
     .bs-text {
       padding: 7px 1em 6px 30px;
       text-align: left;
-      color: @btn-text-color;
+      color: @dq-button-text-color;
       -webkit-transform-style: preserve-3d;
       -moz-transform-style: preserve-3d;
       transform-style: preserve-3d;
@@ -112,43 +96,49 @@
         -o-transition: opacity 100ms ease;
         transition: opacity 100ms ease;
         .fir-bg {
-          fill: @btn-bg-color;
+          fill: @dq-button-bg-color;
         }
         .fir-base {
-          fill: fadeOut(@btn-text-color, 10);
+          fill: fadeOut(@dq-button-text-color, 10);
         }
         .fir-selected {
-          fill: fadeOut(@btn-text-color, 100);
+          fill: fadeOut(@dq-button-text-color, 100);
         }
       }
     } // end .bs-fir
     &:hover, &:focus {
-      background-color: @btn-bg-color-hover;
-      border-bottom-color: @btn-border-color-hover;
+      background-color: @dq-button-bg-color-hover;
+      border-bottom-color: @dq-button-border-color-hover;
+      .bs-text {
+        color: @dq-button-text-color-hover;
+      }
       svg {
         .fir-bg {
-          fill: @btn-bg-color-hover;
+          fill: @dq-button-bg-color-hover;
         }
         .fir-base {
-          fill: @btn-text-color;
+          fill: @dq-button-text-color;
         }
       }
     }
   } // end label
   input[type="radio"]:checked, input[type="checkbox"]:checked {
     & + label {
-      background-color: @btn-bg-color-selected;
-      border-bottom-color: @btn-border-color-selected;
+      background-color: @dq-button-bg-color-selected;
+      border-bottom-color: @dq-button-border-color-selected;
+      .bs-text {
+        color: @dq-button-text-color-selected;
+      }
       svg {
         opacity: 1;
         .fir-bg {
-          fill: @btn-bg-color-selected;
+          fill: @dq-button-bg-color-selected;
         }
         .fir-base {
-          fill: @btn-text-color;
+          fill: @dq-button-text-color;
         }
         .fir-selected {
-          fill: @btn-text-color;
+          fill: @dq-button-text-color;
         }
       }
     }

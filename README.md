@@ -18,7 +18,7 @@ You change something in themes.less, save, your styles are compiled and the brow
 2. If you don't have node.js installed, install it from  http://nodejs.org/  look for the big obvious 'Install' button.
 3. If you don't have grunt.js installed, install it by entering `npm install -g grunt-cli` into the terminal. If you're on a mac and it looks like it didn't work, try `sudo npm install -g grunt-cli` to install as administrator, enter your computer's password when promted.
 4. Download the theme kit from github and cd into the folder from the terminal. Easiest way is to just type `cd`, space, then drag the folder onto the termina, it will type the folder path for you then hit enter.
-5. Type `npm install`, hit enter. This will create a 'node_modules' folder and download the stuff grunt needs for running it's magic. You only need to do this once, unless you delete the node_modules folder somehow, then you'd run this again.
+5. Type `npm install`, hit enter. If it fails, try `sudo npm install` instead. This will create a 'node_modules' folder and download the stuff grunt needs for running it's magic. You only need to do this once, unless you delete the node_modules folder somehow, then you'd run this again.
 6. Type `grunt server` and hit enter. You should see two processes fire up, one running a local server at `localhost:3000`, and one running "watch", which watches the theme.less file and compiles less + refreshes the browser every time you save. If you save and don't see a change, take a peek at the terminal, it's probably because you have a mistake in your less, when it's fixed and you save, it will compile and reload properly.
 
 ###Firing Up

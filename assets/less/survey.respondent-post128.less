@@ -7,72 +7,272 @@
 
 */
 
-// Foreground Measurements
-@fg-width: 960px;
-  // ^ sets min-width of the foreground. min instead of max because tables need to be able to extend the width in certain cases.
-  // that's why we provide the following inner width for keeping other question types (like Button Selects) from expanding the fg width.
-@fg-padding-top-bottom: 1em;
-@fg-padding-left-right-mobile: 14px; // must use same units as @fg-width for equasion below to work.
-@fg-padding-left-right-desktop: 18px; // also must use same units as @fg-width
-@fg-inner-width-mobile: @fg-width - (@fg-padding-left-right-mobile * 2); // fg width minus padding, used 
-@fg-inner-width-desktop: @fg-width - (@fg-padding-left-right-desktop * 2);
+@static-path: '/static';
+
+.webfontImport(@url) when not (@url = '') {
+  @import url('@{url}');
+}
+
+.border-radius(@radius) when not (@radius = 0) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  border-radius: @radius;
+}
+
+// Defaults for Less variable required by this file. Should be overriden by real themes. These are set here so tests w/o themes will still function.
+/* Insert values here */
 
 /* ================================================== (AQ Colors) ================================================== */
 .survey-theme-colors {
-  color: @btn-text-color;
-  background-color: @btn-bg-color;
+  color: @dq-button-text-color;
+  background-color: @dq-button-bg-color;
 }
 .survey-theme-colors-selected {
-  color: @btn-text-color;
-  background-color: @btn-bg-color-selected;
+  color: @dq-button-text-color;
+  background-color: @dq-button-bg-color-selected;
 }
 .survey-theme-colors-disabled {
-  color: @btn-text-color;
-  background-color: fadeout(@btn-bg-color, 60%);
+  color: @dq-button-text-color;
+  background-color: fadeout(@dq-button-bg-color, 60%);
 }
 
 /* ======================================================= (Common) ========================================================*/
 
 * {
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-    -webkit-tap-highlight-color: transparent;
-    }
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: transparent;
+}
 
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
-    margin: 0;
-    padding: 0;
-    font-size: 100%;
-    border: 0;
-    outline: 0;
-    }
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  border: 0;
+  outline: 0;
+}
 
-article, aside, details, figcaption, figure, footer, header, hgroup, nav, section {
-    display: block;
-    }
+// Correct 'block' display not defined for HTML5 elements.
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+  display: block;
+}
 
+// Prevent mobile text size adjust after orientation change, without disabling user zoom.
 html {
-    -webkit-text-size-adjust: none;
-    }
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
 
-ol, ul {
-    list-style: none;
-    }
+// Common resets.
+body {
+  line-height: 1;
+}
 
-blockquote, q {
-    quotes: none;
-    }
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+}
+
+.question, .comment {
+  ul {
+    list-style-type: disc;
+  }
+  ol {
+    list-style-type: decimal;
+  }
+  ul, ol {
+    padding: 0 0 0 2.3em;
+    margin-bottom: 7px;
+  }
+  li {
+    padding-bottom: 7px;
+  }
+  li:last-child {
+    padding-bottom: 0;
+  }
+}
 
 table {
-    border-collapse: collapse;
-    border-spacing: 0;
-    }
+  border-collapse: collapse;
+  border-spacing: 0;
+}
 
-legend {
-    color:#000;
-    }
+sub {
+  vertical-align: sub;
+  font-size: .83em;
+}
+
+sup {
+  vertical-align: super;
+  font-size: .83em;
+}
+
+// Remove auto-generated quotes from quote-related tags.
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+	content: '';
+	content: none;
+}
+
+/**
+ * 1. Correct `inline-block` display not defined in IE 8/9.
+ * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
+ */
+audio,
+canvas,
+progress,
+video {
+  display: inline-block; /* 1 */
+  vertical-align: baseline; /* 2 */
+}
+
+[hidden],
+template {
+  display: none;
+}
+
+b,
+strong {
+  font-weight: bold;
+}
+
+small {
+  font-size: 80%;
+}
+
+button {
+  overflow: visible;
+}
+
+/**
+ * 2. Correct font properties not being inherited.
+ */
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font: inherit; /* 2 */
+}
+
+/**
+ * Don't inherit the `font-weight` (applied by a rule above).
+ * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.
+ */
+
+optgroup {
+  font-weight: bold;
+}
+
+/**
+ * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
+ *    and `video` controls.
+ * 2. Correct inability to style clickable `input` types in iOS.
+ * 3. Improve usability and consistency of cursor style between image-type
+ *    `input` and others.
+ */
+
+button,
+html input[type="button"], /* 1 */
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button; /* 2 */
+  cursor: pointer; /* 3 */
+}
+
+/**
+ * Re-set default cursor for disabled elements.
+ */
+
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+
+/**
+ * Remove inner padding and border in Firefox 4+.
+ */
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+/**
+ * Address Firefox 4+ setting `line-height` on `input` using `!important` in
+ * the UA stylesheet.
+ */
+
+input {
+  line-height: normal;
+}
+
+/**
+ * It's recommended that you don't attempt to style these elements.
+ * Firefox's implementation doesn't respect box-sizing, padding, or width.
+ *
+ * 1. Address box sizing set to `content-box` in IE 8/9/10.
+ * 2. Remove excess padding in IE 8/9/10.
+ */
+
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box; /* 1 */
+  padding: 0; /* 2 */
+}
+
+/**
+ * Fix the cursor style for Chrome's increment/decrement buttons. For certain
+ * `font-size` values of the `input`, it causes the cursor style of the
+ * decrement button to change from `default` to `text`.
+ */
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/**
+ * 1. Address `appearance` set to `searchfield` in Safari and Chrome.
+ * 2. Address `box-sizing` set to `border-box` in Safari and Chrome
+ *    (include `-moz` to future-proof).
+ */
+
+input[type="search"] {
+  -webkit-appearance: textfield; /* 1 */
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box; /* 2 */
+  box-sizing: content-box;
+}
+
+/**
+ * Remove inner padding and search cancel button in Safari and Chrome on OS X.
+ * Safari (but not Chrome) clips the cancel button when the search input has
+ * padding (and `textfield` appearance).
+ */
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
 
 input[type="text"],
 input[type="email"],
@@ -86,6 +286,14 @@ textarea {
     cursor: text;
     }
 
+/**
+ * Remove default vertical scrollbar in IE 8/9/10/11.
+ */
+
+textarea {
+  overflow: auto;
+}
+
 /* br that tinymce might add */
 br[_mce_bogus] { display: none; }
 
@@ -95,14 +303,28 @@ br[_mce_bogus] { display: none; }
   #detectBreakpoint { display: none; }
 }
 
+/* ================================================== (Reusable Classes) ===================================================*/
+
+/* Follow-Up Questions - Questions that should appear closer to the question above. */
+.question.followUpQuestion {
+  margin-top: -1em;
+}
+/* Programmers have the option to hide the respondent question and instruction text */
+.hideQuestionText .question-text, .hideInstructionText .instructions {
+  display: none;
+}
+
 /* ================================================== (Survey Container) ===================================================*/
 .survey-container, .survey-section {
   text-align: center;
 }
-.survey-body, .survey-extra-header {
+.survey-body, .page-header {
   text-align: left;
 }
-.survey-body, .survey-extra-header, .footer {
+.survey-body {
+  min-height: 200px;
+}
+.survey-body, .page-header, .footer {
   margin: 0 auto;
   min-width: @fg-width;
   display: inline-block;
@@ -110,14 +332,14 @@ br[_mce_bogus] { display: none; }
   max-width: 100%;
 }
 @media (max-width: @fg-width) {
-  .survey-body, .survey-extra-header, .footer {
+  .survey-body, .page-header, .footer {
     display: block;
     min-width: 0;
   }
 }
 .answers {
   display: table;
-  min-width: @fg-inner-width-desktop;
+  min-width: @fg-inner-width;
   .noCols & {
     display: block;
   }
@@ -131,20 +353,21 @@ br[_mce_bogus] { display: none; }
 /* ============================================== (Primary Container Defaults) ============================================*/
 
 .survey-info,
+.survey-warning,
 .survey-extra-approval,
+.autosave-restart,
 .logo,
 .survey-error,
+.question-error,
 .exit-message,
 .comment,
-.question-text,
-.instruction-text,
+.question,
+.instruction,
+.exit-message,
 .survey-buttons {
 
     /* DOES NOT APPLY TO ".answers" and it's children */
-    max-width: @fg-inner-width-mobile;
-      @media @desktop {
-        max-width: @fg-inner-width-desktop;
-      }
+    max-width: @fg-inner-width;
     }
 
 /* Auto Width */
@@ -164,22 +387,33 @@ br[_mce_bogus] { display: none; }
     This container will allow client branding outside of actual survey content area (.survey-body)
 */
 
-.survey-extra-header {
-    height: 0;
-    padding: 0; /* temp overwrite until this container is used */
-    overflow: hidden;
-    }
+.page-header {
+  display: none;
+}
 
 
 /* =================================================== (Survey Content) =================================================== */
 
-.survey-body > form, 
-.survey-info, 
+.survey-body > form,
+.survey-info,
 .survey-warning {
   clear: both;
 }
 
-/* ============================================ (Survey Content > Page Errors) =============================================*/
+/* ================================================= (Survey Content > Logo) ===============================================*/
+
+
+/*
+    This element will not get written to the page if a logo is not selected in builder
+*/
+
+.logo-image {
+  max-width: 100%;
+  max-height: 5em;
+  @media @desktop {
+    max-height: 8em;
+  }
+}
 
 /*********************************************
  FIR - Form Image Replacement (see fir.less for comments)
@@ -191,16 +425,16 @@ br[_mce_bogus] { display: none; }
 //@fir-selected: #2bbdb9;
 
 // These can be overridden via themevars/attributes
-// @fir-radio: "circle-o";
-// @fir-radio-selected: "dot-circle-o";
-// @fir-checkbox: "square-o";
-// @fir-checkbox-selected: "check-square-o";
+@fir-radio: "circle-o";
+@fir-radio-selected: "dot-circle-o";
+@fir-checkbox: "square-o";
+@fir-checkbox-selected: "check-square-o";
 
 // These are the default FA icons to use for IE8/Android 2.3
-// @fir-fallback-radio: "circle-o";
-// @fir-fallback-radio-selected: "dot-circle-o";
-// @fir-fallback-checkbox: "square-o";
-// @fir-fallback-checkbox-selected: "check-square-o";
+@fir-fallback-radio: "circle-o";
+@fir-fallback-radio-selected: "dot-circle-o";
+@fir-fallback-checkbox: "square-o";
+@fir-fallback-checkbox-selected: "check-square-o";
 /*********************************************
  STYLE SETTINGS: ROUNDED, SQUARE
  *********************************************/
@@ -368,25 +602,25 @@ br[_mce_bogus] { display: none; }
 /*********************************************
  FIR FONT-AWESOME
  *********************************************/
-// @fir-var-radio: 'fa-var-@{fir-radio}';
-// @fir-var-radio-selected: 'fa-var-@{fir-radio-selected}';
-// @fir-var-checkbox: 'fa-var-@{fir-checkbox}';
-// @fir-var-checkbox-selected: 'fa-var-@{fir-checkbox-selected}';
+//@fir-var-radio: 'fa-var-@{fir-radio}';
+//@fir-var-radio-selected: 'fa-var-@{fir-radio-selected}';
+//@fir-var-checkbox: 'fa-var-@{fir-checkbox}';
+//@fir-var-checkbox-selected: 'fa-var-@{fir-checkbox-selected}';
 
-// .fa-icon-fir-radio:before { content: @@fir-var-radio; }
-// .fa-icon-fir-radio-selected:before { content: @@fir-var-radio-selected; }
-// .fa-icon-fir-checkbox:before { content: @@fir-var-checkbox; }
-// .fa-icon-fir-checkbox-selected:before { content: @@fir-var-checkbox-selected; }
+//.fa-icon-fir-radio:before { content: @@fir-var-radio; }
+//.fa-icon-fir-radio-selected:before { content: @@fir-var-radio-selected; }
+//.fa-icon-fir-checkbox:before { content: @@fir-var-checkbox; }
+//.fa-icon-fir-checkbox-selected:before { content: @@fir-var-checkbox-selected; }
 
-// @fir-var-fallback-radio: 'fa-var-@{fir-fallback-radio}';
-// @fir-var-fallback-radio-selected: 'fa-var-@{fir-fallback-radio-selected}';
-// @fir-var-fallback-checkbox: 'fa-var-@{fir-fallback-checkbox}';
-// @fir-var-fallback-checkbox-selected: 'fa-var-@{fir-fallback-checkbox-selected}';
+//@fir-var-fallback-radio: 'fa-var-@{fir-fallback-radio}';
+//@fir-var-fallback-radio-selected: 'fa-var-@{fir-fallback-radio-selected}';
+//@fir-var-fallback-checkbox: 'fa-var-@{fir-fallback-checkbox}';
+//@fir-var-fallback-checkbox-selected: 'fa-var-@{fir-fallback-checkbox-selected}';
 
-// .fa-icon-fir-fallback-radio:before { content: @@fir-var-fallback-radio; }
-// .fa-icon-fir-fallback-radio-selected:before { content: @@fir-var-fallback-radio-selected; }
-// .fa-icon-fir-fallback-checkbox:before { content: @@fir-var-fallback-checkbox; }
-// .fa-icon-fir-fallback-checkbox-selected:before { content: @@fir-var-fallback-checkbox-selected; }
+//.fa-icon-fir-fallback-radio:before { content: @@fir-var-fallback-radio; }
+//.fa-icon-fir-fallback-radio-selected:before { content: @@fir-var-fallback-radio-selected; }
+//.fa-icon-fir-fallback-checkbox:before { content: @@fir-var-fallback-checkbox; }
+//.fa-icon-fir-fallback-checkbox-selected:before { content: @@fir-var-fallback-checkbox-selected; }
 /*********************************************
  END FIR
  *********************************************/
@@ -467,11 +701,6 @@ br[_mce_bogus] { display: none; }
     border-bottom: 0 !important;
 }
 
-// Remove grid-lines from 1D lists and multi-col-separators.
-.grid-list-mode .nonempty {
-    border-width: 0;
-    }
-
 // Force multi-col grids to use auto widths, top alignment, separator spacing, and proper borders.
 .multi-col-parent-cell {
     vertical-align: top !important;
@@ -520,12 +749,15 @@ textarea {
     }
 
 // Cell contents should be centered vertically.
+.cell-text {
+    line-height: normal;
+    }
 .input, .cell-sub-column, .mobile-oe-legend, .cell img {
     vertical-align: middle;
     }
 
 // Clickable elements should have a pointer cursor.
-.cell-input, .oe, .checkbox, .radio, .nas {
+.cell-text label, .cell-input .checkbox, .cell-input .radio {
     cursor: pointer;
     }
 
@@ -548,7 +780,7 @@ textarea {
   }
 
   .grid {
-    background-color: @fg-color; // Set grids to match the foreground color. This prevents devContainer's ugly bg from being seen inside cells.
+    background-color: @foreground-color; // Set grids to match the foreground color. This prevents devContainer's ugly bg from being seen inside cells.
   }
 
   .question-text {
@@ -616,10 +848,7 @@ textarea {
   /* Set table width class -- ".setWidth" is added to table.grid dynamically via JS for questions with less that ten cols */
   &.setWidth {
     /* Set width for questions with less than ten cols */
-    max-width: @fg-inner-width-mobile;
-    @media @desktop {
-      max-width: @fg-inner-width-desktop
-    }
+    max-width: @fg-inner-width;
   }
 
       /* Auto Width */

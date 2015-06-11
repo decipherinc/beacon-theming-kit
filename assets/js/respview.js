@@ -22,21 +22,44 @@ $.extend({
     checkFirstChild: function (obj, event) {
         var children,
             x,
-            node;
+            node,
+            tag;
 
         event = event || window.event; // IE doesn't pass the event as an argument
 
-        if (event.target.nodeName.toLowerCase() === "input") {
-            // exit if the event target is an input or label element (it will toggle itself)
+        tag = event.target.nodeName.toLowerCase();
+
+        if (tag === "input" || tag === "a") {
+            // exit if the event target is an <input> or <a> element (it will toggle itself)
             return true;
-        } else if (!$(event.target).hasClass("clickableCell")) {
+        } else if (tag === "label" && $(event.target).attr('for')) {
+            // exit if the event target is a <label> pointing to an input (it will toggle itself)
+            return true;
+        } else if ($(event.target).hasClass("mobile-oe-legend")) {
+            // exit if we're clicking an OE's label
+            return true;
+        } else if ($(event.target).hasClass("clickableCell")) {
+            // clicked cell
+            children = $(obj).find('input');
+        } else {
+            // exit if the event target is inside an <a> tag within the cell.
+            if (!!$(event.target).parents('a').length) {
+                return true;
+            }
+            // exit if the event target is inside a <label> pointing to an input (the label will toggle itself)
+            if (!!$(event.target).closest('label[for]').length) {
+                // except in ie8, where the label will not toggle itself if an img is clicked
+                if (tag === 'img' && $('html').hasClass('lte-ie8')) {
+                    var $checkbox = $(obj).find('[id="'+ $(event.target).closest('label').attr('for')+'"]');
+                    $checkbox.prop('checked', !$checkbox.prop('checked')).trigger('change');
+                }
+                return true;
+            }
+
             // row/col legend label/text was clicked
             children = $(event.currentTarget).find("input");
             // stop double bubble
             event.preventDefault();
-        } else {
-            // clicked cell
-            children = $(obj).find('input');
         }
 
         for (x = 0; x < children.length; x++) {
@@ -63,7 +86,7 @@ $.extend({
 });
 
 $(function () {
-    $("table").delegate('.clickableCell', 'click', function (event) {
+    $(".answers").delegate('.element', 'click', function (event) {
         $.checkFirstChild(this, event);
         event.stopPropagation();
     });

@@ -220,9 +220,9 @@ jQuery(document).ready(function () {
         // every cell. So a cell on row-1 col-3 moves to row-3 col-1.
 
         // Set necessary variables.
-        var celement, pos, t, r, c, currowcount, goalrowcount, height, $row, multicol, simple;
+        var celement, pos, t, r, currowcount, goalrowcount, height, $row, $top, simple;
         t = telement.attr("id").split("-")[3];
-        currowcount = telement.find(".row").length;
+        currowcount = telement.find(".row").not('.mobile-top-border-row').length;
         goalrowcount = 0;
         height = telement.data('height');
         simple = gridSetting(telement, 'simple-markup');
@@ -244,7 +244,7 @@ jQuery(document).ready(function () {
             if (r > goalrowcount) goalrowcount = r;
             while (r > currowcount) {
                 currowcount++;
-                $('<' + (simple ? 'div' : 'tr') + ' class="row ' + ((currowcount - 1) % 2 ? 'odd' : 'even') + '" ' + (height !== 'None' ? 'style="height:' + height + ';"' : '') + ' id="-grid-row-' + t + '-' + currowcount + '">').insertAfter("#-grid-row-" + t + "-" + (currowcount - 1));
+                $('<' + (simple ? 'div' : 'tr') + (height !== 'None' ? ' style="height:' + height + ';"' : '') + ' id="-grid-row-' + t + '-' + currowcount + '">').insertAfter("#-grid-row-" + t + "-" + (currowcount - 1));
             }
 
             // Move the cell
@@ -259,12 +259,30 @@ jQuery(document).ready(function () {
         }
 
         // Important post-move functionality.
+        $top = $("#-grid-row-" + t + "-top");
+        if ($top.length) {
+            if (isMobile) {
+                $top.data('span', $top.attr('colspan'));
+                $top.removeAttr('colspan');
+            } else {
+                $top.attr('colspan', $top.data('span'));
+            }
+        }
 
         // Loop through every row.
         for (r=1; r<=currowcount; r++) {
-            // If going to Mobile view, update the hasError class on rows.
+            // If going to Mobile view, replace the classes.
             if (isMobile) {
                 $row = $("#-grid-row-" + t + "-" + r);
+                // Strip all current classes
+                $row.removeClass();
+                // Add expected classes
+                $row.addClass('row row-elements ' + (r % 2 ? 'odd' : 'even'));
+                // Note if the row has a zero height.
+                if ($row.height() === 0) {
+                    $row.addClass('zeroHeight');
+                }
+                // Update the hasError class
                 if ($row.find("hasError").length > 0) {
                     $row.addClass("hasError");
                 } else {
@@ -294,6 +312,12 @@ jQuery(document).ready(function () {
         $table.find(".row").each(function(){
 
             $row = $(this);
+
+            // Skip the mobile-only top border row.
+            if ($row.hasClass('mobile-top-border-row')) {
+                $row.find('.mobile-top-border-cell').attr("id", "-grid-row-" + t + "-top");
+                return;
+            }
 
             // Assign a row ID.
             $row.attr("id", "-grid-row-" + t + "-" + r);
@@ -512,7 +536,7 @@ jQuery(document).ready(function () {
     $(".grid").each(function (index) {
 
         var $grid = $(this),
-            $question = $grid.closest(".surveyQuestion");
+            $question = $grid.closest(".question");
 
         var legendsLeft = $grid.find(".row-legend-left");
         var legendsRight = $grid.find(".row-legend-right");
@@ -662,7 +686,7 @@ jQuery(document).ready(function () {
     fixUnequalLabelWidths();
 
     // Opens jQuery UI Dialog for the Support Form
-    $('a[href*="/support"]', "#surveyFooter").click(function (e) {
+    $('a[href*="/support"]', ".footer").click(function (e) {
 
         if (window.innerWidth > 450) {
             e.preventDefault();
@@ -902,6 +926,9 @@ jQuery(document).ready(function () {
         if ($input.prop('checked')) {
             $fir.addClass('selected');
             $fa.swapClass(faOff, faOn);
+        }
+        if ($input.prop('disabled')) {
+            $fir.addClass('disabled');
         }
         $input.change(function () {
             if ($input.prop('checked')) {

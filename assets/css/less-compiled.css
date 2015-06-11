@@ -1,4 +1,4 @@
-@import url('http://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic');
+@import url('//fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700');
 /*
     Notes:
 
@@ -7,18 +7,19 @@
     - Shorthand rules are not used as much as they could to keep customization docs easier
 
 */
+/* Insert values here */
 /* ================================================== (AQ Colors) ================================================== */
 .survey-theme-colors {
   color: white;
-  background-color: green;
+  background-color: orange;
 }
 .survey-theme-colors-selected {
   color: white;
-  background-color: orange;
+  background-color: #2bbdb9;
 }
 .survey-theme-colors-disabled {
   color: white;
-  background-color: rgba(0, 128, 0, 0.4);
+  background-color: rgba(255, 165, 0, 0.4);
 }
 /* ======================================================= (Common) ========================================================*/
 * {
@@ -54,7 +55,6 @@ code,
 del,
 dfn,
 em,
-font,
 img,
 ins,
 kbd,
@@ -89,7 +89,27 @@ tfoot,
 thead,
 tr,
 th,
-td {
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
   margin: 0;
   padding: 0;
   font-size: 100%;
@@ -104,27 +124,201 @@ figure,
 footer,
 header,
 hgroup,
+main,
+menu,
 nav,
-section {
+section,
+summary {
   display: block;
 }
 html {
-  -webkit-text-size-adjust: none;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
 }
-ol,
-ul {
-  list-style: none;
+body {
+  line-height: 1;
 }
-blockquote,
-q {
-  quotes: none;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+}
+.question ul,
+.comment ul {
+  list-style-type: disc;
+}
+.question ol,
+.comment ol {
+  list-style-type: decimal;
+}
+.question ul,
+.comment ul,
+.question ol,
+.comment ol {
+  padding: 0 0 0 2.3em;
+  margin-bottom: 7px;
+}
+.question li,
+.comment li {
+  padding-bottom: 7px;
+}
+.question li:last-child,
+.comment li:last-child {
+  padding-bottom: 0;
 }
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-legend {
-  color: #000;
+sub {
+  vertical-align: sub;
+  font-size: .83em;
+}
+sup {
+  vertical-align: super;
+  font-size: .83em;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+/**
+ * 1. Correct `inline-block` display not defined in IE 8/9.
+ * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
+ */
+audio,
+canvas,
+progress,
+video {
+  display: inline-block;
+  /* 1 */
+  vertical-align: baseline;
+  /* 2 */
+}
+[hidden],
+template {
+  display: none;
+}
+b,
+strong {
+  font-weight: bold;
+}
+small {
+  font-size: 80%;
+}
+button {
+  overflow: visible;
+}
+/**
+ * 2. Correct font properties not being inherited.
+ */
+button,
+input,
+optgroup,
+select,
+textarea {
+  font: inherit;
+  /* 2 */
+}
+/**
+ * Don't inherit the `font-weight` (applied by a rule above).
+ * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.
+ */
+optgroup {
+  font-weight: bold;
+}
+/**
+ * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
+ *    and `video` controls.
+ * 2. Correct inability to style clickable `input` types in iOS.
+ * 3. Improve usability and consistency of cursor style between image-type
+ *    `input` and others.
+ */
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button;
+  /* 2 */
+  cursor: pointer;
+  /* 3 */
+}
+/**
+ * Re-set default cursor for disabled elements.
+ */
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+/**
+ * Remove inner padding and border in Firefox 4+.
+ */
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+/**
+ * Address Firefox 4+ setting `line-height` on `input` using `!important` in
+ * the UA stylesheet.
+ */
+input {
+  line-height: normal;
+}
+/**
+ * It's recommended that you don't attempt to style these elements.
+ * Firefox's implementation doesn't respect box-sizing, padding, or width.
+ *
+ * 1. Address box sizing set to `content-box` in IE 8/9/10.
+ * 2. Remove excess padding in IE 8/9/10.
+ */
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box;
+  /* 1 */
+  padding: 0;
+  /* 2 */
+}
+/**
+ * Fix the cursor style for Chrome's increment/decrement buttons. For certain
+ * `font-size` values of the `input`, it causes the cursor style of the
+ * decrement button to change from `default` to `text`.
+ */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+/**
+ * 1. Address `appearance` set to `searchfield` in Safari and Chrome.
+ * 2. Address `box-sizing` set to `border-box` in Safari and Chrome
+ *    (include `-moz` to future-proof).
+ */
+input[type="search"] {
+  -webkit-appearance: textfield;
+  /* 1 */
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  /* 2 */
+  box-sizing: content-box;
+}
+/**
+ * Remove inner padding and search cancel button in Safari and Chrome on OS X.
+ * Safari (but not Chrome) clips the cancel button when the search input has
+ * padding (and `textfield` appearance).
+ */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
 }
 input[type="text"],
 input[type="email"],
@@ -136,6 +330,12 @@ input[type="url"],
 input[type="password"],
 textarea {
   cursor: text;
+}
+/**
+ * Remove default vertical scrollbar in IE 8/9/10/11.
+ */
+textarea {
+  overflow: auto;
 }
 /* br that tinymce might add */
 br[_mce_bogus] {
@@ -149,17 +349,30 @@ br[_mce_bogus] {
     display: none;
   }
 }
+/* ================================================== (Reusable Classes) ===================================================*/
+/* Follow-Up Questions - Questions that should appear closer to the question above. */
+.question.followUpQuestion {
+  margin-top: -1em;
+}
+/* Programmers have the option to hide the respondent question and instruction text */
+.hideQuestionText .question-text,
+.hideInstructionText .instructions {
+  display: none;
+}
 /* ================================================== (Survey Container) ===================================================*/
 .survey-container,
 .survey-section {
   text-align: center;
 }
 .survey-body,
-.survey-extra-header {
+.page-header {
   text-align: left;
 }
+.survey-body {
+  min-height: 200px;
+}
 .survey-body,
-.survey-extra-header,
+.page-header,
 .footer {
   margin: 0 auto;
   min-width: 960px;
@@ -169,7 +382,7 @@ br[_mce_bogus] {
 }
 @media (max-width: 960px) {
   .survey-body,
-  .survey-extra-header,
+  .page-header,
   .footer {
     display: block;
     min-width: 0;
@@ -190,29 +403,20 @@ br[_mce_bogus] {
 }
 /* ============================================== (Primary Container Defaults) ============================================*/
 .survey-info,
+.survey-warning,
 .survey-extra-approval,
+.autosave-restart,
 .logo,
 .survey-error,
+.question-error,
 .exit-message,
 .comment,
-.question-text,
-.instruction-text,
+.question,
+.instruction,
+.exit-message,
 .survey-buttons {
   /* DOES NOT APPLY TO ".answers" and it's children */
-  max-width: 932px;
-}
-@media (min-width: 768px) {
-  .survey-info,
-  .survey-extra-approval,
-  .logo,
-  .survey-error,
-  .exit-message,
-  .comment,
-  .question-text,
-  .instruction-text,
-  .survey-buttons {
-    max-width: 924px;
-  }
+  max-width: 924px;
 }
 /* Auto Width */
 .customWidth .survey-q-error,
@@ -230,11 +434,8 @@ br[_mce_bogus] {
     FUTURE USE:
     This container will allow client branding outside of actual survey content area (.survey-body)
 */
-.survey-extra-header {
-  height: 0;
-  padding: 0;
-  /* temp overwrite until this container is used */
-  overflow: hidden;
+.page-header {
+  display: none;
 }
 /* =================================================== (Survey Content) =================================================== */
 .survey-body > form,
@@ -242,7 +443,19 @@ br[_mce_bogus] {
 .survey-warning {
   clear: both;
 }
-/* ============================================ (Survey Content > Page Errors) =============================================*/
+/* ================================================= (Survey Content > Logo) ===============================================*/
+/*
+    This element will not get written to the page if a logo is not selected in builder
+*/
+.logo-image {
+  max-width: 100%;
+  max-height: 5em;
+}
+@media (min-width: 768px) {
+  .logo-image {
+    max-height: 8em;
+  }
+}
 /*********************************************
  FIR - Form Image Replacement (see fir.less for comments)
  *********************************************/
@@ -251,7 +464,7 @@ br[_mce_bogus] {
  *********************************************/
 .fir-icon .rounded .fir-base,
 .fir-icon .square .fir-base {
-  fill: #dddddd;
+  fill: #d9d9d9;
 }
 .fir-icon .rounded .fir-bg,
 .fir-icon .square .fir-bg {
@@ -263,7 +476,7 @@ br[_mce_bogus] {
 }
 .fir-icon.selected .rounded .fir-selected,
 .fir-icon.selected .square .fir-selected {
-  fill: orange;
+  fill: #2bbdb9;
 }
 .fir-icon.disabled .rounded .fir-selected,
 .fir-icon.disabled .square .fir-selected {
@@ -279,10 +492,10 @@ br[_mce_bogus] {
   fill: transparent;
 }
 .fir-icon .scale .fir-small {
-  fill: green;
+  fill: #c5d600;
 }
 .fir-icon.selected .scale .fir-large {
-  fill: orange;
+  fill: #2bbdb9;
 }
 .fir-icon.disabled .scale .fir-medium {
   fill: transparent;
@@ -291,8 +504,8 @@ br[_mce_bogus] {
  RESPONDENT VIEW SETTINGS
  *********************************************/
 .fir-icon {
-  width: 20px;
-  height: 20px;
+  width: 1.65em;
+  height: 1.65em;
   position: relative;
   display: inline-block;
   vertical-align: middle;
@@ -300,9 +513,9 @@ br[_mce_bogus] {
 }
 .fir-icon svg,
 .fir-icon i {
-  width: 20px;
-  height: 20px;
-  font-size: 20px;
+  width: 1.65em;
+  height: 1.65em;
+  font-size: 1.65em;
   margin-left: 0px;
   margin-right: 0px;
 }
@@ -321,10 +534,10 @@ br[_mce_bogus] {
   margin-left: 0px;
 }
 .fir-icon i {
-  color: green;
+  color: #c5d600;
 }
 .fir-icon.selected i {
-  color: orange;
+  color: #2bbdb9;
 }
 .fir-hidden {
   display: none !important;
@@ -355,7 +568,7 @@ br[_mce_bogus] {
 .non-touch .fir-icon .square:hover .fir-selected,
 .non-touch .clickableCell:hover .fir-icon .rounded .fir-selected,
 .non-touch .clickableCell:hover .fir-icon .square .fir-selected {
-  fill: green;
+  fill: #c5d600;
 }
 .non-touch .fir-icon .rounded:hover:active .fir-selected,
 .non-touch .fir-icon .square:hover:active .fir-selected,
@@ -363,7 +576,7 @@ br[_mce_bogus] {
 .non-touch .fir-icon.selected .square:hover .fir-selected,
 .non-touch .clickableCell:hover .fir-icon.selected .rounded .fir-selected,
 .non-touch .clickableCell:hover .fir-icon.selected .square .fir-selected {
-  fill: orange;
+  fill: #2bbdb9;
 }
 .non-touch .clickableCell:hover .fir-icon.disabled .rounded .fir-selected,
 .non-touch .clickableCell:hover .fir-icon.disabled .square .fir-selected {
@@ -371,11 +584,11 @@ br[_mce_bogus] {
 }
 .non-touch .clickableCell:hover .fir-icon .scale .fir-medium,
 .non-touch .fir-icon .scale:hover .fir-medium {
-  fill: green;
+  fill: #c5d600;
 }
 .non-touch .clickableCell:hover:active .fir-icon .scale .fir-large,
 .non-touch .fir-icon .scale:hover:active .fir-large {
-  fill: orange;
+  fill: #2bbdb9;
 }
 .non-touch .clickableCell:hover .fir-icon.selected .scale .fir-medium,
 .non-touch .clickableCell:hover .fir-icon.selected .scale .fir-small,
@@ -391,7 +604,7 @@ br[_mce_bogus] {
 }
 .non-touch .clickableCell:hover:active .fir-icon.disabled .scale .fir-small,
 .non-touch .fir-icon.disabled .scale:hover:active .fir-small {
-  fill: green;
+  fill: #c5d600;
 }
 /*********************************************
  FIR FONT-AWESOME
@@ -461,9 +674,6 @@ br[_mce_bogus] {
   padding: 0 !important;
   border-bottom: 0 !important;
 }
-.grid-list-mode .nonempty {
-  border-width: 0;
-}
 .multi-col-parent-cell {
   vertical-align: top !important;
   padding: 3px;
@@ -512,17 +722,18 @@ textarea {
 .cell-legend-none .cell-text {
   display: none;
 }
+.cell-text {
+  line-height: normal;
+}
 .input,
 .cell-sub-column,
 .mobile-oe-legend,
 .cell img {
   vertical-align: middle;
 }
-.cell-input,
-.oe,
-.checkbox,
-.radio,
-.nas {
+.cell-text label,
+.cell-input .checkbox,
+.cell-input .radio {
   cursor: pointer;
 }
 .grid[data-settings*='single-col'] .cell {
@@ -635,12 +846,7 @@ textarea {
 }
 .grid.grid-table-mode.setWidth {
   /* Set width for questions with less than ten cols */
-  max-width: 932px;
-}
-@media (min-width: 768px) {
-  .grid.grid-table-mode.setWidth {
-    max-width: 924px;
-  }
+  max-width: 924px;
 }
 .customWidth .grid.grid-table-mode.setWidth,
 .flexGrid .grid.grid-table-mode.setWidth {
@@ -907,10 +1113,6 @@ textarea {
   max-width: 100%;
 }
 /*********************************************
- VARIABLES
- - These are usually added from other places, but added here for some defaults.
- *********************************************/
-/*********************************************
  DESKTOP-SPECIFIC RESPONDENT VIEW SETTINGS LOCATED IN FIR.DESKTOP.LESS
  *********************************************/
 /*********************************************
@@ -918,7 +1120,7 @@ textarea {
  *********************************************/
 .fir-icon .rounded .fir-base,
 .fir-icon .square .fir-base {
-  fill: #dddddd;
+  fill: #d9d9d9;
 }
 .fir-icon .rounded .fir-bg,
 .fir-icon .square .fir-bg {
@@ -930,7 +1132,7 @@ textarea {
 }
 .fir-icon.selected .rounded .fir-selected,
 .fir-icon.selected .square .fir-selected {
-  fill: orange;
+  fill: #2bbdb9;
 }
 .fir-icon.disabled .rounded .fir-selected,
 .fir-icon.disabled .square .fir-selected {
@@ -946,10 +1148,10 @@ textarea {
   fill: transparent;
 }
 .fir-icon .scale .fir-small {
-  fill: green;
+  fill: #c5d600;
 }
 .fir-icon.selected .scale .fir-large {
-  fill: orange;
+  fill: #2bbdb9;
 }
 .fir-icon.disabled .scale .fir-medium {
   fill: transparent;
@@ -962,8 +1164,8 @@ textarea {
   content: "\f192";
 }
 .fir-icon {
-  width: 20px;
-  height: 20px;
+  width: 1.65em;
+  height: 1.65em;
   position: relative;
   display: inline-block;
   vertical-align: middle;
@@ -971,11 +1173,11 @@ textarea {
 }
 .fir-icon svg,
 .fir-icon i {
-  width: 20px;
-  height: 20px;
-  font-size: 20px;
-  margin-left: 0px;
-  margin-right: 0px;
+  width: 1em;
+  height: 1em;
+  font-size: 1.65em;
+  margin-left: 0;
+  margin-right: 0;
 }
 .fir-icon.disabled svg,
 .fir-icon.disabled i {
@@ -993,10 +1195,10 @@ textarea {
   margin-left: 0px;
 }
 .fir-icon i {
-  color: green;
+  color: #c5d600;
 }
 .fir-icon.selected i {
-  color: orange;
+  color: #2bbdb9;
 }
 .fir-hidden {
   display: none !important;
@@ -1027,7 +1229,7 @@ textarea {
 .non-touch .fir-icon .square:hover .fir-selected,
 .non-touch .clickableCell:hover .fir-icon .rounded .fir-selected,
 .non-touch .clickableCell:hover .fir-icon .square .fir-selected {
-  fill: green;
+  fill: #c5d600;
 }
 .non-touch .fir-icon .rounded:hover:active .fir-selected,
 .non-touch .fir-icon .square:hover:active .fir-selected,
@@ -1035,7 +1237,7 @@ textarea {
 .non-touch .fir-icon.selected .square:hover .fir-selected,
 .non-touch .clickableCell:hover .fir-icon.selected .rounded .fir-selected,
 .non-touch .clickableCell:hover .fir-icon.selected .square .fir-selected {
-  fill: orange;
+  fill: #2bbdb9;
 }
 .non-touch .clickableCell:hover .fir-icon.disabled .rounded .fir-selected,
 .non-touch .clickableCell:hover .fir-icon.disabled .square .fir-selected {
@@ -1043,11 +1245,11 @@ textarea {
 }
 .non-touch .clickableCell:hover .fir-icon .scale .fir-medium,
 .non-touch .fir-icon .scale:hover .fir-medium {
-  fill: green;
+  fill: #c5d600;
 }
 .non-touch .clickableCell:hover:active .fir-icon .scale .fir-large,
 .non-touch .fir-icon .scale:hover:active .fir-large {
-  fill: orange;
+  fill: #2bbdb9;
 }
 .non-touch .clickableCell:hover .fir-icon.selected .scale .fir-medium,
 .non-touch .clickableCell:hover .fir-icon.selected .scale .fir-small,
@@ -1063,10 +1265,7 @@ textarea {
 }
 .non-touch .clickableCell:hover:active .fir-icon.disabled .scale .fir-small,
 .non-touch .fir-icon.disabled .scale:hover:active .fir-small {
-  fill: green;
-}
-.buttonSelect {
-  max-width: 932px;
+  fill: #c5d600;
 }
 @media (min-width: 768px) {
   .buttonSelect {
@@ -1100,7 +1299,7 @@ textarea {
 }
 .btn-select {
   display: block;
-  font-size: 16px;
+  font-size: 1em;
   max-width: 320px;
   padding: 0 2px 4px;
   padding-left: 0;
@@ -1118,11 +1317,11 @@ textarea {
 .btn-select label {
   position: relative;
   max-width: 100%;
-  background-color: green;
+  background-color: orange;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  border-bottom: 1px solid #003400;
+  border-bottom: 1px solid transparent;
   display: inline-block;
   cursor: pointer;
 }
@@ -1169,7 +1368,7 @@ textarea {
   transition: opacity 100ms ease;
 }
 .btn-select label .bs-fir svg .fir-bg {
-  fill: green;
+  fill: orange;
 }
 .btn-select label .bs-fir svg .fir-base {
   fill: rgba(255, 255, 255, 0.9);
@@ -1179,12 +1378,16 @@ textarea {
 }
 .btn-select label:hover,
 .btn-select label:focus {
-  background-color: #00cd00;
-  border-bottom-color: #006700;
+  background-color: #c5d600;
+  border-bottom-color: transparent;
+}
+.btn-select label:hover .bs-text,
+.btn-select label:focus .bs-text {
+  color: white;
 }
 .btn-select label:hover svg .fir-bg,
 .btn-select label:focus svg .fir-bg {
-  fill: #00cd00;
+  fill: #c5d600;
 }
 .btn-select label:hover svg .fir-base,
 .btn-select label:focus svg .fir-base {
@@ -1192,8 +1395,12 @@ textarea {
 }
 .btn-select input[type="radio"]:checked + label,
 .btn-select input[type="checkbox"]:checked + label {
-  background-color: orange;
-  border-bottom-color: #b37300;
+  background-color: #2bbdb9;
+  border-bottom-color: transparent;
+}
+.btn-select input[type="radio"]:checked + label .bs-text,
+.btn-select input[type="checkbox"]:checked + label .bs-text {
+  color: white;
 }
 .btn-select input[type="radio"]:checked + label svg,
 .btn-select input[type="checkbox"]:checked + label svg {
@@ -1201,7 +1408,7 @@ textarea {
 }
 .btn-select input[type="radio"]:checked + label svg .fir-bg,
 .btn-select input[type="checkbox"]:checked + label svg .fir-bg {
-  fill: orange;
+  fill: #2bbdb9;
 }
 .btn-select input[type="radio"]:checked + label svg .fir-base,
 .btn-select input[type="checkbox"]:checked + label svg .fir-base {
@@ -1237,30 +1444,41 @@ textarea {
 /* ================================================ READ ME! ================================================ */
 /*
   This file is...
-    A minimally styled boilerplate LESS file for making a Beacon survey theme. 
+    A minimally styled boilerplate LESS file for making a Beacon survey theme.
     This single file constitutes a theme.
-    It overrides all other Beacon LESS files except user input overrides.
+    It overrides all other Beacon LESS files except survey-specific overrides (such as ss:includeLESS and themevars).
 
   Rules of thumb are...
-    • In the markup, styles use hyphen-case, JS uses camelCase
-    • Use 'em' units for font sizes (ex. font-size: 1.125em;). This way the user can increase or decrease all font sizes proportionally by adjusting the @general-font-size variable (which is used by the theme editor UI as well).
+    • Use 'em' units for font sizes (ex. font-size: 1.125em;). This way the user can increase or decrease all font sizes
+      proportionally by adjusting the @desktop-font-size variable. It also helps surveys remain accessible to the
+      visually impaired.
     • Use the variables.
-        - The variables are piped into the theme editor and used for making adjustments using the UI, so don't delete any of the preset variables.
+        - The variables are piped into the theme editor and used for making adjustments using the UI, so don't delete
+          any of the preset variables (except the "theme-specific variables" at the end).
         - In general, avoid messing with any of the styles that are using the variables in the theme file.
-        - You can add theme specific variables at the bottom of the variables list if you want to provide some customization controls or for your own convenience.
+        - You can add theme specific variables at the bottom of the variables list if you want to provide some
+          customization controls or for your own convenience.
+        - You will see the contrast() mixin used throughout this file, it's used to to automatically calculate which of
+          two colors (a dark and a light color) will contrast better with the element behind it. Feel free to replace it
+          with an exact color if you have one in mind.
     • Stay flat.
-        - Avoid too much style nesting. By keeping things flat, you'll make it much easier for users to perform simple overrides in the theme editor's css injector. Wouldn't you rather override ".instructions" instead of ".survey-body .question .instructions"?
+        - Avoid too much style nesting. By keeping things flat, you'll make it much easier for users to perform simple
+          overrides in the theme editor's css/less injector. Wouldn't you rather override ".instructions" instead of
+          ".survey-body .question .instructions"?
     • Stay Responsive. The responsive strategy is as follows..
-        - Mobile first. Style the survey with a narrow viewport first, apply all the mobile styles before any desktop styling media queries.
-        - Then Desktop. You can use the "@media @desktop {}" media query in any selector to apply it's stylings over the @breakpoint (there are examples of this scattered about).
-        - BUT TABLES ARE SPECIAL. Tables attempt to stay a table for as long as possible before collapsing into a list for narrow viewports, therefore they don't use media queries. There are sepparate sections (see table of contents below) for styling the list & desktop table modes exclusively.
+        - Mobile first. Style the survey with a narrow viewport in mind first.
+        - Then apply Desktop styling using media queries. You can use the "@media @desktop {}" media query in any
+          selector to apply its styling over the @breakpoint (there are examples of this scattered about).
+        - BUT TABLES ARE SPECIAL. Tables attempt to stay a table for as long as possible before collapsing into a list
+          for narrow viewports, therefore they don't use media queries. There are separate sections (see table of
+          contents below) for styling the list & table modes exclusively.
 */
 /* ============================================ TABLE OF CONTENTS ============================================ */
 /*
     --- Variables
-    --- Resets
-    --- Reusable Classes
     --- Survey Page (html, body, etc)
+    --- Hyperlinks
+    --- Input Fields
     --- Logo
     --- Progress Bar
     --- Comment
@@ -1278,37 +1496,40 @@ textarea {
 */
 /* ============================================= ( Variables ) ============================================= */
 /*
+  Font Sizes
+
+  Override the default font sizes used by Theme Editor. Provide a comma-separated list of 5 values, sorted from
+  smallest to largest. The middle value will be used as the default size.
+*/
+/*
+  Font Families
+
+  Override the default font families used by Theme Editor. You may provide up to 9 entries. A @font-family-X variable
+  must always be followed by a @webfont-X variable.
+
+  @font-family-X variables should ALWAYS have quotation marks around font names that contains a whitespace. It's
+  recommended that they end with 'serif' or 'sans-serif'.
+  @webfont-X variable must be set to empty quotes "" if you don't need a webfont.
+*/
+/*
+  Color Palettes
+
+  Specify some recommended color palettes for this theme. You may provide up to 9 palettes. Provide a comma-separated
+  list of 6 values.
+*/
+/*
   Add additional theme specific variables below.
   Use a prefix, something like "@contemporary-fg-border-radius" if the theme was named "contemporary".
   Creating variables allows the user to easily change things, they may appear in the theme editor UI as controls.
 */
-/* =============================================== ( Resets ) =============================================== */
-/*
-    There are already some resets in place by default, but you can add your own resets or normalize styles here.
-*/
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: normal;
-}
-/* ========================================== ( Reusable Classes ) ========================================== */
-.large-text {
-  font-size: 1.4em;
-}
-.small-text {
-  font-size: 0.75em;
-}
 /* ============================================ ( Survey Page ) ============================================ */
 html {
-  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
-  font-size: 12.8px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.875em;
 }
 @media (min-width: 768px) {
   html {
-    font-size: 16px;
+    font-size: 0.75em;
   }
 }
 .survey-page {
@@ -1317,7 +1538,7 @@ html {
 }
 @media (min-width: 768px) {
   .survey-page {
-    background-color: grey;
+    background-color: lightgrey;
   }
 }
 .survey-body {
@@ -1325,6 +1546,9 @@ html {
   padding: 1em 14px;
   background-color: white;
   position: relative;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
 }
 @media (min-width: 768px) {
   .survey-body {
@@ -1332,36 +1556,76 @@ html {
     padding-right: 18px;
   }
 }
+.survey-header {
+  margin-bottom: 1.5em;
+  min-height: 2.5em;
+}
+/* ================================================= ( Hyperlinks ) =============================================== */
+a {
+  color: #2bbdb9;
+}
+a:hover {
+  color: #2bbdb9;
+}
+/* ================================================= ( Input Fields ) =============================================== */
+.input {
+  margin: 0;
+}
+input[type="text"],
+textarea {
+  background: white;
+  border: 1px solid #d9d9d9;
+  font-size: 1em;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+input[type="text"]:focus,
+textarea:focus {
+  background: #f3fcfc;
+  border: 1px solid #2bbdb9;
+}
+input[type="text"] {
+  padding: 0.5em 0.75em;
+}
+textarea {
+  padding: 0.143em;
+  width: 100%;
+  cursor: text;
+}
 /* ================================================= ( Logo ) =============================================== */
 .logo {
-  text-align: center;
+  margin-bottom: 1em;
 }
 .logo-left {
   text-align: left;
 }
+.logo-center {
+  text-align: center;
+}
 .logo-right {
-  float: right;
+  text-align: right;
 }
 /* ============================================ ( Progress Bar ) ============================================ */
 /*
-  Left a basic progress bar built out, but feel to make your own!
+  Left a basic progress bar built in, but feel to make your own!
 */
 .progress-bar {
   width: 100%;
-  margin-bottom: 0.5em;
+  margin-bottom: 2em;
   text-align: center;
 }
 @media (min-width: 768px) {
   .progress-bar {
-    width: 30%;
     text-align: right;
     float: right;
+    width: 30%;
   }
   .logo-left + .progress-bar,
   .logo-middle + .progress-bar {
     position: absolute;
     top: 1em;
-    right: 3%;
+    right: 2%;
     float: none;
   }
   .progress-bar:after {
@@ -1381,7 +1645,7 @@ html {
 }
 .progress-box-outer {
   background-color: transparent;
-  border: 1px solid #b7b7b7;
+  border: 1px solid #d9d9d9;
   width: 85%;
   max-width: calc(100% - 4em);
   text-align: right;
@@ -1389,119 +1653,120 @@ html {
   display: inline-block;
 }
 .progress-box-completed {
-  background-color: #dddddd;
-  width: 0%;
+  background-color: #2bbdb9;
+  width: 0;
   height: 100%;
   display: block;
 }
 .progress-text {
   color: #454545;
-  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
-  font-size: 16px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1em;
   line-height: 1em;
   padding-left: 0.5em;
 }
 /* ============================================== ( Comment ) =============================================== */
+.comment {
+  margin: 1.6em 0 1.33em;
+}
 .comment-text {
   color: #454545;
-  font-size: 16px;
-  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
+  font-size: 1.5em;
+  line-height: 1.33333333em;
+  font-family: "Open Sans", sans-serif;
 }
 /* ============================================= ( Question ) ============================================== */
 .question {
   margin-top: 1em;
+  margin-bottom: 2.5em;
   clear: both;
 }
 /* ====================================== ( Question > Question Text ) ===================================== */
 .question-text {
   color: #454545;
-  font-size: 16px;
-  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
-}
-.hideQuestionText .question-text {
-  display: none;
+  font-size: 1.5em;
+  font-family: "Open Sans", sans-serif;
+  margin-bottom: 0.333em;
+  line-height: 1.33333333em;
 }
 /* ====================================== ( Question > Instructions ) ====================================== */
 .instruction-text {
   color: rgba(69, 69, 69, 0.9);
-  font-size: 16px;
-  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
-}
-/* Programmers have the option to hide the respondent instruction text */
-.hideInstructionText .instruction-text {
-  display: none;
+  font-size: 1em;
+  font-family: "Open Sans", sans-serif;
+  margin-bottom: 1.25em;
 }
 /* ========================================= ( Question > Answers ) ========================================= */
 .answers {
   color: #454545;
-  font-size: 16px;
-  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
-}
-select {
   font-size: 1em;
-}
-.input {
-  margin: 0;
-}
-input[type="text"] {
-  border: 1px solid #dddddd;
-  font-size: 16px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-}
-input[type="text"]:focus {
-  border: 1px solid orange;
-}
-textarea {
-  width: 100%;
-  border: 1px solid #dddddd;
-  font-size: 16px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-  cursor: text;
-}
-textarea:focus {
-  border: 1px solid orange;
+  font-family: "Open Sans", sans-serif;
 }
 /* ============================ ( Question > Answers > Table List Mode Styles ) ============================ */
 .cell-text {
-  padding: 0 0.4em;
+  padding: 0 0 0 0.4em;
 }
-input[type="checkbox"] + .cell-text,
-input[type="radio"] + .cell-text {
-  padding: 0 0.25em;
+.checkbox .cell-text,
+.radio .cell-text {
+  padding: 0 0 0 0.25em;
+}
+.cell-legend-left .cell-text {
+  padding: 0 0.6em 0 0;
+}
+.checkbox .cell-legend-left .cell-text,
+.radio .cell-legend-left .cell-text {
+  padding: 0 0.6em 0 0;
+}
+.cell-legend-above .cell-text {
+  padding: 0 0 0.25em 1px;
+}
+.checkbox .cell-legend-above .cell-text,
+.radio .cell-legend-above .cell-text {
+  padding: 0 0 0.25em 1px;
 }
 .legend {
   font-weight: normal;
+  padding: 0.5em 0;
 }
-.element:hover,
-.element:focus,
-.element:active {
-  background-color: #ffffff;
-}
-.grid-list-mode .cell,
-.grid-list-mode .cell:hover {
-  background-color: transparent;
+.element {
+  padding: 0.4em 0.4em 0.4em 0;
 }
 .indent-1 {
-  padding-left: 0.5em;
-}
-.indent-2 {
   padding-left: 1em;
 }
-.indent-3 {
+.indent-2 {
   padding-left: 1.5em;
 }
+.indent-3 {
+  padding-left: 2em;
+}
 .legend-level-1 {
-  font-size: 16px;
+  font-size: 1em;
 }
 .legend-level-2 {
-  font-size: 1.25em;
+  font-size: 1.23em;
 }
 .legend-level-3 {
   font-size: 1.3em;
+}
+.row-elements {
+  background: transparent;
+}
+.row-legend {
+  background-color: #ededed;
+}
+.col-legend {
+  background-color: #ededed;
+}
+.row-legend-group {
+  font-size: 1.2em;
+  background-color: #dedede;
+}
+.row-elements + .row-elements {
+  margin-top: 2em;
+}
+.zeroHeight + .row-elements {
+  margin-top: 0;
 }
 /* ============================ ( Question > Answers > Table Grid Mode Styles ) ============================ */
 /*
@@ -1509,94 +1774,109 @@ input[type="radio"] + .cell-text {
   These take place until a table absolutely must collapse.. It's a long story.
 */
 .grid-table-mode .legend {
-  background-color: #ededed;
-  padding: 7px;
+  padding: 0.4em 0.5em;
   font-size: 1em;
 }
-.grid-table-mode .row-legend-group {
-  background-color: #dedede;
-}
-.grid-table-mode input[type="text"] {
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-}
+.grid-table-mode input[type="text"],
 .grid-table-mode textarea {
-  padding: 2px;
-  border: 1px solid #dddddd;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px;
+  padding: 0.25em 0.5em;
 }
 .grid-table-mode .nonempty {
-  border: 1px solid #dddddd;
+  border: 1px solid #d9d9d9;
+}
+.grid-table-mode .row-legend-group {
+  font-size: 1.2em;
 }
 .grid-table-mode .element {
-  padding: 7px;
+  padding: 0.4em;
+}
+.grid-table-mode .element:hover,
+.grid-table-mode .element:focus,
+.grid-table-mode .element:active {
+  background-color: #ffffff;
+}
+.grid-table-mode .row-elements + .row-elements {
+  margin-top: 0;
 }
 /* =============================================== ( Buttons ) ============================================== */
 /*
   "Continue", "Finish", etc.
-  Button Select buttons are styled in it's own less file, use the variables for styling those.
 */
 .survey-buttons {
-  text-align: center;
   margin: 1em 0 0;
+  text-align: center;
 }
 @media (min-width: 768px) {
   .survey-buttons {
+    padding-right: 1em;
     text-align: right;
   }
 }
 .button {
-  background-color: #454545;
+  background-color: orange;
   color: white;
-  font-size: 16px;
-  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
-  border: 1px solid #2b2b2b;
+  font-size: 1em;
+  font-family: "Open Sans", sans-serif;
+  border: 1px solid #cc8400;
   -webkit-appearance: none;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
   cursor: pointer;
-  padding: 0.5em;
+  padding: 0.7em 1em;
+  margin: 0.111em;
 }
 .button:hover,
 .button:focus {
-  background-color: #6b6b6b;
-  border-color: #525252;
+  background-color: #e69500;
+  border-color: #b37300;
 }
 .button:active {
-  background-color: #646464;
+  background-color: #d68b00;
 }
 .button[disabled] {
-  background-color: rgba(69, 69, 69, 0.6);
+  background-color: rgba(255, 165, 0, 0.6);
 }
 .button.back,
 .button.randomize {
-  background-color: #454545;
+  background-color: orange;
   color: white;
-  font-size: 16px;
-  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
-  border: 1px solid #2b2b2b;
+  font-size: 1em;
+  font-family: "Open Sans", sans-serif;
+  border: 1px solid #b37300;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
 }
 .button.back:hover,
 .button.randomize:hover,
 .button.back:focus,
 .button.randomize:focus {
-  background-color: #6b6b6b;
-  border-color: #525252;
+  background-color: #e69500;
+  border-color: #b37300;
+}
+.button.back:active,
+.button.randomize:active {
+  background-color: #d68b00;
+}
+.button.back[disabled],
+.button.randomize[disabled] {
+  background-color: rgba(255, 165, 0, 0.6);
 }
 /* ============================================ ( Exit Page ) =============================================== */
 .exit-message-header {
   color: #454545;
-  font-size: 24px;
-  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
+  font-size: 1.4em;
+  font-family: "Open Sans", sans-serif;
+  margin-bottom: 0.75em;
 }
 .exit-message-text {
   color: #454545;
-  font-size: 16px;
-  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
+  font-size: 1em;
+  font-family: "Open Sans", sans-serif;
 }
 /* =============================================== ( Errors ) =============================================== */
 /*
@@ -1604,22 +1884,25 @@ input[type="radio"] + .cell-text {
     Survey question errors are displayed WITHIN a question and are wrapped in .survey-q-error containers
 */
 .survey-error {
-  background-color: red;
+  padding: 1em;
+  margin-bottom: 1em;
+  background-color: #ba0000;
   color: white;
-  font-size: 16px;
-  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
+  font-size: 1.4em;
+  font-family: "Open Sans", sans-serif;
 }
 .question-error {
+  margin: 0.5em 0;
   background-color: transparent;
-  color: red;
-  font-size: 16px;
-  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
+  color: #ba0000;
+  font-size: 1.2em;
+  font-family: "Open Sans", sans-serif;
 }
 .cell.hasError,
 .element.hasError:hover,
 .rowLegendErr .oe,
 .colLegendErr .oe {
-  background-color: rgba(255, 0, 0, 0.1);
+  background-color: rgba(186, 0, 0, 0.1);
 }
 /* ============================================ ( Extra Info ) ============================================== */
 /*  
@@ -1631,61 +1914,54 @@ input[type="radio"] + .cell-text {
     But these messages will also show if a survey is in testing mode and sent to a non-logged-in user to test, 
     so they do need some styling.
 */
+.survey-info,
+.survey-warning,
+.autosave-restart {
+  padding: 0.714em;
+  margin-bottom: 1em;
+}
 .survey-info {
-  background-color: yellow;
+  background-color: #ccff66;
   color: #454545;
-  font-size: 16px;
-  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
+  font-size: 1em;
+  font-family: "Open Sans", sans-serif;
 }
 .survey-warning {
-  background-color: yellow;
+  background-color: #ffc0cb;
   color: #454545;
-  font-size: 16px;
-  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
+  font-size: 1em;
+  font-family: "Open Sans", sans-serif;
 }
 .autosave-restart {
   color: white;
-  font-size: 16px;
-  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
-  background-color: green;
-  border-bottom: 2px solid #003400;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-  display: block;
-  margin-bottom: 10px;
-  padding: 10px;
+  font-size: 1em;
+  font-family: "Open Sans", sans-serif;
+  background-color: orange;
+  border: 1px solid transparent;
   text-align: center;
   text-decoration: none;
-  max-width: 932px;
 }
-.autosave-restart:hover,
-.autosave-restart:focus {
-  background-color: #00cd00;
-  border-color: #006700;
-}
-@media (min-width: 768px) {
-  .autosave-restart {
-    max-width: 924px;
-  }
+.autosave-restart a {
+  color: #664200;
 }
 /* =============================================== ( Footer ) ============================================== */
 .footer {
   color: #454545;
-  font-size: 16px;
-  font-family: "Open Sans", Helvetica, Arial, "MS Trebuchet", sans-serif;
+  font-size: 1em;
+  font-family: "Open Sans", sans-serif;
+  text-align: center;
+  margin: 2em 0;
 }
 .footer a {
-  color: blue;
+  color: #454545;
 }
 .footer a:hover,
 .footer a:focus,
 .footer a:active {
-  color: #3333ff;
+  color: #454545;
 }
 .dq-rating-colors-demo {
   color: white;
-  min-width: 932px;
 }
 @media (min-width: 768px) {
   .dq-rating-colors-demo {
