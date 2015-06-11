@@ -7,18 +7,17 @@
     - Shorthand rules are not used as much as they could to keep customization docs easier
 
 */
-/* Insert values here */
 /* ================================================== (AQ Colors) ================================================== */
 .survey-theme-colors {
-  color: white;
-  background-color: orange;
+  color: #ffffff;
+  background-color: #ffa500;
 }
 .survey-theme-colors-selected {
-  color: white;
+  color: #ffffff;
   background-color: #2bbdb9;
 }
 .survey-theme-colors-disabled {
-  color: white;
+  color: #ffffff;
   background-color: rgba(255, 165, 0, 0.4);
 }
 /* ======================================================= (Common) ========================================================*/
@@ -144,7 +143,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: normal;
+  font-weight: inherit;
 }
 .question ul,
 .comment ul {
@@ -388,15 +387,15 @@ br[_mce_bogus] {
     min-width: 0;
   }
 }
-.answers {
+.answers-table {
   display: table;
   min-width: 924px;
 }
-.noCols .answers {
+.noCols .answers-table {
   display: block;
 }
-@media (max-width: 960px) {
-  .answers {
+@media (max-width: 960px - (18px * 2) - (0 * 2)) {
+  .answers-table {
     width: 100%;
     min-width: 0;
   }
@@ -456,8 +455,12 @@ br[_mce_bogus] {
     max-height: 8em;
   }
 }
+/* ===================================== (Survey Content > Form Image Replacement (FIR)) ===================================*/
 /*********************************************
- FIR - Form Image Replacement (see fir.less for comments)
+ STYLE SETTINGS: ROUNDED, SQUARE
+ *********************************************/
+/*********************************************
+ DESKTOP-SPECIFIC RESPONDENT VIEW SETTINGS LOCATED IN FIR.DESKTOP.LESS
  *********************************************/
 /*********************************************
  STYLE SETTINGS: ROUNDED, SQUARE
@@ -468,19 +471,35 @@ br[_mce_bogus] {
 }
 .fir-icon .rounded .fir-bg,
 .fir-icon .square .fir-bg {
-  fill: white;
+  fill: #ffffff;
 }
 .fir-icon .rounded .fir-selected,
 .fir-icon .square .fir-selected {
-  fill: transparent;
+  fill: #ffffff;
+}
+.fir-icon.selected .rounded .fir-base,
+.fir-icon.selected .square .fir-base {
+  fill: #d9d9d9;
+}
+.fir-icon.selected .rounded .fir-bg,
+.fir-icon.selected .square .fir-bg {
+  fill: #ffffff;
 }
 .fir-icon.selected .rounded .fir-selected,
 .fir-icon.selected .square .fir-selected {
   fill: #2bbdb9;
 }
+.fir-icon.disabled .rounded .fir-base,
+.fir-icon.disabled .square .fir-base {
+  fill: #d9d9d9;
+}
+.fir-icon.disabled .rounded .fir-bg,
+.fir-icon.disabled .square .fir-bg {
+  fill: #ffffff;
+}
 .fir-icon.disabled .rounded .fir-selected,
 .fir-icon.disabled .square .fir-selected {
-  fill: transparent;
+  fill: #ffffff;
 }
 /*********************************************
  STYLE SETTINGS: SCALE
@@ -492,7 +511,7 @@ br[_mce_bogus] {
   fill: transparent;
 }
 .fir-icon .scale .fir-small {
-  fill: #c5d600;
+  fill: #e69500;
 }
 .fir-icon.selected .scale .fir-large {
   fill: #2bbdb9;
@@ -503,6 +522,10 @@ br[_mce_bogus] {
 /*********************************************
  RESPONDENT VIEW SETTINGS
  *********************************************/
+.fa-icon-dot-circle-o:before {
+  font-family: CustomFontAwesome;
+  content: "\f192";
+}
 .fir-icon {
   width: 1.65em;
   height: 1.65em;
@@ -513,11 +536,11 @@ br[_mce_bogus] {
 }
 .fir-icon svg,
 .fir-icon i {
-  width: 1.65em;
-  height: 1.65em;
+  width: 1em;
+  height: 1em;
   font-size: 1.65em;
-  margin-left: 0px;
-  margin-right: 0px;
+  margin-left: 0;
+  margin-right: 0;
 }
 .fir-icon.disabled svg,
 .fir-icon.disabled i {
@@ -534,7 +557,7 @@ br[_mce_bogus] {
   margin-left: 0px;
 }
 .fir-icon i {
-  color: #c5d600;
+  color: #e69500;
 }
 .fir-icon.selected i {
   color: #2bbdb9;
@@ -564,11 +587,39 @@ br[_mce_bogus] {
   /***** ROUNDED/SQUARE *****/
   /***** SCALE *****/
 }
+.non-touch .fir-icon .rounded:hover .fir-base,
+.non-touch .fir-icon .square:hover .fir-base,
+.non-touch .clickableCell:hover .fir-icon .rounded .fir-base,
+.non-touch .clickableCell:hover .fir-icon .square .fir-base {
+  fill: #d9d9d9;
+}
+.non-touch .fir-icon .rounded:hover .fir-bg,
+.non-touch .fir-icon .square:hover .fir-bg,
+.non-touch .clickableCell:hover .fir-icon .rounded .fir-bg,
+.non-touch .clickableCell:hover .fir-icon .square .fir-bg {
+  fill: #ffffff;
+}
 .non-touch .fir-icon .rounded:hover .fir-selected,
 .non-touch .fir-icon .square:hover .fir-selected,
 .non-touch .clickableCell:hover .fir-icon .rounded .fir-selected,
 .non-touch .clickableCell:hover .fir-icon .square .fir-selected {
-  fill: #c5d600;
+  fill: #e69500;
+}
+.non-touch .fir-icon .rounded:hover:active .fir-base,
+.non-touch .fir-icon .square:hover:active .fir-base,
+.non-touch .fir-icon.selected .rounded:hover .fir-base,
+.non-touch .fir-icon.selected .square:hover .fir-base,
+.non-touch .clickableCell:hover .fir-icon.selected .rounded .fir-base,
+.non-touch .clickableCell:hover .fir-icon.selected .square .fir-base {
+  fill: #d9d9d9;
+}
+.non-touch .fir-icon .rounded:hover:active .fir-bg,
+.non-touch .fir-icon .square:hover:active .fir-bg,
+.non-touch .fir-icon.selected .rounded:hover .fir-bg,
+.non-touch .fir-icon.selected .square:hover .fir-bg,
+.non-touch .clickableCell:hover .fir-icon.selected .rounded .fir-bg,
+.non-touch .clickableCell:hover .fir-icon.selected .square .fir-bg {
+  fill: #ffffff;
 }
 .non-touch .fir-icon .rounded:hover:active .fir-selected,
 .non-touch .fir-icon .square:hover:active .fir-selected,
@@ -578,13 +629,21 @@ br[_mce_bogus] {
 .non-touch .clickableCell:hover .fir-icon.selected .square .fir-selected {
   fill: #2bbdb9;
 }
+.non-touch .clickableCell:hover .fir-icon.disabled .rounded .fir-base,
+.non-touch .clickableCell:hover .fir-icon.disabled .square .fir-base {
+  fill: #d9d9d9;
+}
+.non-touch .clickableCell:hover .fir-icon.disabled .rounded .fir-bg,
+.non-touch .clickableCell:hover .fir-icon.disabled .square .fir-bg {
+  fill: #ffffff;
+}
 .non-touch .clickableCell:hover .fir-icon.disabled .rounded .fir-selected,
 .non-touch .clickableCell:hover .fir-icon.disabled .square .fir-selected {
-  fill: transparent;
+  fill: #ffffff;
 }
 .non-touch .clickableCell:hover .fir-icon .scale .fir-medium,
 .non-touch .fir-icon .scale:hover .fir-medium {
-  fill: #c5d600;
+  fill: #e69500;
 }
 .non-touch .clickableCell:hover:active .fir-icon .scale .fir-large,
 .non-touch .fir-icon .scale:hover:active .fir-large {
@@ -604,7 +663,7 @@ br[_mce_bogus] {
 }
 .non-touch .clickableCell:hover:active .fir-icon.disabled .scale .fir-small,
 .non-touch .fir-icon.disabled .scale:hover:active .fir-small {
-  fill: #c5d600;
+  fill: #e69500;
 }
 /*********************************************
  FIR FONT-AWESOME
@@ -701,6 +760,9 @@ br[_mce_bogus] {
 .col-legend-space {
   margin-top: 1em;
 }
+.autosave-restart {
+  display: block;
+}
 input[type="text"] {
   max-width: 100%;
   outline: none;
@@ -747,13 +809,13 @@ textarea {
   position: relative;
 }
 .devContainer .grid {
-  background-color: white;
+  background-color: #ffffff;
 }
 .devContainer .question-text {
-  color: #454545;
+  color: #333333;
 }
 .devContainer h3 {
-  color: rgba(69, 69, 69, 0.9);
+  color: #333333;
 }
 /* Auto Width on custom grids and no-row no-col non-list grids */
 .customWidth .grid,
@@ -1112,161 +1174,6 @@ textarea {
   width: auto;
   max-width: 100%;
 }
-/*********************************************
- DESKTOP-SPECIFIC RESPONDENT VIEW SETTINGS LOCATED IN FIR.DESKTOP.LESS
- *********************************************/
-/*********************************************
- STYLE SETTINGS: ROUNDED, SQUARE
- *********************************************/
-.fir-icon .rounded .fir-base,
-.fir-icon .square .fir-base {
-  fill: #d9d9d9;
-}
-.fir-icon .rounded .fir-bg,
-.fir-icon .square .fir-bg {
-  fill: white;
-}
-.fir-icon .rounded .fir-selected,
-.fir-icon .square .fir-selected {
-  fill: transparent;
-}
-.fir-icon.selected .rounded .fir-selected,
-.fir-icon.selected .square .fir-selected {
-  fill: #2bbdb9;
-}
-.fir-icon.disabled .rounded .fir-selected,
-.fir-icon.disabled .square .fir-selected {
-  fill: transparent;
-}
-/*********************************************
- STYLE SETTINGS: SCALE
- *********************************************/
-.fir-icon .scale .fir-large,
-.fir-icon .scale .fir-medium,
-.fir-icon.selected .scale .fir-medium,
-.fir-icon.selected .scale .fir-small {
-  fill: transparent;
-}
-.fir-icon .scale .fir-small {
-  fill: #c5d600;
-}
-.fir-icon.selected .scale .fir-large {
-  fill: #2bbdb9;
-}
-.fir-icon.disabled .scale .fir-medium {
-  fill: transparent;
-}
-/*********************************************
- RESPONDENT VIEW SETTINGS
- *********************************************/
-.fa-icon-dot-circle-o:before {
-  font-family: CustomFontAwesome;
-  content: "\f192";
-}
-.fir-icon {
-  width: 1.65em;
-  height: 1.65em;
-  position: relative;
-  display: inline-block;
-  vertical-align: middle;
-  cursor: pointer;
-}
-.fir-icon svg,
-.fir-icon i {
-  width: 1em;
-  height: 1em;
-  font-size: 1.65em;
-  margin-left: 0;
-  margin-right: 0;
-}
-.fir-icon.disabled svg,
-.fir-icon.disabled i {
-  opacity: 0.25;
-  filter: alpha(opacity=25);
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=25)";
-  -moz-opacity: 0.25;
-}
-.fir-icon i.fa-icon-check-square-o,
-.grid-desktop-mode .fir-icon i.fa-icon-check-square-o {
-  margin-left: 3px;
-}
-.grid-list-mode .fir-icon i.fa-icon-check-square-o,
-.grid-mobile-mode .fir-icon i.fa-icon-check-square-o {
-  margin-left: 0px;
-}
-.fir-icon i {
-  color: #c5d600;
-}
-.fir-icon.selected i {
-  color: #2bbdb9;
-}
-.fir-hidden {
-  display: none !important;
-}
-/*********************************************
- HIDE FIR FOR THE FOLLOWING DQs
- *********************************************/
-.sq-ratingscale .fir-icon,
-.sq-fancyboxes .fir-icon {
-  display: none;
-}
-.naCell .fir-icon {
-  display: inline-block;
-}
-/* THESE DQs ALWAYS HIDE FIR -- NOT EVEN SHOWN IN NOANSWER */
-.sq-fir .fir-icon,
-.sq-atmtable .fir-icon {
-  display: none;
-}
-/*********************************************
- DESKTOP-SPECIFIC RESPONDENT VIEW SETTINGS (FOR HOVERING, ACTIVE, ETC..)
- *********************************************/
-.non-touch {
-  /***** ROUNDED/SQUARE *****/
-  /***** SCALE *****/
-}
-.non-touch .fir-icon .rounded:hover .fir-selected,
-.non-touch .fir-icon .square:hover .fir-selected,
-.non-touch .clickableCell:hover .fir-icon .rounded .fir-selected,
-.non-touch .clickableCell:hover .fir-icon .square .fir-selected {
-  fill: #c5d600;
-}
-.non-touch .fir-icon .rounded:hover:active .fir-selected,
-.non-touch .fir-icon .square:hover:active .fir-selected,
-.non-touch .fir-icon.selected .rounded:hover .fir-selected,
-.non-touch .fir-icon.selected .square:hover .fir-selected,
-.non-touch .clickableCell:hover .fir-icon.selected .rounded .fir-selected,
-.non-touch .clickableCell:hover .fir-icon.selected .square .fir-selected {
-  fill: #2bbdb9;
-}
-.non-touch .clickableCell:hover .fir-icon.disabled .rounded .fir-selected,
-.non-touch .clickableCell:hover .fir-icon.disabled .square .fir-selected {
-  fill: transparent;
-}
-.non-touch .clickableCell:hover .fir-icon .scale .fir-medium,
-.non-touch .fir-icon .scale:hover .fir-medium {
-  fill: #c5d600;
-}
-.non-touch .clickableCell:hover:active .fir-icon .scale .fir-large,
-.non-touch .fir-icon .scale:hover:active .fir-large {
-  fill: #2bbdb9;
-}
-.non-touch .clickableCell:hover .fir-icon.selected .scale .fir-medium,
-.non-touch .clickableCell:hover .fir-icon.selected .scale .fir-small,
-.non-touch .clickableCell:hover .fir-icon.disabled .scale .fir-medium,
-.non-touch .clickableCell:hover:active .fir-icon.disabled .scale .fir-large,
-.non-touch .clickableCell:hover:active .fir-icon .scale .fir-medium,
-.non-touch .clickableCell:hover:active .fir-icon .scale .fir-small,
-.non-touch .fir-icon .scale:hover:active .fir-medium,
-.non-touch .fir-icon .scale:hover:active .fir-small,
-.non-touch .fir-icon.selected .scale:hover .fir-medium,
-.non-touch .fir-icon.disabled .scale:hover:active .fir-large {
-  fill: transparent;
-}
-.non-touch .clickableCell:hover:active .fir-icon.disabled .scale .fir-small,
-.non-touch .fir-icon.disabled .scale:hover:active .fir-small {
-  fill: #c5d600;
-}
 @media (min-width: 768px) {
   .buttonSelect {
     max-width: 924px;
@@ -1299,7 +1206,7 @@ textarea {
 }
 .btn-select {
   display: block;
-  font-size: 1em;
+  font-size: 1.167em;
   max-width: 320px;
   padding: 0 2px 4px;
   padding-left: 0;
@@ -1317,10 +1224,10 @@ textarea {
 .btn-select label {
   position: relative;
   max-width: 100%;
-  background-color: orange;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
+  background-color: #ffa500;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
   border-bottom: 1px solid transparent;
   display: inline-block;
   cursor: pointer;
@@ -1328,7 +1235,7 @@ textarea {
 .btn-select label .bs-text {
   padding: 7px 1em 6px 30px;
   text-align: left;
-  color: white;
+  color: #ffffff;
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
   transform-style: preserve-3d;
@@ -1368,7 +1275,7 @@ textarea {
   transition: opacity 100ms ease;
 }
 .btn-select label .bs-fir svg .fir-bg {
-  fill: orange;
+  fill: #ffa500;
 }
 .btn-select label .bs-fir svg .fir-base {
   fill: rgba(255, 255, 255, 0.9);
@@ -1378,20 +1285,20 @@ textarea {
 }
 .btn-select label:hover,
 .btn-select label:focus {
-  background-color: #c5d600;
+  background-color: #e69500;
   border-bottom-color: transparent;
 }
 .btn-select label:hover .bs-text,
 .btn-select label:focus .bs-text {
-  color: white;
+  color: #ffffff;
 }
 .btn-select label:hover svg .fir-bg,
 .btn-select label:focus svg .fir-bg {
-  fill: #c5d600;
+  fill: #e69500;
 }
 .btn-select label:hover svg .fir-base,
 .btn-select label:focus svg .fir-base {
-  fill: white;
+  fill: #ffffff;
 }
 .btn-select input[type="radio"]:checked + label,
 .btn-select input[type="checkbox"]:checked + label {
@@ -1400,7 +1307,7 @@ textarea {
 }
 .btn-select input[type="radio"]:checked + label .bs-text,
 .btn-select input[type="checkbox"]:checked + label .bs-text {
-  color: white;
+  color: #ffffff;
 }
 .btn-select input[type="radio"]:checked + label svg,
 .btn-select input[type="checkbox"]:checked + label svg {
@@ -1412,11 +1319,11 @@ textarea {
 }
 .btn-select input[type="radio"]:checked + label svg .fir-base,
 .btn-select input[type="checkbox"]:checked + label svg .fir-base {
-  fill: white;
+  fill: #ffffff;
 }
 .btn-select input[type="radio"]:checked + label svg .fir-selected,
 .btn-select input[type="checkbox"]:checked + label svg .fir-selected {
-  fill: white;
+  fill: #ffffff;
 }
 .bsg-grid.bsg-grid-respond .btn-select {
   display: inline-block;
@@ -1452,9 +1359,9 @@ textarea {
     • Use 'em' units for font sizes (ex. font-size: 1.125em;). This way the user can increase or decrease all font sizes
       proportionally by adjusting the @desktop-font-size variable. It also helps surveys remain accessible to the
       visually impaired.
-    • Use the variables.
-        - The variables are piped into the theme editor and used for making adjustments using the UI, so don't delete
-          any of the preset variables (except the "theme-specific variables" at the end).
+    • USE THE VARIABLES.
+        - The variables are piped into the theme editor and used for making adjustments using the UI, so DON'T DELETE
+          ANY OF THE PRESET VARIABLES (except the "theme-specific variables" at the end).
         - In general, avoid messing with any of the styles that are using the variables in the theme file.
         - You can add theme specific variables at the bottom of the variables list if you want to provide some
           customization controls or for your own convenience.
@@ -1533,18 +1440,17 @@ html {
   }
 }
 .survey-page {
-  background-color: white;
-  color: #454545;
+  background-color: #ffffff;
+  color: #333333;
 }
 @media (min-width: 768px) {
   .survey-page {
-    background-color: lightgrey;
+    background-color: #d3d3d3;
   }
 }
 .survey-body {
-  margin: 0 auto;
   padding: 1em 14px;
-  background-color: white;
+  background-color: #ffffff;
   position: relative;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -1573,16 +1479,16 @@ a:hover {
 }
 input[type="text"],
 textarea {
-  background: white;
+  background: #ffffff;
   border: 1px solid #d9d9d9;
   font-size: 1em;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
 }
 input[type="text"]:focus,
 textarea:focus {
-  background: #f3fcfc;
+  background: #ffffff;
   border: 1px solid #2bbdb9;
 }
 input[type="text"] {
@@ -1653,13 +1559,13 @@ textarea {
   display: inline-block;
 }
 .progress-box-completed {
-  background-color: #2bbdb9;
+  background-color: #c5d600;
   width: 0;
   height: 100%;
   display: block;
 }
 .progress-text {
-  color: #454545;
+  color: #333333;
   font-family: "Open Sans", sans-serif;
   font-size: 1em;
   line-height: 1em;
@@ -1670,36 +1576,43 @@ textarea {
   margin: 1.6em 0 1.33em;
 }
 .comment-text {
-  color: #454545;
-  font-size: 1.5em;
-  line-height: 1.33333333em;
+  color: #333333;
+  font-size: 1.333em;
+  line-height: 1.18488889em;
   font-family: "Open Sans", sans-serif;
 }
 /* ============================================= ( Question ) ============================================== */
 .question {
+  background: transparent;
   margin-top: 1em;
   margin-bottom: 2.5em;
   clear: both;
+  padding: 0 0;
+}
+@media (min-width: 768px) {
+  .question {
+    padding: 0 0;
+  }
 }
 /* ====================================== ( Question > Question Text ) ===================================== */
 .question-text {
-  color: #454545;
-  font-size: 1.5em;
+  color: #333333;
+  font-size: 1.333em;
   font-family: "Open Sans", sans-serif;
   margin-bottom: 0.333em;
-  line-height: 1.33333333em;
+  line-height: 1.18488889em;
 }
 /* ====================================== ( Question > Instructions ) ====================================== */
 .instruction-text {
-  color: rgba(69, 69, 69, 0.9);
+  color: #333333;
   font-size: 1em;
   font-family: "Open Sans", sans-serif;
   margin-bottom: 1.25em;
 }
 /* ========================================= ( Question > Answers ) ========================================= */
 .answers {
-  color: #454545;
-  font-size: 1em;
+  color: #333333;
+  font-size: 1.167em;
   font-family: "Open Sans", sans-serif;
 }
 /* ============================ ( Question > Answers > Table List Mode Styles ) ============================ */
@@ -1726,19 +1639,19 @@ textarea {
 }
 .legend {
   font-weight: normal;
-  padding: 0.5em 0;
+  padding: 0.5em;
 }
 .element {
   padding: 0.4em 0.4em 0.4em 0;
 }
 .indent-1 {
-  padding-left: 1em;
+  padding-left: 1.167em;
 }
 .indent-2 {
-  padding-left: 1.5em;
+  padding-left: 1.750em;
 }
 .indent-3 {
-  padding-left: 2em;
+  padding-left: 2.333em;
 }
 .legend-level-1 {
   font-size: 1em;
@@ -1749,7 +1662,8 @@ textarea {
 .legend-level-3 {
   font-size: 1.3em;
 }
-.row-elements {
+.row-elements,
+.answers-list {
   background: transparent;
 }
 .row-legend {
@@ -1779,9 +1693,6 @@ textarea {
 }
 .grid-table-mode input[type="text"],
 .grid-table-mode textarea {
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
   padding: 0.25em 0.5em;
 }
 .grid-table-mode .nonempty {
@@ -1816,9 +1727,9 @@ textarea {
   }
 }
 .button {
-  background-color: orange;
-  color: white;
-  font-size: 1em;
+  background-color: #ffa500;
+  color: #ffffff;
+  font-size: 1.167em;
   font-family: "Open Sans", sans-serif;
   border: 1px solid #cc8400;
   -webkit-appearance: none;
@@ -1842,11 +1753,11 @@ textarea {
 }
 .button.back,
 .button.randomize {
-  background-color: orange;
-  color: white;
-  font-size: 1em;
+  background-color: #ffa500;
+  color: #ffffff;
+  font-size: 1.167em;
   font-family: "Open Sans", sans-serif;
-  border: 1px solid #b37300;
+  border: 1px solid #cc8400;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
@@ -1868,14 +1779,14 @@ textarea {
 }
 /* ============================================ ( Exit Page ) =============================================== */
 .exit-message-header {
-  color: #454545;
-  font-size: 1.4em;
+  color: #333333;
+  font-size: 1.333em;
   font-family: "Open Sans", sans-serif;
   margin-bottom: 0.75em;
 }
 .exit-message-text {
-  color: #454545;
-  font-size: 1em;
+  color: #333333;
+  font-size: 1.167em;
   font-family: "Open Sans", sans-serif;
 }
 /* =============================================== ( Errors ) =============================================== */
@@ -1887,81 +1798,94 @@ textarea {
   padding: 1em;
   margin-bottom: 1em;
   background-color: #ba0000;
-  color: white;
-  font-size: 1.4em;
+  color: #ffffff;
+  font-size: 1.333em;
   font-family: "Open Sans", sans-serif;
+  border-radius: 0;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
 }
 .question-error {
   margin: 0.5em 0;
   background-color: transparent;
   color: #ba0000;
-  font-size: 1.2em;
+  font-size: 1.167em;
   font-family: "Open Sans", sans-serif;
+  border-radius: 0;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
 }
 .cell.hasError,
 .element.hasError:hover,
 .rowLegendErr .oe,
 .colLegendErr .oe {
-  background-color: rgba(186, 0, 0, 0.1);
+  background-color: #ffffff;
 }
 /* ============================================ ( Extra Info ) ============================================== */
-/*  
+/*
     This is mainly used in QA mode for:
         - page breaks
         - "show question attributes"
         - "show source code"
         - and other messages
-    But these messages will also show if a survey is in testing mode and sent to a non-logged-in user to test, 
+    But these messages will also show if a survey is in testing mode and sent to a non-logged-in user to test,
     so they do need some styling.
 */
+.survey-info,
+.survey-warning {
+  font-weight: bold;
+}
 .survey-info,
 .survey-warning,
 .autosave-restart {
   padding: 0.714em;
   margin-bottom: 1em;
+  border-radius: 0;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
 }
 .survey-info {
   background-color: #ccff66;
-  color: #454545;
-  font-size: 1em;
+  color: #333333;
+  font-size: 1.167em;
   font-family: "Open Sans", sans-serif;
 }
 .survey-warning {
   background-color: #ffc0cb;
-  color: #454545;
-  font-size: 1em;
+  color: #333333;
+  font-size: 1.167em;
   font-family: "Open Sans", sans-serif;
 }
 .autosave-restart {
-  color: white;
-  font-size: 1em;
+  background-color: #ccff66;
+  color: #333333;
+  font-size: 1.167em;
   font-family: "Open Sans", sans-serif;
-  background-color: orange;
-  border: 1px solid transparent;
   text-align: center;
   text-decoration: none;
 }
-.autosave-restart a {
-  color: #664200;
+.autosave-restart:hover {
+  background: #bbff33;
+  color: #333333;
 }
 /* =============================================== ( Footer ) ============================================== */
 .footer {
-  color: #454545;
+  color: #333333;
   font-size: 1em;
   font-family: "Open Sans", sans-serif;
   text-align: center;
   margin: 2em 0;
 }
 .footer a {
-  color: #454545;
+  color: #2bbdb9;
 }
 .footer a:hover,
 .footer a:focus,
 .footer a:active {
-  color: #454545;
+  color: #2bbdb9;
 }
 .dq-rating-colors-demo {
-  color: white;
+  color: #ffffff;
 }
 @media (min-width: 768px) {
   .dq-rating-colors-demo {

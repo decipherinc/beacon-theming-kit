@@ -13,15 +13,6 @@
   @import url('@{url}');
 }
 
-.border-radius(@radius) when not (@radius = 0) {
-  -webkit-border-radius: @radius;
-  -moz-border-radius: @radius;
-  border-radius: @radius;
-}
-
-// Defaults for Less variable required by this file. Should be overriden by real themes. These are set here so tests w/o themes will still function.
-/* Insert values here */
-
 /* ================================================== (AQ Colors) ================================================== */
 .survey-theme-colors {
   color: @dq-button-text-color;
@@ -83,7 +74,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-weight: normal;
+  font-weight: inherit;
 }
 
 .question, .comment {
@@ -326,26 +317,24 @@ br[_mce_bogus] { display: none; }
 }
 .survey-body, .page-header, .footer {
   margin: 0 auto;
-  min-width: @fg-width;
+  min-width: @foreground-width;
   display: inline-block;
   vertical-align: top;
   max-width: 100%;
 }
-@media (max-width: @fg-width) {
+@media (max-width: @foreground-width) {
   .survey-body, .page-header, .footer {
     display: block;
     min-width: 0;
   }
 }
-.answers {
+.answers-table {
   display: table;
-  min-width: @fg-inner-width;
+  min-width: @answers-inner-width;
   .noCols & {
     display: block;
   }
-}
-@media (max-width: @fg-width) {
-  .answers {
+  @media (max-width: @answers-inner-width) {
     width: 100%;
     min-width: 0;
   }
@@ -367,7 +356,7 @@ br[_mce_bogus] { display: none; }
 .survey-buttons {
 
     /* DOES NOT APPLY TO ".answers" and it's children */
-    max-width: @fg-inner-width;
+    max-width: @foreground-inner-width;
     }
 
 /* Auto Width */
@@ -415,15 +404,7 @@ br[_mce_bogus] { display: none; }
   }
 }
 
-/*********************************************
- FIR - Form Image Replacement (see fir.less for comments)
- *********************************************/
-//@fir-size:     20px;
-//@fir-border:   #c7c7c7;
-//@fir-base:     #ffffff;
-//@fir-hover:    #c5d600;
-//@fir-selected: #2bbdb9;
-
+/* ===================================== (Survey Content > Form Image Replacement (FIR)) ===================================*/
 // These can be overridden via themevars/attributes
 @fir-radio: "circle-o";
 @fir-radio-selected: "dot-circle-o";
@@ -438,30 +419,51 @@ br[_mce_bogus] { display: none; }
 /*********************************************
  STYLE SETTINGS: ROUNDED, SQUARE
  *********************************************/
-.fir-icon .rounded .fir-base,
-.fir-icon .square .fir-base {
-  fill: @fir-border;
+/*********************************************
+ DESKTOP-SPECIFIC RESPONDENT VIEW SETTINGS LOCATED IN FIR.DESKTOP.LESS
+ *********************************************/
+/*********************************************
+ STYLE SETTINGS: ROUNDED, SQUARE
+ *********************************************/
+.fir-icon .rounded,
+.fir-icon .square {
+  & .fir-base {
+    fill: @fir-border;
+  }
+  & .fir-bg {
+    fill: @fir-base;
+  }
+  & .fir-selected {
+    fill: @fir-inner;
+  }
 }
 
-.fir-icon .rounded .fir-bg,
-.fir-icon .square .fir-bg {
-  fill: @fir-base;
+.fir-icon.selected .rounded,
+.fir-icon.selected .square {
+  & .fir-base {
+    fill: @fir-border-selected;
+  }
+  & .fir-bg {
+    fill: @fir-base-selected;
+  }
+  & .fir-selected {
+    fill: @fir-inner-selected;
+  }
 }
 
-.fir-icon .rounded .fir-selected,
-.fir-icon .square .fir-selected {
-  fill: transparent;
+.fir-icon.disabled .rounded,
+.fir-icon.disabled .square {
+  & .fir-base {
+    fill: @fir-border;
+  }
+  & .fir-bg {
+    fill: @fir-base;
+  }
+  & .fir-selected {
+    fill: @fir-inner;
+  }
 }
 
-.fir-icon.selected .rounded .fir-selected,
-.fir-icon.selected .square .fir-selected {
-  fill: @fir-selected;
-}
-
-.fir-icon.disabled .rounded .fir-selected,
-.fir-icon.disabled .square .fir-selected {
-  fill: transparent;
-}
 /*********************************************
  STYLE SETTINGS: SCALE
  *********************************************/
@@ -473,19 +475,26 @@ br[_mce_bogus] { display: none; }
 }
 
 .fir-icon .scale .fir-small {
-  fill: @fir-hover;
+  fill: @fir-inner-hover;
 }
 
 .fir-icon.selected .scale .fir-large {
-  fill: @fir-selected;
+  fill: @fir-inner-selected;
 }
 
 .fir-icon.disabled .scale .fir-medium {
   fill: transparent;
 }
+
 /*********************************************
  RESPONDENT VIEW SETTINGS
  *********************************************/
+
+.fa-icon-dot-circle-o:before {
+  font-family: CustomFontAwesome;
+  content: "\f192";
+}
+
 .fir-icon {
   width: @fir-size;
   height: @fir-size;
@@ -497,11 +506,11 @@ br[_mce_bogus] { display: none; }
 
 .fir-icon svg,
 .fir-icon i {
-  width: @fir-size;
-  height: @fir-size;
+  width: 1em;
+  height: 1em;
   font-size: @fir-size;
-  margin-left: 0px;
-  margin-right: 0px;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .fir-icon.disabled svg,
@@ -521,14 +530,15 @@ br[_mce_bogus] { display: none; }
 }
 
 .fir-icon i {
-  color: @fir-hover;
+  color: @fir-inner-hover;
 }
 .fir-icon.selected i {
-  color: @fir-selected;
+  color: @fir-inner-selected;
 }
 .fir-hidden {
   display: none !important;
 }
+
 /*********************************************
  HIDE FIR FOR THE FOLLOWING DQs
  *********************************************/
@@ -544,41 +554,66 @@ br[_mce_bogus] { display: none; }
 .sq-atmtable  .fir-icon {
   display: none;
 }
+
 /*********************************************
  DESKTOP-SPECIFIC RESPONDENT VIEW SETTINGS (FOR HOVERING, ACTIVE, ETC..)
  *********************************************/
 .non-touch {
   /***** ROUNDED/SQUARE *****/
-  .fir-icon .rounded:hover .fir-selected,
-  .fir-icon .square:hover .fir-selected,
-  .clickableCell:hover .fir-icon .rounded .fir-selected,
-  .clickableCell:hover .fir-icon .square .fir-selected {
-    fill: @fir-hover;
+  .fir-icon .rounded:hover,
+  .fir-icon .square:hover,
+  .clickableCell:hover .fir-icon .rounded,
+  .clickableCell:hover .fir-icon .square {
+    & .fir-base {
+      fill: @fir-border-hover;
+    }
+    & .fir-bg {
+      fill: @fir-base-hover;
+    }
+    & .fir-selected {
+      fill: @fir-inner-hover;
+    }
   }
 
-  .fir-icon .rounded:hover:active .fir-selected,
-  .fir-icon .square:hover:active .fir-selected,
-  .fir-icon.selected .rounded:hover .fir-selected,
-  .fir-icon.selected .square:hover .fir-selected,
-  .clickableCell:hover .fir-icon.selected .rounded .fir-selected,
-  .clickableCell:hover .fir-icon.selected .square .fir-selected {
-    fill: @fir-selected;
+  .fir-icon .rounded:hover:active,
+  .fir-icon .square:hover:active,
+  .fir-icon.selected .rounded:hover,
+  .fir-icon.selected .square:hover,
+  .clickableCell:hover .fir-icon.selected .rounded,
+  .clickableCell:hover .fir-icon.selected .square {
+    & .fir-base {
+      fill: @fir-border-selected;
+    }
+    & .fir-bg {
+      fill: @fir-base-selected;
+    }
+    & .fir-selected {
+      fill: @fir-inner-selected;
+    }
   }
 
-  .clickableCell:hover .fir-icon.disabled .rounded .fir-selected,
-  .clickableCell:hover .fir-icon.disabled .square .fir-selected {
-    fill: transparent;
+  .clickableCell:hover .fir-icon.disabled .rounded,
+  .clickableCell:hover .fir-icon.disabled .square {
+    & .fir-base {
+      fill: @fir-border;
+    }
+    & .fir-bg {
+      fill: @fir-base;
+    }
+    & .fir-selected {
+      fill: @fir-inner;
+    }
   }
 
   /***** SCALE *****/
   .clickableCell:hover .fir-icon .scale .fir-medium,
   .fir-icon .scale:hover .fir-medium {
-    fill: @fir-hover;
+    fill: @fir-inner-hover;
   }
 
   .clickableCell:hover:active .fir-icon .scale .fir-large,
   .fir-icon .scale:hover:active .fir-large {
-    fill: @fir-selected;
+    fill: @fir-inner-selected;
   }
 
   .clickableCell:hover .fir-icon.selected .scale .fir-medium,
@@ -596,7 +631,7 @@ br[_mce_bogus] { display: none; }
 
   .clickableCell:hover:active .fir-icon.disabled .scale .fir-small,
   .fir-icon.disabled .scale:hover:active .fir-small {
-    fill: @fir-hover;
+    fill: @fir-inner-hover;
   }
 }
 /*********************************************
@@ -725,6 +760,10 @@ br[_mce_bogus] { display: none; }
   margin-top: 1em;
 }
 
+.autosave-restart {
+  display: block;
+}
+
 input[type="text"] {
   max-width: 100%;
   outline: none;
@@ -848,7 +887,7 @@ textarea {
   /* Set table width class -- ".setWidth" is added to table.grid dynamically via JS for questions with less that ten cols */
   &.setWidth {
     /* Set width for questions with less than ten cols */
-    max-width: @fg-inner-width;
+    max-width: @foreground-inner-width;
   }
 
       /* Auto Width */
