@@ -10,7 +10,7 @@ module.exports = function(grunt) {
             themeCompile: {
                 files: {
                     // target.css file: source.less file
-                    "assets/css/less-compiled.css": "assets/less/less-compiled.less"
+                    "less-compiled.css": "assets/less/less-compiled.less"
                 }
             }
         },
@@ -23,14 +23,14 @@ module.exports = function(grunt) {
         },
         watch: {
             themeFile: {
-                files: ['theme.less'],
+                files: ['theme.less', 'assets/less/survey.respondent-post128.less'],
                 tasks: ['less'],
                 options: {
                     livereload: false,
                 }
             },
             livereload: {
-                files: ['assets/css/less-compiled.css'],
+                files: ['less-compiled.css'],
                 options: {
                     livereload: true,
                 }

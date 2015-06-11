@@ -12,6 +12,9 @@
 .webfontImport(@url) when not (@url = '') {
   @import url('@{url}');
 }
+.backgroundImport(@url) when not (@url = '') {
+  background-image: url(@url);
+}
 
 /* ================================================== (AQ Colors) ================================================== */
 .survey-theme-colors {
@@ -19,7 +22,7 @@
   background-color: @dq-button-bg-color;
 }
 .survey-theme-colors-selected {
-  color: @dq-button-text-color;
+  color: @dq-button-text-color-selected;
   background-color: @dq-button-bg-color-selected;
 }
 .survey-theme-colors-disabled {
@@ -339,13 +342,16 @@ br[_mce_bogus] { display: none; }
 .survey-error,
 .question-error,
 .exit-message,
-.comment,
-.question,
-.instruction,
 .exit-message,
 .survey-buttons {
 
     /* DOES NOT APPLY TO ".answers" and it's children */
+    max-width: @question-inner-width;
+    }
+
+.question-text,
+.instruction-text,
+.comment {
     max-width: @foreground-inner-width;
     }
 
@@ -804,9 +810,15 @@ textarea {
     }
 
 // Clickable elements should have a pointer cursor.
-.cell-text label, .cell-input .checkbox, .cell-input .radio {
+.clickableCell, .cell-text label, .cell-input .checkbox, .cell-input .radio {
     cursor: pointer;
     }
+
+.noRows.noCols {
+    .answers-list, .row {
+        background: transparent;
+    }
+}
 
 // Single-col elements should be aligned left.
 .grid[data-settings*='single-col'] .cell {

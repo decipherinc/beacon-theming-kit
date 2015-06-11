@@ -5,7 +5,7 @@ $.fn.prop = $.fn.prop || $.fn.attr;
 
 jQuery(document).ready(function () {
 
-    var gridsAutoOptimize = $(), gridsForceDesktop = $(), gridsGroupByColCount = 0, rowClasses = [], lastWindowWidth, gridWidths = [], gridParentWidths = [];
+    var gridsAutoOptimize = $(), gridsForceDesktop = $(), gridsGroupByColCount = 0, rowClasses = [], lastWindowWidth, gridWidths = [], gridParentWidths = [], rowTbodies = [];
     var resizeTimer, resizeTimer2, paintTimer, paintTimerCount = 0, unevenLabelTimer = null;
 
     function gridSetting(grid, settingName) {
@@ -274,6 +274,8 @@ jQuery(document).ready(function () {
             // If going to Mobile view, replace the classes.
             if (isMobile) {
                 $row = $("#-grid-row-" + t + "-" + r);
+                // Move to the correct tbody element
+                $row.appendTo('#-grid-tbody-' + t + '-1');
                 // Strip all current classes
                 $row.removeClass();
                 // Add expected classes
@@ -290,6 +292,7 @@ jQuery(document).ready(function () {
                 }
             // If returning to Desktop view, restore all the original row classes.
             } else {
+                $("#-grid-row-" + t + "-" + r).appendTo('#-grid-tbody-' + t + '-' + rowTbodies[t-1][r-1]);
                 document.getElementById("-grid-row-" + t + "-" + r).className = rowClasses[t-1][r-1];
             }
         }
@@ -302,51 +305,68 @@ jQuery(document).ready(function () {
 
         // Row classes are also backed up for use by regroupGroupByCols.
 
-        var $row, $cell, r=1, c, span, first, s;
+        var $tbody, $row, $cell, i= 1, r=1, c, span, first, s;
 
         // Assign a table ID.
         $table.attr("id", "-grid-table-" + t);
         rowClasses.push([]);
+        rowTbodies.push([]);
 
-        // Loop through every row.
-        $table.find(".row").each(function(){
+        // Loop through every tbody.
+        $table.find("tbody").each(function(){
 
-            $row = $(this);
+            $tbody = $(this);
 
-            // Skip the mobile-only top border row.
-            if ($row.hasClass('mobile-top-border-row')) {
-                $row.find('.mobile-top-border-cell').attr("id", "-grid-row-" + t + "-top");
-                return;
-            }
+            // Assign a tbody ID.
+            $tbody.attr("id", "-grid-tbody-" + t + "-" + i);
 
-            // Assign a row ID.
-            $row.attr("id", "-grid-row-" + t + "-" + r);
+            // Loop through every row.
+            $tbody.find(".row").each(function(){
 
-            // Backup row classes.
-            rowClasses[t-1].push($row.get(0).className);
-            first = false;
+                $row = $(this);
 
-            // Loop through every cell.
-            c=1;
-            first=true;
-            $row.find(".cell").each(function(){
-
-                $cell = $(this);
-
-                // Assign a cell ID.
-                if ($cell.hasClass("mobile-group-legend")) {
-                    $cell.attr("id", "-grid-cell-" + t + "-" + r + "-" + c + "-pre");
-                    // Mobile groups do not advance the column count, they reside in the same
-                    // cell as their cell-control counterparts.
-                } else {
-                    $cell.attr("id", "-grid-cell-" + t + "-" + r + "-" + c);
-                    // Include colspan values when advancing the column count.
-                    span = $cell.attr("colspan");
-                    c += span === undefined ? 1 : parseInt(span, 10);
+                // Skip the mobile-only top border row.
+                if ($row.hasClass('mobile-top-border-row')) {
+                    $row.find('.mobile-top-border-cell').attr("id", "-grid-row-" + t + "-top");
+                    return;
                 }
+
+                // Assign a row ID.
+                $row.attr("id", "-grid-row-" + t + "-" + r);
+
+                // Backup which tbody is the original parent of this row.
+                rowTbodies[t-1].push(i);
+
+                // Backup row classes.
+                rowClasses[t-1].push($row.get(0).className);
+                first = false;
+
+                // Loop through every cell.
+                c=1;
+                first=true;
+                $row.find(".cell").each(function(){
+
+                    $cell = $(this);
+
+                    // Assign a cell ID.
+                    if ($cell.hasClass("mobile-group-legend")) {
+                        $cell.attr("id", "-grid-cell-" + t + "-" + r + "-" + c + "-pre");
+                        // Mobile groups do not advance the column count, they reside in the same
+                        // cell as their cell-control counterparts.
+                    } else {
+                        $cell.attr("id", "-grid-cell-" + t + "-" + r + "-" + c);
+                        // Include colspan values when advancing the column count.
+                        span = $cell.attr("colspan");
+                        c += span === undefined ? 1 : parseInt(span, 10);
+                    }
+                });
+                r++;
             });
-            r++;
+            i++;
+
         });
+
+
     }
     function forceLeftLegend($telement, isMobile) {
 
@@ -471,7 +491,6 @@ jQuery(document).ready(function () {
             }
         });
         gridsForceDesktop.each(function(){autosizeCols($(this), false, false);});
-
     }
     function optimizeTable(firstRun) {
 
@@ -532,6 +551,16 @@ jQuery(document).ready(function () {
     }
 
     lastWindowWidth = $(window).width();
+
+    $(".question").each(function(){
+        var $question = $(this);
+        if ($question.find(".answers-list").length !== 0) {
+            if ($question.find('.element').length <= 1) {
+                $question.addClass('noRows');
+            }
+            $question.addClass('noCols');
+        }
+    });
 
     $(".grid").each(function (index) {
 
@@ -684,6 +713,10 @@ jQuery(document).ready(function () {
     }
     $(window).bind('load orientationchange resize', fixUnequalLabelWidths);
     fixUnequalLabelWidths();
+
+    $(document).on('respview:optimizeTables', function(){
+        setTimeout(optimizeTables, 100)
+    });
 
     // Opens jQuery UI Dialog for the Support Form
     $('a[href*="/support"]', ".footer").click(function (e) {

@@ -47,8 +47,8 @@
     --- Question > Question Text
     --- Question > Instructions
     --- Question > Answers
-    --- Question > Answers > Table List Mode Styles
-    --- Question > Answers > Table Grid Mode Styles
+    --- Question > Answers > List Mode Styles
+    --- Question > Answers > Grid Mode Styles
     --- Buttons
     --- Exit Page
     --- Errors
@@ -64,18 +64,17 @@
 // will be used by default when selecting your theme. IN GENERAL, PRETEND THAT THESE ARE THE ONLY COLORS YOU CAN USE,
 // as they all have a recommended purpose. You might not even need them all.
 
+@background-color:        #d3d3d3;   // Background - The very back, usually not seen on mobile screens
+@foreground-color:        #ffffff;   // Foreground - The "page" on top of the background that contains the survey content
+@text-color:              #333333;
+
+
 @color-1: #d3d3d3;
-@color-2: #fff;
-@color-3: #333;
+@color-2: #ffffff;
+@color-3: #333333;
 @color-4: #ffa500;
 @color-5: #c5d600;
 @color-6: #2bbdb9;
-
-
-// Applied colors //
-@background-color:        @color-1;   // Background - The very back, usually not seen on mobile screens
-@foreground-color:        @color-2;   // Foreground - The "page" on top of the background that contains the survey content
-@text-color:              @color-3;
 
 
 @border-color:                contrast(@foreground-color, darken(@foreground-color, 15%), lighten(@foreground-color, 15%)); // See the README for explanation on what contrast() mixin does.
@@ -118,6 +117,7 @@
 
 
 // ********************** Helper Variables ************************* //
+@page-background-image:     ""; // Replace this URL with any image URL.
 @border-radius:             0; // Default border radius for the foreground and all buttons.
 @foreground-border-radius:  @border-radius;
 
@@ -127,11 +127,12 @@
 // Breakpoint
 @breakpoint:  768px; // Set the breakpoint here, then use "@media @desktop {}" for desktop styles in your theme.
 @desktop:     ~"(min-width: @{breakpoint})";
+@mobile:     ~"(max-width: @{breakpoint})";
 
 // Base font sizes
 @desktop-font-size: 0.750em; // See the readme above for explanation on what em units are.
 // Use a multiplier for mobile font size so the user only has to change desktop font size to get proportional resizing.
-@mobile-font-size:  @desktop-font-size * 7/6;
+@mobile-font-size:  (@desktop-font-size * 7/6);
 
 
 // Foreground Measurements (use px units)
@@ -141,15 +142,14 @@
 @foreground-padding-top-bottom:         12px;
 @foreground-padding-left-right-mobile:  14px;
 @foreground-padding-left-right-desktop: 18px;
-@foreground-inner-width:                @foreground-width - (@foreground-padding-left-right-desktop * 2); // fg width minus padding, used
+@foreground-inner-width:                (@foreground-width - (@foreground-padding-left-right-desktop * 2));
   // ^ Keeps non-table question types (like Button Selects) from expanding the fg width.
 
 // Question Measurements (use px units)
 @question-padding-top-bottom:         0;
-@question-padding-left-right-mobile:  0;
-@question-padding-left-right-desktop: 0;
-
-
+@question-padding-left-right-mobile:  @question-padding-top-bottom;
+@question-padding-left-right-desktop: @question-padding-top-bottom;
+@question-inner-width: (@foreground-inner-width + (@question-padding-left-right-desktop * 2));
 
 // ******************** Progress Bar ******************** //
 @progress-position:     right;
@@ -394,6 +394,7 @@ html {
   color:              @text-color;
   @media @desktop {
     background-color: @background-color;
+    .backgroundImport(@page-background-image);
   }
 }
 
@@ -446,13 +447,24 @@ input[type="text"], textarea {
 }
 
 input[type="text"] {
-  padding: 0.5em 0.75em;
+  padding: 0.25em 0.5em;
+  .noRows.noCols & {
+    // When a text element is the only form element in a question
+    padding: 0.5em 0.75em;
+  }
 }
 
 textarea {
-  padding: 0.143em;
+  padding: 0.75em 0.5em;
   width: 100%;
   cursor: text;
+}
+
+.oe-inline, .oe-left {
+  margin-left: 0.5em;
+}
+.oe-right {
+  margin-right: 0.5em;
 }
 
 /* ================================================= ( Logo ) =============================================== */
@@ -560,17 +572,19 @@ textarea {
 
 /* ============================================== ( Comment ) =============================================== */
 .comment {
-    margin: 1.6em 0 1.33em;
-    padding: @question-padding-top-bottom @question-padding-left-right-mobile;
+    background:    @question-background;
+    margin-top:    1em;
+    margin-bottom: 2.5em;
+    padding:       @question-padding-top-bottom @question-padding-left-right-mobile;
     @media @desktop {
-      padding: @question-padding-top-bottom @question-padding-left-right-desktop;
+      padding:     @question-padding-top-bottom @question-padding-left-right-desktop;
     }
 }
 
 .comment-text {
   color:        @comment-text-color;
   font-size:    @comment-font-size;
-  line-height:  @comment-font-size * 11/9;
+  line-height:  normal;
   font-family:  @comment-font-family;
 }
 
@@ -595,7 +609,7 @@ textarea {
   font-size:      @question-font-size;
   font-family:    @question-font-family;
   margin-bottom:  0.333em;
-  line-height:    @question-font-size * 8/9;
+  line-height:    normal;
 }
 
 
@@ -617,7 +631,7 @@ textarea {
   font-family:  @answer-font-family;
 }
 
-/* ============================ ( Question > Answers > Table List Mode Styles ) ============================ */
+/* ============================ ( Question > Answers > List Mode Styles ) ============================ */
 
 // Mobile-only column legends
 .mobile-spacing(@spacing1, @spacing2) {
@@ -695,17 +709,16 @@ textarea {
 }
 
 // Row spacing on lists exclusively
-.row-elements + .row-elements {
+.row-elements + .row-elements, .row-elements + .row-group {
   margin-top: 2em;
 }
-.zeroHeight + .row-elements {
+.zeroHeight + .row-elements, .zeroHeight + .row-group {
   margin-top: 0;
 }
 
-/* ============================ ( Question > Answers > Table Grid Mode Styles ) ============================ */
+/* ============================ ( Question > Answers > Grid Mode Styles ) ============================ */
 /*
-  All the desktop grid styles need to have the .grid-desktop-mode prefixed before
-  These take place until a table absolutely must collapse.. It's a long story.
+  All the desktop grid styles need to have the .grid-table-mode class prefixed.
 */
 .grid-table-mode {
   .legend {
@@ -730,7 +743,7 @@ textarea {
       background-color: @table-cell-hover-color;
     }
   }
-  .row-elements + .row-elements {
+  .row-elements + .row-elements, .row-elements + .row-group {
     // Reset margin to remove earlier list-mode spacing.
     margin-top: 0;
   }

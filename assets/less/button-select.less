@@ -1,173 +1,464 @@
-// Mobile first styling, then desktop styling at bottom.
+@mobile: ~'(max-width: @{breakpoint})';
 
-.buttonSelect {
-  @media @desktop {
+
+
+.fitting {
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+.compressed {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+
+
+
+.sq-atm1d-widget {
     max-width: @foreground-inner-width;
-  }
-}
-
-.btn-select-group {
-  text-align: left;
-  width: 100%;
-  max-width: 100%;
-  &.bsg-center {
-    text-align: center;
-    .btn-select {
-      margin: 0 auto;
-    }
-  }
-  &.bsg-center-sm {
-    text-align: center;
-    .btn-select {
-      margin: 0 auto;
-    }
-    @media @desktop {
-      text-align: left;
-      .btn-select {
-        margin: 0;
-      }
-    }
-  }
-}
-
-.btn-select {
-  display: block;
-  font-size: @dq-button-font-size;
-  max-width: @btn-select-default-max-width;
-  padding: @btn-select-spacing;
-  padding-left: 0;
-  padding-right: 0;
-  input[type="radio"], input[type="checkbox"] {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    visibility: hidden;
-    pointer-events: none;
-  }
-  label {
+    .compressed();
     position: relative;
-    max-width: 100%;
-    background-color: @dq-button-bg-color;
-    -webkit-border-radius: @dq-button-border-radius;
-    -moz-border-radius: @dq-button-border-radius;
-    border-radius: @dq-button-border-radius;
-    border: 2px solid @dq-button-border-color;
-    display: inline-block;
+    @media @mobile {
+        max-width: 100%;
+    }
+}
+
+/* breakpoint element for tracking view size */
+/* <= breakpoint is small */
+/* > breakpoint is large */
+.sq-atm1d-breakpoint {
+    filter: alpha(opacity=0);
+    opacity: 0;
+    position: absolute;
+    width: @breakpoint;
+    z-index: -1;
+}
+
+/* begin fix pointer cursor issue */
+/* not sure why every element has a pointer cursor */
+/* need to limit pointer cursor to elements with clickable class and all its children */
+.sq-atm1d-widget * {
+    cursor: default;
+}
+
+.sq-atm1d-widget .clickable, .sq-atm1d-widget .clickable * {
     cursor: pointer;
-    .bs-text {
-      padding: 7px 1em 6px 30px;
-      text-align: left;
-      color: @dq-button-text-color;
-      -webkit-transform-style: preserve-3d;
-      -moz-transform-style: preserve-3d;
-      transform-style: preserve-3d;
-      span {
-        position: relative;
-        display: block;
-        top: 50%;
-        -webkit-transform: translateY(-50%);
-        -moz-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
-        -o-transform: translateY(-50%);
-        transform: translateY(-50%);
-      }
+}
+
+.sq-atm1d-widget .oe {
+    cursor: auto;
+}
+/* end fix pointer cursor issue */
+
+.sq-atm1d-widget + .answers {
+    display: none;
+}
+.sq-atm1d-debug + .answers {
+    display: block;
+}
+
+.sq-atm1d-debug + .sq-atm1d-survey-warning {
+    margin: 50px 0 30px 0;
+}
+
+.sq-atm1d-block {
+    display: block;
+    .compressed();
+}
+
+.sq-atm1d-loading-cover {
+    background-color: @foreground-color;
+    bottom: 0;
+    display: none;
+    left: 0;
+    position: absolute;
+    right: 0;
+    .compressed();
+    top: 0;
+}
+.sq-atm1d-loading .sq-atm1d-loading-cover {
+    display: block;
+}
+
+.sq-atm1d .sq-atm1d-buttons {
+    .compressed();
+    display: inline-block;
+}
+
+.sq-atm1d-vertical {
+    width: 100%;
+}
+
+/* begin accommodate buttonAlign stylevar */
+/* these selectors are same level as sq-atm1d-block */
+.sq-atm1d-button-align-left {
+    .sq-atm1d-buttons {
+        text-align: left;
     }
-    .bs-fir {
-      width: auto;
-      text-align: left;
-      padding: 0;
-      svg {
-        width: 20px;
-        height: 20px;
-        fill: transparent;
-        opacity: 0.5;
+    .sq-atm1d-vertical .sq-atm1d-button {
+        margin-left: 0;
+        margin-right: auto;
+    }
+    text-align: left;
+}
+
+.sq-atm1d-button-align-center {
+    .sq-atm1d-buttons {
+        text-align: center;
+    }
+    .sq-atm1d-vertical .sq-atm1d-button {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    text-align: center;
+}
+
+.sq-atm1d-button-align-right {
+    .sq-atm1d-buttons {
+        text-align: right;
+    }
+    .sq-atm1d-vertical .sq-atm1d-button {
+        margin-left: auto;
+        margin-right: 0;
+    }
+    text-align: right;
+}
+/* end accommodate buttonAlign stylevar */
+
+/* begin button states */
+/* these selectors are at the same level as sq-atm1d-button */
+.sq-atm1d .sq-atm1d-button {
+    background-color: @dq-button-bg-color;
+    border-color: @dq-button-border-color;
+    border-radius: @dq-button-border-radius;
+    border-style: solid;
+    border-width: 1px;
+    color: @dq-button-text-color;
+    font-family: @dq-button-font-family;
+    font-size: @dq-button-font-size;
+    list-style-position: outside;
+    list-style-type: none;
+    padding: 3px 8px 3px 8px;
+}
+
+.sq-atm1d .sq-atm1d-hovered {
+    background-color: @dq-button-bg-color-hover;
+    border-color: @dq-button-border-color-hover;
+    color: @dq-button-text-color-hover;
+}
+
+.sq-atm1d .sq-atm1d-selected {
+    background-color: @dq-button-bg-color-selected;
+    border-color: @dq-button-border-color-selected;
+    color: @dq-button-text-color-selected;
+}
+/* end button states */
+
+/* begin internal frame of button styles */
+/* internal frame must have a minimum height applied */
+.sq-atm1d .sq-atm1d-table {
+    height: 100%;
+    max-height: none;
+    min-height: 40px;
+    padding: 0 0 0 0;
+    width: 100%;
+}
+
+.sq-atm1d-td {
+    vertical-align: middle;
+}
+/* end internal frame of button styles */
+
+/* begin internal frame content cell */
+/* need sq-atm1d-buttons parent selector to override default styling */
+/* default styling is based on view mode */
+.sq-atm1d-buttons .sq-atm1d-content {
+    &.sq-atm1d-content-align-left {
+        text-align: left;
+    }
+
+    &.sq-atm1d-content-align-center {
+        text-align: center;
+    }
+
+    &.sq-atm1d-content-align-right {
+        text-align: right;
+    }
+}
+/* end internal frame content cell */
+
+/* begin horizontal rule inside internal frame content to space elements */
+.sq-atm1d-hr {
+    background-color: transparent;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    color: transparent;
+}
+/* begin horizontal rule inside internal frame content to space elements */
+
+/* begin fir styling */
+/* begin custom padding */
+.sq-atm1d-widget .sq-atm1d-icon {
+    padding: 4px 8px 4px 8px;
+}
+
+.sq-atm1d-fir-on .sq-atm1d-icon {
+    padding: 4px 6px 4px 6px;
+}
+/* end custom padding */
+
+/* icon container */
+.sq-atm1d-tr-bottom {
+    display: none;
+}
+.sq-atm1d-icon {
+    display: none;
+    position: relative;
+    /* icon */
+    .fir-icon {
+        display: inline;
+        height: auto;
+        width: auto;
+        input {
+            display: inline;
+        }
+    }
+    /* transparent icon cover to block events */
+    .fir-cover {
+        bottom: 0;
+        left: 0;
         position: absolute;
-        left: 0.25em;
-        top: 50%;
-        -webkit-transform: translateY(-50%);
-        -moz-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
-        -o-transform: translateY(-50%);
-        transform: translateY(-50%);
-        -webkit-transition: opacity 100ms ease;
-        -moz-transition: opacity 100ms ease;
-        -ms-transition: opacity 100ms ease;
-        -o-transition: opacity 100ms ease;
-        transition: opacity 100ms ease;
-        .fir-bg {
-          fill: @dq-button-bg-color;
-        }
-        .fir-base {
-          fill: fadeOut(@dq-button-text-color, 10);
-        }
-        .fir-selected {
-          fill: fadeOut(@dq-button-text-color, 100);
-        }
-      }
-    } // end .bs-fir
-    &:hover, &:focus {
-      background-color: @dq-button-bg-color-hover;
-      border-color: @dq-button-border-color-hover;
-      .bs-text {
-        color: @dq-button-text-color-hover;
-      }
-      svg {
-        .fir-bg {
-          fill: @dq-button-bg-color-hover;
-        }
-        .fir-base {
-          fill: @dq-button-text-color-hover;
-        }
-      }
+        right: 0;
+        top: 0;
     }
-  } // end label
-  input[type="radio"]:checked, input[type="checkbox"]:checked {
-    & + label {
-      background-color: @dq-button-bg-color-selected;
-      border-color: @dq-button-border-color-selected;
-      .bs-text {
-        color: @dq-button-text-color-selected;
-      }
-      svg {
-        opacity: 1;
-        .fir-bg {
-          fill: @dq-button-bg-color-selected;
-        }
-        .fir-base {
-          fill: @dq-button-text-color-selected;
-        }
-        .fir-selected {
-          fill: @dq-button-text-color-selected;
-        }
-      }
+}
+/* end fir styling */
+
+/* begin label displayed in qa mode */
+.sq-atm1d-widget .grid {
+    display: none;
+}
+
+.sq-atm1d-debug .grid {
+    display: inline-block;
+    .qaCode {
+        margin: 0 0 0 0;
     }
-  } // end input:checked
+}
+/* end label displayed in qa mode */
+
+/* begin open-end */
+.sq-atm1d-openEnd {
+    display: none;
+}
+.sq-atm1d-open .sq-atm1d-openEnd {
+    display: block;
+    margin: 8px 0 0 0;
+}
+.sq-atm1d-open .oe {
+    display: inline-block;
+    padding: 2px 4px 2px 4px;
+    width: 80%;
+}
+.sq-atm1d-oe-align-left {
+    text-align: left;
+}
+.sq-atm1d-oe-align-center {
+    text-align: center;
+}
+.sq-atm1d-oe-align-right {
+    text-align: right;
+}
+/* end open-end */
+
+.sq-atm1d-vertical {
+    .sq-atm1d-hr {
+        display: none;
+        margin: 0 2px 0 2px;
+    }
+    .sq-atm1d-button {
+        display: block;
+    }
+    .sq-atm1d-button {
+        max-width: 100%;
+        min-width: 280px;
+    }
+    .sq-atm1d-td, .oe {
+        text-align: left;
+    }
+}
+
+/* vertical view for smaller screen sizes */
+.sq-atm1d-small {
+    .sq-atm1d-vertical {
+        .sq-atm1d-button {
+            min-width: 75%;
+        }
+    }
+}
+
+/* sq-atm1d-show-input-1 is showInput=yes */
+/* sq-atm1d-show-input-2 is showInput=when selected */
+.sq-atm1d-show-input-1, .sq-atm1d-show-input-2 {
+    .sq-atm1d-vertical .sq-atm1d-icon-left {
+        display: table-cell;
+        width: @fir-size;
+    }
+}
+.sq-atm1d-vertical {
+    .sq-atm1d-empty, .sq-atm1d-icon-bottom {
+        display: none;
+        height: 0;
+    }
+}
+.sq-atm1d-multicol, .sq-atm1d-tiled, .sq-atm1d-horizontal {
+    .sq-atm1d-hr {
+        display: block;
+        margin: 2px 0 2px 0;
+    }
+    .sq-atm1d-button {
+        display: inline-block;
+    }
+    .sq-atm1d-button {
+        max-width: 150px;
+    }
+    .sq-atm1d-td, .oe {
+        text-align: center;
+    }
+    .sq-atm1d-empty, .sq-atm1d-icon-left {
+        display: none;
+        width: 0;
+    }
+}
+
+/* multicol, tiled, horizontal view for smaller screen sizes */
+.sq-atm1d-small {
+    .sq-atm1d-multicol, .sq-atm1d-tiled, .sq-atm1d-horizontal {
+        .sq-atm1d-button {
+            max-width: 100%;
+        }
+    }
+}
+
+/* sq-atm1d-show-input-1 is showInput=yes */
+/* sq-atm1d-show-input-2 is showInput=when selected */
+.sq-atm1d-show-input-1, .sq-atm1d-show-input-2 {
+    .sq-atm1d-multicol, .sq-atm1d-tiled, .sq-atm1d-horizontal {
+        .sq-atm1d-tr-bottom {
+            display: table-row;
+        }
+        .sq-atm1d-icon-bottom {
+            display: table-cell;
+            height: @fir-size;
+        }
+    }
+}
+.sq-atm1d-vertical, .sq-atm1d-horizontal {
+    .sq-atm1d-button {
+        margin: 3px 3px 3px 3px;
+    }
+}
+.sq-atm1d-multicol {
+    .sq-atm1d-button {
+        margin: 2px 12px 2px 12px;
+    }
+}
+.sq-atm1d-tiled {
+    .sq-atm1d-button {
+        margin: 10px 3px 10px 3px;
+    }
 }
 
 
-.bsg-grid.bsg-grid-respond {
-  .btn-select {
-    display: inline-block;
-    padding: @btn-select-spacing;
-    .bs-text {
-      padding: 5px 1em 0px;
-      text-align: center;
+
+/* sq-atm1d-show-input-1 is showInput=yes */
+/* sq-atm1d-show-input-2 is showInput=when selected */
+.sq-atm1d-show-input-1, .sq-atm1d-show-input-2 {
+    /* icon to display for unselected button */
+    .sq-atm1d-button {
+        .sq-atm1d-icon-selected {
+            display: none;
+        }
+        .sq-atm1d-icon-unselected {
+            display: inline-block;
+        }
     }
-    .bs-fir {
-      width: 100%;
-      text-align: center;
-      padding: 5px 0;
-      svg {
-        position: static;
-        left: auto;
-        top: auto;
-        -webkit-transform: none;
-        -moz-transform: none;
-        -ms-transform: none;
-        -o-transform: none;
-        transform: none;
-      }
+
+    /* icon to display for selected button */
+    .sq-atm1d-selected {
+        .sq-atm1d-icon-selected {
+            display: inline-block;
+        }
+        .sq-atm1d-icon-unselected {
+            display: none;
+        }
     }
-  }
+}
+
+/* hide unselected button for sq-atm1d-show-input-2 */
+.sq-atm1d-show-input-2 {
+    .sq-atm1d-button {
+        .sq-atm1d-icon-unselected {
+            visibility: hidden;
+        }
+    }
+}
+
+/* form control icon sizes should be bigger than text */
+.sq-atm1d-icon-selected, .sq-atm1d-icon-unselected {
+    font-size: 1.35em;
+}
+
+
+
+.error-style {
+    border-color: @question-error-text-color;
+    border-style: solid;
+    border-width: 1px;
+    font-family: @question-error-font-family;
+    font-size: @question-error-font-size;
+}
+.hasError {
+    // begin question error
+    // error class for buttons container
+    // the question has an error, so all
+    //   buttons should be red
+    .sq-atm1d-error-buttons {
+        .sq-atm1d-button {
+            .error-style;
+            color: @question-error-text-color;
+        }
+    }
+    // end question error
+
+    // begin row error
+    // error class for button
+    // the button has an error, so only
+    //   that button should be red
+    .sq-atm1d-error-button {
+        .error-style;
+        color: @question-error-text-color;
+    }
+    // end row error
+
+    // begin open-end error
+    // error class for open-end
+    // the open-end has an error, so
+    //   the open-end needs to be red
+    .sq-atm1d-error-open-end {
+        .error-style;
+        .oe {
+            .error-style;
+            color: @question-error-text-color;
+        }
+    }
+    // end open-end error
+}
+
+/* as of 20150522, no more fir integration */
+/* use font-awesome only now */
+.add-fir {
+    display: none;
 }
