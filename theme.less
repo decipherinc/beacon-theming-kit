@@ -10,7 +10,7 @@
     It overrides all other Beacon LESS files except survey-specific overrides (such as ss:includeLESS and themevars).
 
   Rules of thumb are...
-    • Use 'em' units for font sizes (ex. font-size: 1.125em;). This way the user can increase or decrease all font sizes
+    • Use 'rem' units for font sizes (ex. font-size: 1.125em;). This way the user can increase or decrease all font sizes
       proportionally by adjusting the @desktop-font-size variable. It also helps surveys remain accessible to the
       visually impaired.
     • USE THE VARIABLES.
@@ -64,12 +64,12 @@
 // will be used by default when selecting your theme. IN GENERAL, PRETEND THAT THESE ARE THE ONLY COLORS YOU CAN USE,
 // as they all have a recommended purpose. You might not even need them all.
 
-@color-1: #d3d3d3;  //light grey
-@color-2: #fff;     //white
-@color-3: #333;     //near black
-@color-4: #ffa500;  //orange
-@color-5: #c5d600;  //decipher green
-@color-6: #2bbdb9;  //aqua
+@color-1: #d3d3d3;
+@color-2: #fff;
+@color-3: #333;
+@color-4: #ffa500;
+@color-5: #c5d600;
+@color-6: #2bbdb9;
 
 
 // Applied colors //
@@ -81,7 +81,7 @@
 @border-color:                contrast(@foreground-color, darken(@foreground-color, 15%), lighten(@foreground-color, 15%)); // See the README for explanation on what contrast() mixin does.
 @question-background:         transparent;
 @button-color:                @color-4;
-@button-hover-color:          @color-4;
+@button-hover-color:          @color-5;
 @button-selected-color:       @color-6;
 @button-text-color:           @color-2;
 @button-text-hover-color:     @color-2;
@@ -111,9 +111,9 @@
 @primary-font-family:   "Open Sans", sans-serif;  // Questions / Comments
 @secondary-font-family: @primary-font-family;     // Answers, footer, button text, progress, etc.
 
-@large-text:    1.333em;   // 16px
-@normal-text:   1.167em;   // 14px
-@small-text:    1em;       // 12px
+@large-text:    1.333rem;   // 16px
+@normal-text:   1.167rem;   // 14px
+@small-text:    1rem;       // 12px
 
 
 
@@ -134,24 +134,20 @@
 @mobile-font-size:  @desktop-font-size * 7/6;
 
 
-// Foreground Measurements
+// Foreground Measurements (use px units)
 @foreground-width:    960px;
   // ^ Sets min-width of the foreground when the screen is above this size. Otherwise, foreground stays at width:100%
-  // We set a min-width instead of max because tables need to be able to extend their width in certain cases.
-@foreground-padding-top-bottom:         1em;
-@foreground-padding-left-right-mobile:  14px; // must use same units as @foreground-width for equation below to work.
-@foreground-padding-left-right-desktop: 18px; // also must use same units as @foreground-width
+  // We set a min-width instead of a normal width because tables need to be able to extend their width in certain cases.
+@foreground-padding-top-bottom:         12px;
+@foreground-padding-left-right-mobile:  14px;
+@foreground-padding-left-right-desktop: 18px;
 @foreground-inner-width:                @foreground-width - (@foreground-padding-left-right-desktop * 2); // fg width minus padding, used
   // ^ Keeps non-table question types (like Button Selects) from expanding the fg width.
 
-// Question Measurements
+// Question Measurements (use px units)
 @question-padding-top-bottom:         0;
 @question-padding-left-right-mobile:  0;
 @question-padding-left-right-desktop: 0;
-
-// Answers Measurements
-@answers-inner-width: @foreground-inner-width - (@question-padding-left-right-desktop * 2);
-
 
 
 
@@ -194,6 +190,7 @@
 @table-row-legend-bg-color: @table-legend-bg-color;
 @table-col-legend-bg-color: @table-legend-bg-color;
 @table-row-group-bg-color:  contrast(@table-legend-bg-color, darken(@table-legend-bg-color, 6%), lighten(@table-legend-bg-color, 15%), 53%);
+@table-col-group-bg-color:  @table-legend-bg-color;
 @table-cell-hover-color:    lighten(@table-legend-bg-color, 12%);
 
 // Rows (overrides @table-legend-bg-color on row legends)
@@ -215,16 +212,18 @@
 // ********************** Buttons ********************** //
 // Primary Survey Button (Continue, Finish, etc..)
 @primary-button-text-color:         @button-text-color;
+@primary-button-text-color-hover:   @button-text-hover-color;
 @primary-button-font-size:          @normal-text;
 @primary-button-font-family:        @secondary-font-family;
 @primary-button-bg-color:           @button-color;
-@primary-button-bg-color-hover:     darken(@primary-button-bg-color, 5%);
+@primary-button-bg-color-hover:     @button-hover-color;
 @primary-button-border-color:       darken(@primary-button-bg-color, 10%);
 @primary-button-border-color-hover: darken(@primary-button-bg-color-hover, 10%);
 @primary-button-border-radius:      @border-radius;
 
 // Secondary Survey Button ('Go Back', 'Randomize')
 @secondary-button-text-color:         @primary-button-text-color;
+@secondary-button-text-color-hover:   @primary-button-text-color-hover;
 @secondary-button-font-size:          @primary-button-font-size;
 @secondary-button-font-family:        @primary-button-font-family;
 @secondary-button-bg-color:           @primary-button-bg-color;
@@ -240,7 +239,7 @@
 @dq-button-text-color-hover:      @button-text-hover-color;
 @dq-button-text-color-selected:   @button-text-selected-color;
 @dq-button-bg-color:              @button-color;
-@dq-button-bg-color-hover:        darken(@dq-button-bg-color, 5%);
+@dq-button-bg-color-hover:        @button-hover-color;
 @dq-button-bg-color-selected:     @button-selected-color;
 @dq-button-border-color:          transparent;
 @dq-button-border-color-hover:    transparent;
@@ -267,7 +266,7 @@
 @footer-font-size:        @small-text;
 @footer-font-family:      @secondary-font-family;
 @footer-link-color:       @link-color;
-@footer-link-color-hover: @link-color;
+@footer-link-color-hover: @link-color-hover;
 
 
 
@@ -293,7 +292,7 @@
 @question-error-font-size:     @normal-text;
 @question-error-font-family:   @secondary-font-family;
 @question-error-bg-color:      transparent;
-@answer-error-highlight-color: lighten(@error-color, 90%);
+@answer-error-highlight-color: lighten(@error-color, 60%);
 
 // Survey Info
 @survey-info-text-color:   @text-color;
@@ -435,6 +434,7 @@ a {
 input[type="text"], textarea {
   background:             @input-bg-color;
   border:                 1px solid @input-border-color;
+  color:                  @input-text-color;
   font-size:              @input-font-size;
   -moz-border-radius:     @border-radius;
   -webkit-border-radius:  @border-radius;
@@ -561,12 +561,16 @@ textarea {
 /* ============================================== ( Comment ) =============================================== */
 .comment {
     margin: 1.6em 0 1.33em;
+    padding: @question-padding-top-bottom @question-padding-left-right-mobile;
+    @media @desktop {
+      padding: @question-padding-top-bottom @question-padding-left-right-desktop;
+    }
 }
 
 .comment-text {
   color:        @comment-text-color;
   font-size:    @comment-font-size;
-  line-height:  @comment-font-size * 8/9;
+  line-height:  @comment-font-size * 11/9;
   font-family:  @comment-font-family;
 }
 
@@ -686,6 +690,9 @@ textarea {
   font-size:        1.2em;
   background-color: @table-row-group-bg-color;
 }
+.col-legend-group {
+  background-color: @table-col-group-bg-color;
+}
 
 // Row spacing on lists exclusively
 .row-elements + .row-elements {
@@ -710,11 +717,12 @@ textarea {
   }
   .nonempty {
     // Apply cell borders and backgrounds to this selector, as it excludes blank corner cells.
-    border: 1px solid @border-color;
+    border: 1px solid @table-border-color;
   }
   .row-legend-group {
     font-size: 1.2em;
   }
+  .col-legend-group {}
   .element {
     // Reset padding to remove earlier list-mode indenting.
     padding: 0.4em;
@@ -725,6 +733,9 @@ textarea {
   .row-elements + .row-elements {
     // Reset margin to remove earlier list-mode spacing.
     margin-top: 0;
+  }
+  .col-legend {
+      padding: 0.75em 0.5em;
   }
 }
 
@@ -764,6 +775,7 @@ textarea {
   &:hover, &:focus {
     background-color: @primary-button-bg-color-hover;
     border-color:     @primary-button-border-color-hover;
+    color:            @primary-button-text-color-hover;
   }
   &:active {
     background-color: darken(@primary-button-bg-color-hover, 3);
@@ -785,6 +797,7 @@ textarea {
     &:hover, &:focus {
       background-color:     @secondary-button-bg-color-hover;
       border-color:         @secondary-button-border-color-hover;
+      color:                @secondary-button-text-color-hover;
     }
     &:active {
       background-color: darken(@secondary-button-bg-color-hover, 3);

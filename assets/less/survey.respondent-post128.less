@@ -328,17 +328,7 @@ br[_mce_bogus] { display: none; }
     min-width: 0;
   }
 }
-.answers-table {
-  display: table;
-  min-width: @answers-inner-width;
-  .noCols & {
-    display: block;
-  }
-  @media (max-width: @answers-inner-width) {
-    width: 100%;
-    min-width: 0;
-  }
-}
+
 /* ============================================== (Primary Container Defaults) ============================================*/
 
 .survey-info,
@@ -358,6 +348,30 @@ br[_mce_bogus] { display: none; }
     /* DOES NOT APPLY TO ".answers" and it's children */
     max-width: @foreground-inner-width;
     }
+
+.question, .comment {
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+  * {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+}
+
+.answers-table {
+  display: table;
+  min-width: @foreground-inner-width;
+  .noCols & {
+    display: block;
+  }
+  @media (max-width: @foreground-inner-width) {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
 
 /* Auto Width */
 .customWidth .survey-q-error,
@@ -489,12 +503,6 @@ br[_mce_bogus] { display: none; }
 /*********************************************
  RESPONDENT VIEW SETTINGS
  *********************************************/
-
-.fa-icon-dot-circle-o:before {
-  font-family: CustomFontAwesome;
-  content: "\f192";
-}
-
 .fir-icon {
   width: @fir-size;
   height: @fir-size;

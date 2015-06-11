@@ -387,19 +387,6 @@ br[_mce_bogus] {
     min-width: 0;
   }
 }
-.answers-table {
-  display: table;
-  min-width: 924px;
-}
-.noCols .answers-table {
-  display: block;
-}
-@media (max-width: 960px - (18px * 2) - (0 * 2)) {
-  .answers-table {
-    width: 100%;
-    min-width: 0;
-  }
-}
 /* ============================================== (Primary Container Defaults) ============================================*/
 .survey-info,
 .survey-warning,
@@ -416,6 +403,31 @@ br[_mce_bogus] {
 .survey-buttons {
   /* DOES NOT APPLY TO ".answers" and it's children */
   max-width: 924px;
+}
+.question,
+.comment {
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
+.question *,
+.comment * {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.answers-table {
+  display: table;
+  min-width: 924px;
+}
+.noCols .answers-table {
+  display: block;
+}
+@media (max-width: 960px - (18px * 2)) {
+  .answers-table {
+    width: 100%;
+    min-width: 0;
+  }
 }
 /* Auto Width */
 .customWidth .survey-q-error,
@@ -511,7 +523,7 @@ br[_mce_bogus] {
   fill: transparent;
 }
 .fir-icon .scale .fir-small {
-  fill: #e69500;
+  fill: #c5d600;
 }
 .fir-icon.selected .scale .fir-large {
   fill: #2bbdb9;
@@ -522,10 +534,6 @@ br[_mce_bogus] {
 /*********************************************
  RESPONDENT VIEW SETTINGS
  *********************************************/
-.fa-icon-dot-circle-o:before {
-  font-family: CustomFontAwesome;
-  content: "\f192";
-}
 .fir-icon {
   width: 1.65em;
   height: 1.65em;
@@ -557,7 +565,7 @@ br[_mce_bogus] {
   margin-left: 0px;
 }
 .fir-icon i {
-  color: #e69500;
+  color: #c5d600;
 }
 .fir-icon.selected i {
   color: #2bbdb9;
@@ -603,7 +611,7 @@ br[_mce_bogus] {
 .non-touch .fir-icon .square:hover .fir-selected,
 .non-touch .clickableCell:hover .fir-icon .rounded .fir-selected,
 .non-touch .clickableCell:hover .fir-icon .square .fir-selected {
-  fill: #e69500;
+  fill: #c5d600;
 }
 .non-touch .fir-icon .rounded:hover:active .fir-base,
 .non-touch .fir-icon .square:hover:active .fir-base,
@@ -643,7 +651,7 @@ br[_mce_bogus] {
 }
 .non-touch .clickableCell:hover .fir-icon .scale .fir-medium,
 .non-touch .fir-icon .scale:hover .fir-medium {
-  fill: #e69500;
+  fill: #c5d600;
 }
 .non-touch .clickableCell:hover:active .fir-icon .scale .fir-large,
 .non-touch .fir-icon .scale:hover:active .fir-large {
@@ -663,7 +671,7 @@ br[_mce_bogus] {
 }
 .non-touch .clickableCell:hover:active .fir-icon.disabled .scale .fir-small,
 .non-touch .fir-icon.disabled .scale:hover:active .fir-small {
-  fill: #e69500;
+  fill: #c5d600;
 }
 /*********************************************
  FIR FONT-AWESOME
@@ -1206,7 +1214,7 @@ textarea {
 }
 .btn-select {
   display: block;
-  font-size: 1.167em;
+  font-size: 1.167rem;
   max-width: 320px;
   padding: 0 2px 4px;
   padding-left: 0;
@@ -1228,7 +1236,7 @@ textarea {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
-  border-bottom: 1px solid transparent;
+  border: 2px solid transparent;
   display: inline-block;
   cursor: pointer;
 }
@@ -1285,8 +1293,8 @@ textarea {
 }
 .btn-select label:hover,
 .btn-select label:focus {
-  background-color: #e69500;
-  border-bottom-color: transparent;
+  background-color: #c5d600;
+  border-color: transparent;
 }
 .btn-select label:hover .bs-text,
 .btn-select label:focus .bs-text {
@@ -1294,7 +1302,7 @@ textarea {
 }
 .btn-select label:hover svg .fir-bg,
 .btn-select label:focus svg .fir-bg {
-  fill: #e69500;
+  fill: #c5d600;
 }
 .btn-select label:hover svg .fir-base,
 .btn-select label:focus svg .fir-base {
@@ -1303,7 +1311,7 @@ textarea {
 .btn-select input[type="radio"]:checked + label,
 .btn-select input[type="checkbox"]:checked + label {
   background-color: #2bbdb9;
-  border-bottom-color: transparent;
+  border-color: transparent;
 }
 .btn-select input[type="radio"]:checked + label .bs-text,
 .btn-select input[type="checkbox"]:checked + label .bs-text {
@@ -1356,7 +1364,7 @@ textarea {
     It overrides all other Beacon LESS files except survey-specific overrides (such as ss:includeLESS and themevars).
 
   Rules of thumb are...
-    • Use 'em' units for font sizes (ex. font-size: 1.125em;). This way the user can increase or decrease all font sizes
+    • Use 'rem' units for font sizes (ex. font-size: 1.125em;). This way the user can increase or decrease all font sizes
       proportionally by adjusting the @desktop-font-size variable. It also helps surveys remain accessible to the
       visually impaired.
     • USE THE VARIABLES.
@@ -1449,7 +1457,7 @@ html {
   }
 }
 .survey-body {
-  padding: 1em 14px;
+  padding: 12px 14px;
   background-color: #ffffff;
   position: relative;
   -webkit-border-radius: 0;
@@ -1481,7 +1489,8 @@ input[type="text"],
 textarea {
   background: #ffffff;
   border: 1px solid #d9d9d9;
-  font-size: 1em;
+  color: #333333;
+  font-size: 1rem;
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
   border-radius: 0;
@@ -1567,18 +1576,24 @@ textarea {
 .progress-text {
   color: #333333;
   font-family: "Open Sans", sans-serif;
-  font-size: 1em;
+  font-size: 1rem;
   line-height: 1em;
   padding-left: 0.5em;
 }
 /* ============================================== ( Comment ) =============================================== */
 .comment {
   margin: 1.6em 0 1.33em;
+  padding: 0 0;
+}
+@media (min-width: 768px) {
+  .comment {
+    padding: 0 0;
+  }
 }
 .comment-text {
   color: #333333;
-  font-size: 1.333em;
-  line-height: 1.18488889em;
+  font-size: 1.333rem;
+  line-height: 1.62922222rem;
   font-family: "Open Sans", sans-serif;
 }
 /* ============================================= ( Question ) ============================================== */
@@ -1597,22 +1612,22 @@ textarea {
 /* ====================================== ( Question > Question Text ) ===================================== */
 .question-text {
   color: #333333;
-  font-size: 1.333em;
+  font-size: 1.333rem;
   font-family: "Open Sans", sans-serif;
   margin-bottom: 0.333em;
-  line-height: 1.18488889em;
+  line-height: 1.18488889rem;
 }
 /* ====================================== ( Question > Instructions ) ====================================== */
 .instruction-text {
   color: #333333;
-  font-size: 1em;
+  font-size: 1rem;
   font-family: "Open Sans", sans-serif;
   margin-bottom: 1.25em;
 }
 /* ========================================= ( Question > Answers ) ========================================= */
 .answers {
   color: #333333;
-  font-size: 1.167em;
+  font-size: 1.167rem;
   font-family: "Open Sans", sans-serif;
 }
 /* ============================ ( Question > Answers > Table List Mode Styles ) ============================ */
@@ -1676,6 +1691,9 @@ textarea {
   font-size: 1.2em;
   background-color: #dedede;
 }
+.col-legend-group {
+  background-color: #ededed;
+}
 .row-elements + .row-elements {
   margin-top: 2em;
 }
@@ -1712,6 +1730,9 @@ textarea {
 .grid-table-mode .row-elements + .row-elements {
   margin-top: 0;
 }
+.grid-table-mode .col-legend {
+  padding: 0.75em 0.5em;
+}
 /* =============================================== ( Buttons ) ============================================== */
 /*
   "Continue", "Finish", etc.
@@ -1729,7 +1750,7 @@ textarea {
 .button {
   background-color: #ffa500;
   color: #ffffff;
-  font-size: 1.167em;
+  font-size: 1.167rem;
   font-family: "Open Sans", sans-serif;
   border: 1px solid #cc8400;
   -webkit-appearance: none;
@@ -1742,11 +1763,12 @@ textarea {
 }
 .button:hover,
 .button:focus {
-  background-color: #e69500;
-  border-color: #b37300;
+  background-color: #c5d600;
+  border-color: #96a300;
+  color: #ffffff;
 }
 .button:active {
-  background-color: #d68b00;
+  background-color: #b7c700;
 }
 .button[disabled] {
   background-color: rgba(255, 165, 0, 0.6);
@@ -1755,7 +1777,7 @@ textarea {
 .button.randomize {
   background-color: #ffa500;
   color: #ffffff;
-  font-size: 1.167em;
+  font-size: 1.167rem;
   font-family: "Open Sans", sans-serif;
   border: 1px solid #cc8400;
   -webkit-border-radius: 0;
@@ -1766,12 +1788,13 @@ textarea {
 .button.randomize:hover,
 .button.back:focus,
 .button.randomize:focus {
-  background-color: #e69500;
-  border-color: #b37300;
+  background-color: #c5d600;
+  border-color: #96a300;
+  color: #ffffff;
 }
 .button.back:active,
 .button.randomize:active {
-  background-color: #d68b00;
+  background-color: #b7c700;
 }
 .button.back[disabled],
 .button.randomize[disabled] {
@@ -1780,13 +1803,13 @@ textarea {
 /* ============================================ ( Exit Page ) =============================================== */
 .exit-message-header {
   color: #333333;
-  font-size: 1.333em;
+  font-size: 1.333rem;
   font-family: "Open Sans", sans-serif;
   margin-bottom: 0.75em;
 }
 .exit-message-text {
   color: #333333;
-  font-size: 1.167em;
+  font-size: 1.167rem;
   font-family: "Open Sans", sans-serif;
 }
 /* =============================================== ( Errors ) =============================================== */
@@ -1799,7 +1822,7 @@ textarea {
   margin-bottom: 1em;
   background-color: #ba0000;
   color: #ffffff;
-  font-size: 1.333em;
+  font-size: 1.333rem;
   font-family: "Open Sans", sans-serif;
   border-radius: 0;
   -moz-border-radius: 0;
@@ -1809,7 +1832,7 @@ textarea {
   margin: 0.5em 0;
   background-color: transparent;
   color: #ba0000;
-  font-size: 1.167em;
+  font-size: 1.167rem;
   font-family: "Open Sans", sans-serif;
   border-radius: 0;
   -moz-border-radius: 0;
@@ -1819,7 +1842,7 @@ textarea {
 .element.hasError:hover,
 .rowLegendErr .oe,
 .colLegendErr .oe {
-  background-color: #ffffff;
+  background-color: #ffeded;
 }
 /* ============================================ ( Extra Info ) ============================================== */
 /*
@@ -1847,19 +1870,19 @@ textarea {
 .survey-info {
   background-color: #ccff66;
   color: #333333;
-  font-size: 1.167em;
+  font-size: 1.167rem;
   font-family: "Open Sans", sans-serif;
 }
 .survey-warning {
   background-color: #ffc0cb;
   color: #333333;
-  font-size: 1.167em;
+  font-size: 1.167rem;
   font-family: "Open Sans", sans-serif;
 }
 .autosave-restart {
   background-color: #ccff66;
   color: #333333;
-  font-size: 1.167em;
+  font-size: 1.167rem;
   font-family: "Open Sans", sans-serif;
   text-align: center;
   text-decoration: none;
@@ -1871,7 +1894,7 @@ textarea {
 /* =============================================== ( Footer ) ============================================== */
 .footer {
   color: #333333;
-  font-size: 1em;
+  font-size: 1rem;
   font-family: "Open Sans", sans-serif;
   text-align: center;
   margin: 2em 0;

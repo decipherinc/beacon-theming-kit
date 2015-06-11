@@ -52,7 +52,7 @@
     -webkit-border-radius: @dq-button-border-radius;
     -moz-border-radius: @dq-button-border-radius;
     border-radius: @dq-button-border-radius;
-    border-bottom: 1px solid @dq-button-border-color;
+    border: 2px solid @dq-button-border-color;
     display: inline-block;
     cursor: pointer;
     .bs-text {
@@ -108,7 +108,7 @@
     } // end .bs-fir
     &:hover, &:focus {
       background-color: @dq-button-bg-color-hover;
-      border-bottom-color: @dq-button-border-color-hover;
+      border-color: @dq-button-border-color-hover;
       .bs-text {
         color: @dq-button-text-color-hover;
       }
@@ -117,7 +117,7 @@
           fill: @dq-button-bg-color-hover;
         }
         .fir-base {
-          fill: @dq-button-text-color;
+          fill: @dq-button-text-color-hover;
         }
       }
     }
@@ -125,7 +125,7 @@
   input[type="radio"]:checked, input[type="checkbox"]:checked {
     & + label {
       background-color: @dq-button-bg-color-selected;
-      border-bottom-color: @dq-button-border-color-selected;
+      border-color: @dq-button-border-color-selected;
       .bs-text {
         color: @dq-button-text-color-selected;
       }
@@ -135,10 +135,10 @@
           fill: @dq-button-bg-color-selected;
         }
         .fir-base {
-          fill: @dq-button-text-color;
+          fill: @dq-button-text-color-selected;
         }
         .fir-selected {
-          fill: @dq-button-text-color;
+          fill: @dq-button-text-color-selected;
         }
       }
     }
