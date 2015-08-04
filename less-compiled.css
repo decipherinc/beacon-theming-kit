@@ -7,6 +7,7 @@
     - Shorthand rules are not used as much as they could to keep customization docs easier
 
 */
+/* Insert values here */
 /* ================================================== (AQ Colors) ================================================== */
 .survey-theme-colors {
   color: #ffffff;
@@ -17,8 +18,8 @@
   background-color: #2bbdb9;
 }
 .survey-theme-colors-disabled {
-  color: #ffffff;
-  background-color: rgba(255, 165, 0, 0.4);
+  color: #c0c0c0;
+  background-color: #dfc99f;
 }
 /* ======================================================= (Common) ========================================================*/
 * {
@@ -153,6 +154,10 @@ h6 {
 .comment ol {
   list-style-type: decimal;
 }
+.question li,
+.comment li {
+  padding-bottom: 7px;
+}
 .question ul,
 .comment ul,
 .question ol,
@@ -160,12 +165,10 @@ h6 {
   padding: 0 0 0 2.3em;
   margin-bottom: 7px;
 }
-.question li,
-.comment li {
-  padding-bottom: 7px;
-}
-.question li:last-child,
-.comment li:last-child {
+.question ul.list li:last-child,
+.comment ul.list li:last-child,
+.question ol.list li:last-child,
+.comment ol.list li:last-child {
   padding-bottom: 0;
 }
 table {
@@ -573,7 +576,8 @@ br[_mce_bogus] {
   color: #2bbdb9;
 }
 .fir-hidden {
-  display: none !important;
+  position: absolute !important;
+  left: -9999px !important;
 }
 /*********************************************
  HIDE FIR FOR THE FOLLOWING DQs
@@ -597,20 +601,34 @@ br[_mce_bogus] {
   /***** ROUNDED/SQUARE *****/
   /***** SCALE *****/
 }
+.non-touch .fir-icon.focus,
+.non-touch .fir-select.focus,
+.non-touch .fir-select .select2-container--focus,
+.non-touch .survey-buttons .button:focus,
+.non-touch .footer a:focus {
+  outline: 1px dotted;
+  outline: -webkit-focus-ring-color auto 5px;
+}
 .non-touch .fir-icon .rounded:hover .fir-base,
 .non-touch .fir-icon .square:hover .fir-base,
+.non-touch .element:hover .fir-icon .rounded .fir-base,
+.non-touch .element:hover .fir-icon .square .fir-base,
 .non-touch .clickableCell:hover .fir-icon .rounded .fir-base,
 .non-touch .clickableCell:hover .fir-icon .square .fir-base {
   fill: #d9d9d9;
 }
 .non-touch .fir-icon .rounded:hover .fir-bg,
 .non-touch .fir-icon .square:hover .fir-bg,
+.non-touch .element:hover .fir-icon .rounded .fir-bg,
+.non-touch .element:hover .fir-icon .square .fir-bg,
 .non-touch .clickableCell:hover .fir-icon .rounded .fir-bg,
 .non-touch .clickableCell:hover .fir-icon .square .fir-bg {
   fill: #ffffff;
 }
 .non-touch .fir-icon .rounded:hover .fir-selected,
 .non-touch .fir-icon .square:hover .fir-selected,
+.non-touch .element:hover .fir-icon .rounded .fir-selected,
+.non-touch .element:hover .fir-icon .square .fir-selected,
 .non-touch .clickableCell:hover .fir-icon .rounded .fir-selected,
 .non-touch .clickableCell:hover .fir-icon .square .fir-selected {
   fill: #c5d600;
@@ -619,6 +637,8 @@ br[_mce_bogus] {
 .non-touch .fir-icon .square:hover:active .fir-base,
 .non-touch .fir-icon.selected .rounded:hover .fir-base,
 .non-touch .fir-icon.selected .square:hover .fir-base,
+.non-touch .element:hover .fir-icon.selected .rounded .fir-base,
+.non-touch .element:hover .fir-icon.selected .square .fir-base,
 .non-touch .clickableCell:hover .fir-icon.selected .rounded .fir-base,
 .non-touch .clickableCell:hover .fir-icon.selected .square .fir-base {
   fill: #d9d9d9;
@@ -627,6 +647,8 @@ br[_mce_bogus] {
 .non-touch .fir-icon .square:hover:active .fir-bg,
 .non-touch .fir-icon.selected .rounded:hover .fir-bg,
 .non-touch .fir-icon.selected .square:hover .fir-bg,
+.non-touch .element:hover .fir-icon.selected .rounded .fir-bg,
+.non-touch .element:hover .fir-icon.selected .square .fir-bg,
 .non-touch .clickableCell:hover .fir-icon.selected .rounded .fir-bg,
 .non-touch .clickableCell:hover .fir-icon.selected .square .fir-bg {
   fill: #ffffff;
@@ -635,30 +657,46 @@ br[_mce_bogus] {
 .non-touch .fir-icon .square:hover:active .fir-selected,
 .non-touch .fir-icon.selected .rounded:hover .fir-selected,
 .non-touch .fir-icon.selected .square:hover .fir-selected,
+.non-touch .element:hover .fir-icon.selected .rounded .fir-selected,
+.non-touch .element:hover .fir-icon.selected .square .fir-selected,
 .non-touch .clickableCell:hover .fir-icon.selected .rounded .fir-selected,
 .non-touch .clickableCell:hover .fir-icon.selected .square .fir-selected {
   fill: #2bbdb9;
 }
+.non-touch .element:hover .fir-icon.disabled .rounded .fir-base,
+.non-touch .element:hover .fir-icon.disabled .square .fir-base,
 .non-touch .clickableCell:hover .fir-icon.disabled .rounded .fir-base,
 .non-touch .clickableCell:hover .fir-icon.disabled .square .fir-base {
   fill: #d9d9d9;
 }
+.non-touch .element:hover .fir-icon.disabled .rounded .fir-bg,
+.non-touch .element:hover .fir-icon.disabled .square .fir-bg,
 .non-touch .clickableCell:hover .fir-icon.disabled .rounded .fir-bg,
 .non-touch .clickableCell:hover .fir-icon.disabled .square .fir-bg {
   fill: #ffffff;
 }
+.non-touch .element:hover .fir-icon.disabled .rounded .fir-selected,
+.non-touch .element:hover .fir-icon.disabled .square .fir-selected,
 .non-touch .clickableCell:hover .fir-icon.disabled .rounded .fir-selected,
 .non-touch .clickableCell:hover .fir-icon.disabled .square .fir-selected {
   fill: #ffffff;
 }
+.non-touch .element:hover .fir-icon .scale .fir-medium,
 .non-touch .clickableCell:hover .fir-icon .scale .fir-medium,
 .non-touch .fir-icon .scale:hover .fir-medium {
   fill: #c5d600;
 }
+.non-touch .element:hover:active .fir-icon .scale .fir-large,
 .non-touch .clickableCell:hover:active .fir-icon .scale .fir-large,
 .non-touch .fir-icon .scale:hover:active .fir-large {
   fill: #2bbdb9;
 }
+.non-touch .element:hover .fir-icon.selected .scale .fir-medium,
+.non-touch .element:hover .fir-icon.selected .scale .fir-small,
+.non-touch .element:hover .fir-icon.disabled .scale .fir-medium,
+.non-touch .element:hover:active .fir-icon.disabled .scale .fir-large,
+.non-touch .element:hover:active .fir-icon .scale .fir-medium,
+.non-touch .element:hover:active .fir-icon .scale .fir-small,
 .non-touch .clickableCell:hover .fir-icon.selected .scale .fir-medium,
 .non-touch .clickableCell:hover .fir-icon.selected .scale .fir-small,
 .non-touch .clickableCell:hover .fir-icon.disabled .scale .fir-medium,
@@ -671,6 +709,7 @@ br[_mce_bogus] {
 .non-touch .fir-icon.disabled .scale:hover:active .fir-large {
   fill: transparent;
 }
+.non-touch .element:hover:active .fir-icon.disabled .scale .fir-small,
 .non-touch .clickableCell:hover:active .fir-icon.disabled .scale .fir-small,
 .non-touch .fir-icon.disabled .scale:hover:active .fir-small {
   fill: #c5d600;
@@ -678,6 +717,91 @@ br[_mce_bogus] {
 /*********************************************
  FIR FONT-AWESOME
  *********************************************/
+.fa-icon-fir-radio:before {
+  content: "\f10c";
+}
+.fa-icon-fir-radio-selected:before {
+  content: "\f192";
+}
+.fa-icon-fir-checkbox:before {
+  content: "\f096";
+}
+.fa-icon-fir-checkbox-selected:before {
+  content: "\f046";
+}
+.fa-icon-fir-fallback-radio:before {
+  content: "\f10c";
+}
+.fa-icon-fir-fallback-radio-selected:before {
+  content: "\f192";
+}
+.fa-icon-fir-fallback-checkbox:before {
+  content: "\f096";
+}
+.fa-icon-fir-fallback-checkbox-selected:before {
+  content: "\f046";
+}
+/*********************************************
+ FIR SELECT2
+ *********************************************/
+.select2-container--default {
+  min-width: 110px;
+}
+.select2-container--default .select2-selection--single {
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  color: #444444;
+  line-height: 28px;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+  border: none;
+  font: normal normal normal 10px/1 FontAwesome;
+  margin-left: -7px;
+  margin-top: -6px;
+  color: #888888;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow b:before {
+  content: "\f078";
+}
+.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+  border: none;
+  font: normal normal normal 10px/1 FontAwesome;
+  margin-left: -7px;
+  margin-top: -6px;
+  color: #888888;
+}
+.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b:before {
+  content: "\f077";
+}
+.select2-dropdown {
+  border: 1px solid #dddddd;
+}
+.select2-dropdown.select2-dropdown--above {
+  border-bottom: none;
+}
+.select2-dropdown.select2-dropdown--below {
+  border-top: none;
+}
+.select2-results {
+  background-color: #ffffff;
+  color: #444444;
+}
+.select2-results .select2-results__option[aria-selected=true] {
+  background-color: #dddddd;
+}
+.select2-results .select2-results__option--highlighted[aria-selected] {
+  background-color: #5897fb;
+  color: #ffffff;
+}
+/*********************************************
+ HIDE FIR SELECT FOR THESE DQS
+ *********************************************/
+.sq-starrating .select2 {
+  display: none;
+}
 /*********************************************
  END FIR
  *********************************************/
@@ -709,11 +833,6 @@ br[_mce_bogus] {
 }
 .lte-ie8 .survey-body form {
   width: 100%;
-}
-.lte-ie8 .fir-hidden {
-  display: inline-block !important;
-  position: absolute !important;
-  left: -5000px !important;
 }
 .unused,
 .row-col-legends,
@@ -908,6 +1027,9 @@ textarea {
 }
 .grid.grid-table-mode .cell {
   vertical-align: middle;
+}
+.grid.grid-table-mode .row-legend {
+  text-align: left;
 }
 .grid.grid-table-mode .col-legend,
 .grid.grid-table-mode .element,
@@ -1188,6 +1310,14 @@ textarea {
 .fit {
   width: auto;
   max-width: 100%;
+}
+table.logic-debug {
+  background: #eee;
+  padding: 2px;
+}
+table.logic-debug th,
+table.logic-debug td {
+  text-align: center;
 }
 /*!
  *  Font Awesome 4.2.0 by @davegandy - http://fontawesome.io - @fontawesome
@@ -3408,8 +3538,8 @@ textarea {
     --- Question > Question Text
     --- Question > Instructions
     --- Question > Answers
-    --- Question > Answers > Table List Mode Styles
-    --- Question > Answers > Table Grid Mode Styles
+    --- Question > Answers > List Mode Styles
+    --- Question > Answers > Grid Mode Styles
     --- Buttons
     --- Exit Page
     --- Errors
@@ -3532,7 +3662,7 @@ textarea {
 .logo-left {
   text-align: left;
 }
-.logo-center {
+.logo-middle {
   text-align: center;
 }
 .logo-right {
@@ -3644,12 +3774,13 @@ textarea {
   margin-bottom: 1.25em;
 }
 /* ========================================= ( Question > Answers ) ========================================= */
-.answers {
+.answers,
+.fir-select2-dropdown {
   color: #333333;
   font-size: 1.167rem;
   font-family: "Open Sans", sans-serif;
 }
-/* ============================ ( Question > Answers > Table List Mode Styles ) ============================ */
+/* ============================ ( Question > Answers > List Mode Styles ) ============================ */
 .cell-text {
   padding: 0 0 0 0.4em;
 }
@@ -3721,10 +3852,9 @@ textarea {
 .zeroHeight + .row-group {
   margin-top: 0;
 }
-/* ============================ ( Question > Answers > Table Grid Mode Styles ) ============================ */
+/* ============================ ( Question > Answers > Grid Mode Styles ) ============================ */
 /*
-  All the desktop grid styles need to have the .grid-desktop-mode prefixed before
-  These take place until a table absolutely must collapse.. It's a long story.
+  All the desktop grid styles need to have the .grid-table-mode class prefixed.
 */
 .grid-table-mode .legend {
   padding: 0.4em 0.5em;
@@ -3793,7 +3923,14 @@ textarea {
   background-color: #b7c700;
 }
 .button[disabled] {
+  background-color: #ffa500;
   background-color: rgba(255, 165, 0, 0.6);
+}
+.lte-ie8 .button[disabled] {
+  zoom: 1;
+  background-color: transparent;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99ffa500, endColorstr=#99ffa500);
+  -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99ffa500, endColorstr=#99ffa500);
 }
 .button.back,
 .button.randomize {
@@ -3820,7 +3957,15 @@ textarea {
 }
 .button.back[disabled],
 .button.randomize[disabled] {
+  background-color: #ffa500;
   background-color: rgba(255, 165, 0, 0.6);
+}
+.lte-ie8 .button.back[disabled],
+.lte-ie8 .button.randomize[disabled] {
+  zoom: 1;
+  background-color: transparent;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99ffa500, endColorstr=#99ffa500);
+  -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99ffa500, endColorstr=#99ffa500);
 }
 /* ============================================ ( Exit Page ) =============================================== */
 .exit-message-header {
@@ -3861,6 +4006,7 @@ textarea {
   -webkit-border-radius: 0;
 }
 .cell.hasError,
+.answers-list .element.hasError,
 .element.hasError:hover,
 .rowLegendErr .oe,
 .colLegendErr .oe {

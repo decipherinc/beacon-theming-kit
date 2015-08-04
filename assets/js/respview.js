@@ -32,7 +32,7 @@ $.extend({
         if (tag === "input" || tag === "a") {
             // exit if the event target is an <input> or <a> element (it will toggle itself)
             return true;
-        } else if (tag === "label" && $(event.target).attr('for')) {
+        } else if (tag === "label" && $(event.target).attr('for') && !$(event.target).parent().hasClass('cell-text')) {
             // exit if the event target is a <label> pointing to an input (it will toggle itself)
             return true;
         } else if ($(event.target).hasClass("mobile-oe-legend")) {
@@ -43,11 +43,11 @@ $.extend({
             children = $(obj).find('input');
         } else {
             // exit if the event target is inside an <a> tag within the cell.
-            if (!!$(event.target).parents('a').length) {
+            if ($(event.target).parents('a').length) {
                 return true;
             }
             // exit if the event target is inside a <label> pointing to an input (the label will toggle itself)
-            if (!!$(event.target).closest('label[for]').length) {
+            if ($(event.target).closest('label[for]').length && !$(event.target).parent().hasClass('cell-text')) {
                 // except in ie8, where the label will not toggle itself if an img is clicked
                 if (tag === 'img' && $('html').hasClass('lte-ie8')) {
                     var $checkbox = $(obj).find('[id="'+ $(event.target).closest('label').attr('for')+'"]');

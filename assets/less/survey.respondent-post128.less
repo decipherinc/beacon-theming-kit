@@ -8,12 +8,31 @@
 */
 
 @static-path: '/static';
+@survey-start-path: '';
+@survey-static-path: '/static';
+
+// Defaults for Less variable required by this file. Should be overriden by real themes. These are set here so tests w/o themes will still function.
+/* Insert values here */
 
 .webfontImport(@url) when not (@url = '') {
   @import url('@{url}');
 }
 .backgroundImport(@url) when not (@url = '') {
   background-image: url(@url);
+}
+.safeFadeout(@color, @value) {
+  @alphaColor: fadeout(@color, @value);
+  @ieAlphaColor: argb(@alphaColor);
+
+  background-color: @color; // Fallback for older browsers.
+  background-color: @alphaColor;
+
+  .lte-ie8 & { // Formatting for IE8 and earlier only
+    zoom: 1; // hasLayout
+    background-color: transparent;
+    filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorstr=@{ieAlphaColor}, endColorstr=@{ieAlphaColor})";
+    -ms-filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorstr=@{ieAlphaColor}, endColorstr=@{ieAlphaColor})";
+  }
 }
 
 /* ================================================== (AQ Colors) ================================================== */
@@ -25,9 +44,17 @@
   color: @dq-button-text-color-selected;
   background-color: @dq-button-bg-color-selected;
 }
+.decontrast(@text-color, @color1, @color2) when (abs(lightness(@color1) - lightness(@text-color)) <= abs(lightness(@color2) - lightness(@text-color))) {
+  background-color: @color1;
+}
+.decontrast(@text-color, @color1, @color2) when (abs(lightness(@color1) - lightness(@text-color)) > abs(lightness(@color2) - lightness(@text-color))) {
+  background-color: @color2;
+}
 .survey-theme-colors-disabled {
-  color: @dq-button-text-color;
-  background-color: fadeout(@dq-button-bg-color, 60%);
+  @disabled-text-color: mix(desaturate(@dq-button-text-color, 25%), grey);
+  @disabled-bg-color: desaturate(@dq-button-bg-color, 50%);
+  color: @disabled-text-color;
+  .decontrast(@disabled-text-color, lighten(@disabled-bg-color, 25%), darken(@disabled-bg-color, 25%));
 }
 
 /* ======================================================= (Common) ========================================================*/
@@ -87,15 +114,15 @@ h1, h2, h3, h4, h5, h6 {
   ol {
     list-style-type: decimal;
   }
-  ul, ol {
-    padding: 0 0 0 2.3em;
-    margin-bottom: 7px;
-  }
   li {
     padding-bottom: 7px;
   }
-  li:last-child {
-    padding-bottom: 0;
+  ul, ol {
+    padding: 0 0 0 2.3em;
+    margin-bottom: 7px;
+    &.list li:last-child {
+      padding-bottom: 0;
+    }
   }
 }
 
@@ -378,7 +405,6 @@ br[_mce_bogus] { display: none; }
   }
 }
 
-
 /* Auto Width */
 .customWidth .survey-q-error,
 .customWidth .question-text,
@@ -550,7 +576,8 @@ br[_mce_bogus] { display: none; }
   color: @fir-inner-selected;
 }
 .fir-hidden {
-  display: none !important;
+  position: absolute !important;
+  left: -9999px !important;
 }
 
 /*********************************************
@@ -573,9 +600,19 @@ br[_mce_bogus] { display: none; }
  DESKTOP-SPECIFIC RESPONDENT VIEW SETTINGS (FOR HOVERING, ACTIVE, ETC..)
  *********************************************/
 .non-touch {
+  .fir-icon.focus,
+  .fir-select.focus,
+  .fir-select .select2-container--focus,
+  .survey-buttons .button:focus,
+  .footer a:focus {
+    outline: 1px dotted;
+    outline: -webkit-focus-ring-color auto 5px;
+  }
   /***** ROUNDED/SQUARE *****/
   .fir-icon .rounded:hover,
   .fir-icon .square:hover,
+  .element:hover .fir-icon .rounded,
+  .element:hover .fir-icon .square,
   .clickableCell:hover .fir-icon .rounded,
   .clickableCell:hover .fir-icon .square {
     & .fir-base {
@@ -593,6 +630,8 @@ br[_mce_bogus] { display: none; }
   .fir-icon .square:hover:active,
   .fir-icon.selected .rounded:hover,
   .fir-icon.selected .square:hover,
+  .element:hover .fir-icon.selected .rounded,
+  .element:hover .fir-icon.selected .square,
   .clickableCell:hover .fir-icon.selected .rounded,
   .clickableCell:hover .fir-icon.selected .square {
     & .fir-base {
@@ -606,6 +645,8 @@ br[_mce_bogus] { display: none; }
     }
   }
 
+  .element:hover .fir-icon.disabled .rounded,
+  .element:hover .fir-icon.disabled .square,
   .clickableCell:hover .fir-icon.disabled .rounded,
   .clickableCell:hover .fir-icon.disabled .square {
     & .fir-base {
@@ -620,16 +661,24 @@ br[_mce_bogus] { display: none; }
   }
 
   /***** SCALE *****/
+  .element:hover .fir-icon .scale .fir-medium,
   .clickableCell:hover .fir-icon .scale .fir-medium,
   .fir-icon .scale:hover .fir-medium {
     fill: @fir-inner-hover;
   }
 
+  .element:hover:active .fir-icon .scale .fir-large,
   .clickableCell:hover:active .fir-icon .scale .fir-large,
   .fir-icon .scale:hover:active .fir-large {
     fill: @fir-inner-selected;
   }
 
+  .element:hover .fir-icon.selected .scale .fir-medium,
+  .element:hover .fir-icon.selected .scale .fir-small,
+  .element:hover .fir-icon.disabled .scale .fir-medium,
+  .element:hover:active .fir-icon.disabled .scale .fir-large,
+  .element:hover:active .fir-icon .scale .fir-medium,
+  .element:hover:active .fir-icon .scale .fir-small,
   .clickableCell:hover .fir-icon.selected .scale .fir-medium,
   .clickableCell:hover .fir-icon.selected .scale .fir-small,
   .clickableCell:hover .fir-icon.disabled .scale .fir-medium,
@@ -643,6 +692,7 @@ br[_mce_bogus] { display: none; }
     fill: transparent;
   }
 
+  .element:hover:active .fir-icon.disabled .scale .fir-small,
   .clickableCell:hover:active .fir-icon.disabled .scale .fir-small,
   .fir-icon.disabled .scale:hover:active .fir-small {
     fill: @fir-inner-hover;
@@ -651,28 +701,106 @@ br[_mce_bogus] { display: none; }
 /*********************************************
  FIR FONT-AWESOME
  *********************************************/
-//@fir-var-radio: 'fa-var-@{fir-radio}';
-//@fir-var-radio-selected: 'fa-var-@{fir-radio-selected}';
-//@fir-var-checkbox: 'fa-var-@{fir-checkbox}';
-//@fir-var-checkbox-selected: 'fa-var-@{fir-checkbox-selected}';
+@fir-var-radio: 'fa-var-@{fir-radio}';
+@fir-var-radio-selected: 'fa-var-@{fir-radio-selected}';
+@fir-var-checkbox: 'fa-var-@{fir-checkbox}';
+@fir-var-checkbox-selected: 'fa-var-@{fir-checkbox-selected}';
 
-//.fa-icon-fir-radio:before { content: @@fir-var-radio; }
-//.fa-icon-fir-radio-selected:before { content: @@fir-var-radio-selected; }
-//.fa-icon-fir-checkbox:before { content: @@fir-var-checkbox; }
-//.fa-icon-fir-checkbox-selected:before { content: @@fir-var-checkbox-selected; }
+.fa-icon-fir-radio:before { content: @@fir-var-radio; }
+.fa-icon-fir-radio-selected:before { content: @@fir-var-radio-selected; }
+.fa-icon-fir-checkbox:before { content: @@fir-var-checkbox; }
+.fa-icon-fir-checkbox-selected:before { content: @@fir-var-checkbox-selected; }
 
-//@fir-var-fallback-radio: 'fa-var-@{fir-fallback-radio}';
-//@fir-var-fallback-radio-selected: 'fa-var-@{fir-fallback-radio-selected}';
-//@fir-var-fallback-checkbox: 'fa-var-@{fir-fallback-checkbox}';
-//@fir-var-fallback-checkbox-selected: 'fa-var-@{fir-fallback-checkbox-selected}';
+@fir-var-fallback-radio: 'fa-var-@{fir-fallback-radio}';
+@fir-var-fallback-radio-selected: 'fa-var-@{fir-fallback-radio-selected}';
+@fir-var-fallback-checkbox: 'fa-var-@{fir-fallback-checkbox}';
+@fir-var-fallback-checkbox-selected: 'fa-var-@{fir-fallback-checkbox-selected}';
 
-//.fa-icon-fir-fallback-radio:before { content: @@fir-var-fallback-radio; }
-//.fa-icon-fir-fallback-radio-selected:before { content: @@fir-var-fallback-radio-selected; }
-//.fa-icon-fir-fallback-checkbox:before { content: @@fir-var-fallback-checkbox; }
-//.fa-icon-fir-fallback-checkbox-selected:before { content: @@fir-var-fallback-checkbox-selected; }
+.fa-icon-fir-fallback-radio:before { content: @@fir-var-fallback-radio; }
+.fa-icon-fir-fallback-radio-selected:before { content: @@fir-var-fallback-radio-selected; }
+.fa-icon-fir-fallback-checkbox:before { content: @@fir-var-fallback-checkbox; }
+.fa-icon-fir-fallback-checkbox-selected:before { content: @@fir-var-fallback-checkbox-selected; }
+/*********************************************
+ FIR SELECT2
+ *********************************************/
+@fir-select-background-color: #fff;
+@fir-select-border-color: #ddd;
+@fir-select-font-color: #444;
+@fir-select-arrow-color: #888;
+@fir-select-menu-select-color: #ddd;
+@fir-select-menu-highlight-color: #5897fb;
+@fir-select-menu-highlight-font-color: #fff;
+
+.select2-container--default {
+  min-width: 110px;
+  .select2-selection--single {
+    background-color: @fir-select-background-color;
+    border: 1px solid @fir-select-border-color;
+    border-radius: 4px;
+
+    .select2-selection__rendered {
+      color: @fir-select-font-color;
+      line-height: 28px;
+    }
+
+    .select2-selection__arrow b {
+      border: none;
+      font: normal normal normal 10px/1 FontAwesome;
+      margin-left: -7px;
+      margin-top: -6px;
+      color: @fir-select-arrow-color;
+      &:before {
+        content: "\f078";
+      }
+    }
+  }
+  &.select2-container--open .select2-selection--single .select2-selection__arrow b {
+    border: none;
+    font: normal normal normal 10px/1 FontAwesome;
+    margin-left: -7px;
+    margin-top: -6px;
+    color: @fir-select-arrow-color;
+    &:before {
+      content: "\f077";
+    }
+  }
+}
+
+.select2-dropdown {
+  border: 1px solid @fir-select-border-color;
+
+  &.select2-dropdown--above {
+    border-bottom: none;
+  }
+  &.select2-dropdown--below {
+    border-top: none;
+  }
+}
+
+.select2-results {
+  background-color: @fir-select-background-color;
+  color: @fir-select-font-color;
+
+  .select2-results__option[aria-selected=true] {
+    background-color: @fir-select-menu-select-color;
+  }
+  .select2-results__option--highlighted[aria-selected] {
+    background-color: @fir-select-menu-highlight-color;
+    color: @fir-select-menu-highlight-font-color;
+  }
+}
+/*********************************************
+ HIDE FIR SELECT FOR THESE DQS
+ *********************************************/
+.sq-starrating {
+  .select2 { display: none; }
+}
+
 /*********************************************
  END FIR
  *********************************************/
+
+
 
 
 
@@ -710,11 +838,6 @@ br[_mce_bogus] { display: none; }
 .lte-ie8 .survey-body form { // IE8 and earlier does not automatically set a width on display:block form elements
     width: 100%;
     }
-.lte-ie8 .fir-hidden { // IE8 can't populate hidden inputs, so move them off screen
-    display: inline-block !important;
-    position: absolute !important;
-    left: -5000px !important;
-}
 
 
 // These should not be visible on list view...
@@ -893,6 +1016,9 @@ textarea {
   .cell {
     vertical-align: middle;
   }
+  .row-legend {
+      text-align: left;
+      }
   .col-legend, .element, .cell-sub-column {
       text-align: center;
       vertical-align: middle;
@@ -1180,3 +1306,17 @@ textarea {
     width: auto;
     max-width: 100%;
 }
+
+table.logic-debug {
+  background: #eee;
+  padding: 2px;
+  // border: 2px solid black;
+  tbody tr {
+    // border-right: 2px solid black;
+  }
+  th, td {
+    text-align: center
+  }
+;
+}
+

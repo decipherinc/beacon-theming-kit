@@ -241,7 +241,7 @@ jQuery(document).ready(function () {
             r = parseInt(pos[isMobile ? 5 : 4]);
 
             // Add a new row if necessary
-            if (r > goalrowcount) goalrowcount = r;
+            if (r > goalrowcount) { goalrowcount = r;}
             while (r > currowcount) {
                 currowcount++;
                 $('<' + (simple ? 'div' : 'tr') + (height !== 'None' ? ' style="height:' + height + ';"' : '') + ' id="-grid-row-' + t + '-' + currowcount + '">').insertAfter("#-grid-row-" + t + "-" + (currowcount - 1));
@@ -285,7 +285,7 @@ jQuery(document).ready(function () {
                     $row.addClass('zeroHeight');
                 }
                 // Update the hasError class
-                if ($row.find("hasError").length > 0) {
+                if ($row.find(".hasError").length > 0) {
                     $row.addClass("hasError");
                 } else {
                     $row.removeClass("hasError");
@@ -365,8 +365,6 @@ jQuery(document).ready(function () {
             i++;
 
         });
-
-
     }
     function forceLeftLegend($telement, isMobile) {
 
@@ -435,7 +433,7 @@ jQuery(document).ready(function () {
                     $this.data('width', inlineWidth);
                 }
             });
-        } else if (isMobile) {
+        } else {
             $cells.find('.force-width').remove();
         }
 
@@ -502,7 +500,7 @@ jQuery(document).ready(function () {
         var $grid = $(this), wasMobile = $grid.hasClass("grid-list-mode");
 
         // Restore the grid to Desktop view.
-        $grid.removeClass("grid-list-mode").addClass("grid-table-mode");
+        $grid.removeClass("grid-list-mode").addClass("grid-table-mode").closest('.answers').removeClass("answers-list").addClass("answers-table");
         if (wasMobile) {
             if (gridSetting($grid, "force-left-legend")) {forceLeftLegend($grid, false);}
             if (gridSetting($grid, "group-by-col")) {regroupGroupByCols($grid, false);}
@@ -511,7 +509,7 @@ jQuery(document).ready(function () {
 
         // If the grid cannot fit after autosizing, or cannot fit its parents width, switch it to Mobile view.
         if (!autosizeCols($grid, false, true, firstRun) || $grid.width() > $grid.parent().parent().width()) {
-            $grid.removeClass("grid-table-mode").addClass("grid-list-mode");
+            $grid.removeClass("grid-table-mode").addClass("grid-list-mode").closest('.answers').removeClass("answers-table").addClass("answers-list");
             autosizeCols($grid, true, true);
             optimizeOE($grid, true);
             if (gridSetting($grid, "force-left-legend")) {forceLeftLegend($grid, true);}
@@ -602,7 +600,7 @@ jQuery(document).ready(function () {
         if (gridSetting($grid, "auto-optimize") && gridSetting($grid, "table-mode")) {
             // Add to relevant lists and optimize immediately.
             if (gridsAutoOptimize.length > 0) { gridsAutoOptimize = gridsAutoOptimize.add($grid); } else { gridsAutoOptimize = $grid; }
-            if (isScreenPainted()) optimizeTable.call($grid, true);
+            if (isScreenPainted()) {optimizeTable.call($grid, true);}
             gridWidths.push($grid.width());
             gridParentWidths.push($grid.parent().parent().width());
         } else {
@@ -698,7 +696,7 @@ jQuery(document).ready(function () {
         }
 
         var $elements = $('.cell-legend-left').find('label').css('display', 'inline-block');
-        $elements.closest('.grid').filter('.grid-list-mode').each(function(){
+        $elements.closest('.answers').filter('.answers-list').each(function(){
             var $qelements = $(this).find($elements), maxWidth = 0;
             $qelements.width('').each(function(){
                 maxWidth = Math.max($(this).width() + 1, maxWidth);
@@ -715,15 +713,54 @@ jQuery(document).ready(function () {
     fixUnequalLabelWidths();
 
     $(document).on('respview:optimizeTables', function(){
-        setTimeout(optimizeTables, 100)
+        setTimeout(optimizeTables, 100);
     });
 
     // Opens jQuery UI Dialog for the Support Form
-    $('a[href*="/support"]', ".footer").click(function (e) {
+    $('a[href*="/support"]', ".footer").each(function () {
+
+        var $state = $("input[name='state']");
+
+        if ($state.length && $state.val()) {
+            this.href = this.href + (this.href.indexOf("?") === -1 ? "?" : "&") + "state=" + $state.val();
+        }
+
+    }).click(function (e) {
+
+        var dialogDisplayed = false, iframeLoaded = false;
+        function focusOnIframe() {
+            if (dialogDisplayed && iframeLoaded) {
+
+                var iframe = $('#support_form-iframe').contents();
+
+                // Focus on the first form element.
+                iframe.find(':tabbable').eq(0).focus();
+
+                // Prevent tabbing out of modal dialogs.
+                iframe.find('html').keydown( function( event ) {
+                    if (event.keyCode !== $.ui.keyCode.TAB) {
+                        return;
+                    }
+
+                    var tabbables = $(":tabbable", event.delegateTarget),
+                        first = tabbables.filter(":first"),
+                        last = tabbables.filter(":last");
+
+                    if (event.target === last[0] && !event.shiftKey) {
+                        first.focus(1);
+                        return false;
+                    } else if (event.target === first[0] && event.shiftKey) {
+                        last.focus(1);
+                        return false;
+                    }
+                });
+
+            }
+        }
 
         if (window.innerWidth > 450) {
             e.preventDefault();
-            $('<iframe id="support_form-iframe" marginwidth="0" marginheight="0" frameborder="0" src="' + this.href + '" />').dialog({
+            $('<iframe id="support_form-iframe" tabindex="1" marginwidth="0" marginheight="0" frameborder="0" src="' + this.href + '" />').dialog({
                 'modal': true,
                 'autoResize': true,
                 'resizable': false,
@@ -731,8 +768,18 @@ jQuery(document).ready(function () {
                 'width': 400,
                 'height': 500,
                 'title': $(this).text(),
-                'dialogClass': 'support_form-dialog'
-            }).css({'width': '400px', 'padding': '0'});
+                'dialogClass': 'support_form-dialog',
+                'open': function() {
+                    dialogDisplayed = true;
+                    focusOnIframe();
+                },
+                'close': function() {
+                    $(this).dialog('destroy').remove();
+                }
+            }).css({'width': '400px', 'padding': '0'}).load(function(){
+                iframeLoaded = true;
+                focusOnIframe();
+            });
         }
 
     });
@@ -740,7 +787,7 @@ jQuery(document).ready(function () {
     // respview dialogs
     Survey.uidialog = {};
 
-    // respview dialog assets 
+    // respview dialog assets
     Survey.uidialog.assets = {
 
         "btn_close": { text: "close", "class": 'btn-primary', click: function () {
@@ -872,15 +919,8 @@ jQuery(document).ready(function () {
     /*
      * apply FIR and handle click events
      */
-    $.fn.extend({
-        swapClass: function(oldClass, newClass) {
-            $(this).removeClass(oldClass);
-            $(this).addClass(newClass);
-        }
-    });
-    /* Hide FIR when QA codes turned on for these DQs*/
+    $.fn.extend({ swapClass: function(o, n) { $(this).removeClass(o).addClass(n); } });
     if (window.cmsData && window.cmsData.qacodes) {
-        // NOTE: Selecting the parent of the the targeted elements (e.g. '.survey-q .fir-icon')
         $(".sq-atm1d-widget, .sq-cardsort").parent().find(".fir-icon").remove();
     }
     var SVGSupport = !!document.createElementNS && !!document.createElementNS('http://www.w3.org/2000/svg', "svg").createSVGRect;
@@ -889,7 +929,7 @@ jQuery(document).ready(function () {
             $firRadio    = $me.find('.fir-radio .fir-icon'),
             $firCheckbox = $me.find('.fir-checkbox .fir-icon'),
             $firDQs      = $me.parent().find('.add-fir input[type="radio"], .add-fir input[type="checkbox"]').addClass("add-fir"),
-            $inputs      = $.merge($me.find('input[type="radio"], input[type="checkbox"]'), $firDQs);
+            $inputs      = $.merge($me.find('input[type="radio"], input[type="checkbox"], select'), $firDQs);
 
         if (!SVGSupport) {
             var $radioSVG    = $firRadio.find("svg"),
@@ -919,11 +959,27 @@ jQuery(document).ready(function () {
         $inputs.addClass("fir-hidden");
         $inputs.each(function() {
             var $input = $(this);
-            if ($input.is(":radio")) {
+            if ($input.is('select')) {
+                $input.removeClass("fir-hidden")
+                    .wrap("<div class='fir-select'></div>")
+                    .select2({
+                        minimumResultsForSearch: Infinity,
+                        containerCssClass: 'fir-select2-container',
+                        dropdownCssClass: 'fir-select2-dropdown'
+                    });
+                return;
+            } else if ($input.is(":radio")) {
                 $input.after($firRadio.clone());
-                // uncheck radio
-                $input.parents(".cell").click(function(e) {
-                    if ($(e.target).is(".oe")) { return false; }
+                $input.parents(".cell, .cell-sub-wrapper").click(function(e) {
+                    if (e.target.nodeName === "INPUT") { // accessibility hack for tab navigation
+                        if ($(e.target).is(".oe")) {
+                            return false;
+                        }
+                        $input.prop('checked', true);
+                        $inputs.trigger('change');
+                        return;
+                    }
+                    // uncheck radio
                     if (!$(this).is('.ui-droppable, .no-uncheck')) {
                         if ($input.is(":checked")) {
                             $input.prop('checked', false).trigger('change');
@@ -987,6 +1043,7 @@ jQuery(document).ready(function () {
                 $fir.removeClass('disabled');
             }
         });
+        $input.on('focus', function() { $fir.addClass('focus'); }).on('blur', function() { $fir.removeClass('focus'); });
     }
 
     // bind to the submit and the meta page submitPrimary event
@@ -1024,6 +1081,27 @@ jQuery(document).ready(function () {
         $(document).bind('submit', addInputToForm);
     }
 
+    // Append a fragment to the end of the form's submit URL so screen-readers recognize when a new page loads..
+    // Screen readers (specifically JAWS) watch the URL to discern when a new page has loaded. If the browser navigates
+    // to a page and the URL doesn't change or if it matches a page already visited, screen-readers will not always
+    // react and may not start reading from the top of the page again as expected. So we attach a useless fragment to
+    // the end of the URL that changes incrementally with each page visit.
+    var fragmentBase = '_?$&\')*,(;=.-~:@/!';
+    function fragmentToNum(code) {
+        for (var i = 0, result = 0; i < code.length; i++) {
+            result += fragmentBase.indexOf( code.charAt(i) ) + 1;
+        }
+        return result;
+    }
+    function numToFragment(num) {
+        for (var i = 1, result = ''; i <= Math.floor( num / fragmentBase.length ); i++) {
+            result += fragmentBase.slice(-1);
+        }
+        result += fragmentBase.charAt((num % fragmentBase.length) - 1);
+        return result;
+    }
+    document.getElementById('primary').action += '#' + numToFragment(fragmentToNum(window.location.hash) + 1);
+
 });
 
 
@@ -1037,11 +1115,8 @@ survey_popUp.dialog = false;
 survey_popUp.nextElement = function (event, elementType, width, height, title) {
 
     if (event.preventDefault) {
-
         event.preventDefault();
-
     } else {
-
         event.returnValue = false;
     }
 
@@ -1061,8 +1136,6 @@ survey_popUp.nextElement = function (event, elementType, width, height, title) {
     height = height ? height : 'auto';
     title = title ? title : '';
 
-    var hideTitle = title ? false : true;
-
     var options = {
 
         close: function (event, ui) {
@@ -1076,9 +1149,7 @@ survey_popUp.nextElement = function (event, elementType, width, height, title) {
         width: width,
         height: height,
         title: title,
-        buttons: { "close": function () {
-            $(this).dialog("close");
-        } },
+        buttons: { "close": function () { $(this).dialog("close"); } },
         resizable: false
     };
 
@@ -1091,114 +1162,49 @@ survey_popUp.nextElement = function (event, elementType, width, height, title) {
 
 };
 
-// =======================
-// = Exclusive Unchecker =
-// =======================
-
-var setupExclusive = function (grouping, elementName) {
-
-    // currently only configured to work for col groupings
-    if (grouping === 'cols') {
-
-        var elementName_substr = elementName.substr(0, elementName.lastIndexOf('.'));
-        var $exclusiveElement_group = jQuery("input[name^='" + elementName_substr + ".']");
-
-        $exclusiveElement_group.change(function () {
-
-            var $element = $(this);
-
-            if ($element.length && this.checked) {
-
-                if ($element.hasClass('exclusive')) {
-
-                    $exclusiveElement_group.not($element).prop('checked', false).trigger('change');
-
-                } else {
-
-                    $exclusiveElement_group.filter('.exclusive').prop('checked', false).trigger('change');
-
-                }
-            }
-
-        });
-
-    }
-
-};
-
 var respview = {
-
     hide_question: function (q) {
-
         var element = (typeof q === "object") ? q : $("#" + q);
         return element.hide();
     },
-
     show_question: function (q) {
-
         var element = (typeof q === "object") ? q : $("#" + q);
         return element.show();
     },
-
     disable_question: function (q) {
-
         var element = (typeof q === "object") ? q : $("#" + q);
         $("input, select, textarea", element).prop('disabled', true).trigger("change");
         return element;
     },
-
     enable_question: function (q) {
-
         var element = (typeof q === "object") ? q : $("#" + q);
         $("input, select, textarea", element).prop('disabled', false).trigger("change");
         return element;
     },
-
     reset_question: function (q) {
-
         var element = (typeof q === "object") ? q : $("#" + q);
         var $elements = $("input, select, textarea", element);
-
         $elements.each(function () {
-
             var $this = $(this);
             var tagName = $this.prop('tagName').toLowerCase();
-
             switch (tagName) {
-
-            case "input":
-
-                var type = $this.attr('type').toLowerCase();
-
-                if (type !== "text") {
-
-                    $this.prop('checked', false);
-
-                } else {
-
+                case "input":
+                    var type = $this.attr('type').toLowerCase();
+                    if (type !== "text") {
+                        $this.prop('checked', false);
+                    } else {
+                        $this.val('');
+                    }
+                    break;
+                case "select":
+                    $this.val($("option:first", $this).val());
+                    break;
+                case "textarea":
                     $this.val('');
-                }
-
-                break;
-
-            case "select":
-
-                $this.val($("option:first", $this).val());
-                break;
-
-            case "textarea":
-
-                $this.val('');
-                break;
-
+                    break;
             }
-
             $this.trigger("change");
-
         });
-
-
         return element;
     }
-
 };

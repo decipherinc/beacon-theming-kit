@@ -476,7 +476,7 @@ textarea {
   text-align: left;
 }
 
-.logo-center {
+.logo-middle {
   text-align: center;
 }
 
@@ -625,7 +625,7 @@ textarea {
 /* ========================================= ( Question > Answers ) ========================================= */
 // Container that wraps around all grids/lists in a question, If several grids were merged together,
 // this would wrap around all of them.
-.answers {
+.answers, .fir-select2-dropdown {
   color:        @answer-text-color;
   font-size:    @answer-font-size;
   font-family:  @answer-font-family;
@@ -794,7 +794,7 @@ textarea {
     background-color: darken(@primary-button-bg-color-hover, 3);
   }
   &[disabled] {
-    background-color: fadeout(@primary-button-bg-color, 40%);
+    .safeFadeout(@primary-button-bg-color, 40%);
   }
   &.continue {}
   &.finish {}
@@ -816,7 +816,7 @@ textarea {
       background-color: darken(@secondary-button-bg-color-hover, 3);
     }
     &[disabled] {
-      background-color: fadeout(@secondary-button-bg-color, 40%);
+      .safeFadeout(@secondary-button-bg-color, 40%);
     }
   }
 }
@@ -874,7 +874,7 @@ textarea {
 
 .question-error-text {}
 
-.cell.hasError, .element.hasError:hover, // Answers in an error state. Note the hover override.
+.cell.hasError, .answers-list .element.hasError, .element.hasError:hover, // Answers in an error state. Note the hover override.
 .rowLegendErr .oe, .colLegendErr .oe {
   background-color: @answer-error-highlight-color;
 }
